@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
+use App\Filament\Resources\SectionResource\Pages;
+use App\Filament\Resources\SectionResource\RelationManagers;
+use App\Models\Section;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,11 +12,10 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Hash;
 
-class UserResource extends Resource
+class SectionResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static ?string $model = Section::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -24,31 +23,25 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('title'),
+                Forms\Components\Select::make('page_id')
+                    ->relationship('page', 'title')
+                    ->required(),
+                Forms\Components\TextInput::make('subtitle'),
+                Forms\Components\TextInput::make('content'),
+                Forms\Components\TextInput::make('sort')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->unique(ignoreRecord:true)
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->confirmed()
-                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                    ->dehydrated(fn ($state) => filled($state))
-                    ->required(fn (string $context): bool => $context === 'create'),
-                Forms\Components\TextInput::make('password_confirmation')
-                    ->password()
-                    ->dehydrated(false),
+                    ->maxLength(255)
+                    ->default(1),
+                Forms\Components\Toggle::make('viewable')
+                    ->required(),
+                Forms\Components\Toggle::make('editable')
+                    ->required(),
+                Forms\Components\Toggle::make('deletable')
+                    ->required(),
                 Forms\Components\Select::make('status')
                     ->options(['active' => 'active', 'inactive' => 'inactive'])
                     ->required(),
-                Forms\Components\Select::make('roles')
-                    ->relationship('roles', 'name')
-                    ->multiple()
-                    ->preload()
-                    ->searchable(),
             ]);
     }
 
@@ -56,12 +49,18 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('status')
+                Tables\Columns\TextColumn::make('page.title')
+                    ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('sort')
+                    ->searchable(),
+                Tables\Columns\IconColumn::make('viewable')
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('editable')
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('deletable')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -95,10 +94,10 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'view' => Pages\ViewUser::route('/{record}'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => Pages\ListSections::route('/'),
+            'create' => Pages\CreateSection::route('/create'),
+            'view' => Pages\ViewSection::route('/{record}'),
+            'edit' => Pages\EditSection::route('/{record}/edit'),
         ];
     }
 }
