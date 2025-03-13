@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PageResource\Pages;
 use App\Filament\Resources\PageResource\RelationManagers;
+use App\Filament\Resources\PageResource\RelationManagers\SectionsRelationManager;
 use App\Models\Page;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -79,7 +80,7 @@ class PageResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            SectionsRelationManager::class
         ];
     }
 

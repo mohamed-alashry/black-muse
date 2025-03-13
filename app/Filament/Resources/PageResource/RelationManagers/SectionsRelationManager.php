@@ -1,34 +1,28 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\PageResource\RelationManagers;
 
-use App\Filament\Resources\SectionResource\Pages;
-use App\Filament\Resources\SectionResource\RelationManagers;
-use App\Models\Section;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SectionResource extends Resource
+class SectionsRelationManager extends RelationManager
 {
-    protected static ?string $model = Section::class;
+    protected static string $relationship = 'sections';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title'),
-                Forms\Components\Select::make('page_id')
-                    ->relationship('page', 'title')
-                    ->required(),
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('subtitle'),
-                Forms\Components\TextInput::make('content'),
+                Forms\Components\MarkdownEditor::make('content'),
                 Forms\Components\TextInput::make('sort')
                     ->required()
                     ->maxLength(255)
@@ -45,11 +39,13 @@ class SectionResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('title')
             ->columns([
-                Tables\Columns\TextColumn::make('page.title')
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('subtitle')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('sort')
@@ -73,31 +69,17 @@ class SectionResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListSections::route('/'),
-            'create' => Pages\CreateSection::route('/create'),
-            'view' => Pages\ViewSection::route('/{record}'),
-            'edit' => Pages\EditSection::route('/{record}/edit'),
-        ];
     }
 }
