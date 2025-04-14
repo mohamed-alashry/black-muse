@@ -8,7 +8,7 @@ fi
 # copy .env.example if .env not found
 if [ ! -s ".env" ]; then
   cp .env.example .env
-  php artisan key:generate
+#  php artisan key:generate
   echo ".env created"
 fi
 
@@ -16,4 +16,6 @@ php artisan migrate:fresh
 
 php artisan db:seed
 
-php artisan serve
+php artisan shield:super-admin --user=1
+
+php artisan shield:generate --all
