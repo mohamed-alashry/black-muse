@@ -4,6 +4,7 @@ namespace App\Filament\Resources\PageResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\Concerns\Translatable;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SectionsRelationManager extends RelationManager
 {
+    use Translatable;
+
     protected static string $relationship = 'sections';
 
     public function form(Form $form): Form
@@ -71,6 +74,7 @@ class SectionsRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
+                Tables\Actions\LocaleSwitcher::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
