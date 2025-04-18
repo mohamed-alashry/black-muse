@@ -1,6 +1,8 @@
 @extends('layouts.site')
 
-@section('title', 'About Us')
+@section('title', $aboutPage->title)
+@section('meta_title', $aboutPage->meta_title)
+@section('meta_description', $aboutPage->meta_desc)
 
 @section('content')
 
@@ -11,7 +13,10 @@
         'breadcrumb' => 'About Us'
     ])
 
-    <!-- About -->
-  @include('partials.site.about')
+   <!-- sections -->
+  @foreach($aboutPage->sections()->where('status', 'active')->orderBy('sort')->get() as $section)
+   {!! $section->content !!}
+  @endforeach
+
 
 @endsection

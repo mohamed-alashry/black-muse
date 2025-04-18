@@ -1,6 +1,8 @@
 @extends('layouts.site')
 
-@section('title', 'Our Portfolio')
+@section('title', $portfolioPage->title)
+@section('meta_title', $portfolioPage->meta_title)
+@section('meta_description', $portfolioPage->meta_desc)
 
 @section('content')
 
@@ -14,7 +16,9 @@
 
   @include('partials.site.portfolio-section')
 
-  @include('partials.site.about')
-
+  <!-- sections -->
+  @foreach($portfolioPage->sections()->where('status', 'active')->orderBy('sort')->get() as $section)
+   {!! $section->content !!}
+  @endforeach
 
 @endsection

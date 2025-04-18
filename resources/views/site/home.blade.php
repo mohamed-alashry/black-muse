@@ -1,6 +1,8 @@
 @extends('layouts.site')
 
-@section('title', 'Home')
+@section('title', $homePage->title)
+@section('meta_title', $homePage->meta_title)
+@section('meta_description', $homePage->meta_desc)
 
 @section('content')
 <!-- hero section -->
@@ -91,8 +93,10 @@
   </div>
 </section>
 
-<!-- About -->
-@include('partials.site.about')
+<!-- sections -->
+@foreach($homePage->sections()->where('status', 'active')->orderBy('sort')->get() as $section)
+ {!! $section->content !!}
+@endforeach
 
 
 
