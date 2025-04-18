@@ -12,9 +12,7 @@ if [ ! -s ".env" ]; then
   echo ".env created"
 fi
 
-php artisan migrate:fresh
-
-php artisan db:seed
+php artisan migrate:fresh --seed
 
 php artisan shield:super-admin --user=1
 
