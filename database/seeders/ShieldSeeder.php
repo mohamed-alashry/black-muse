@@ -12,10 +12,14 @@ class ShieldSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $rolesWithPermissions = '[{"name":"super_admin","guard_name":"web","permissions":["view_page","view_any_page","create_page","update_page","restore_page","restore_any_page","replicate_page","reorder_page","delete_page","delete_any_page","force_delete_page","force_delete_any_page","view_role","view_any_role","create_role","update_role","delete_role","delete_any_role","view_user","view_any_user","create_user","update_user","restore_user","restore_any_user","replicate_user","reorder_user","delete_user","delete_any_user","force_delete_user","force_delete_any_user","view_section","view_any_section","create_section",
-"update_section",
-"reorder_section",
-"delete_section"]}]';
+        $rolesWithPermissions = '[{"name":"super_admin","guard_name":"web","permissions":[
+        "view_page","view_any_page","create_page","update_page","restore_page","restore_any_page","replicate_page","reorder_page","delete_page","delete_any_page","force_delete_page","force_delete_any_page",
+        "view_portfolio","view_any_portfolio","create_portfolio","update_portfolio","restore_portfolio","restore_any_portfolio","replicate_portfolio","reorder_portfolio","delete_portfolio","delete_any_portfolio","force_delete_portfolio","force_delete_any_portfolio",
+        "view_role","view_any_role","create_role","update_role","delete_role","delete_any_role",
+        "view_user","view_any_user","create_user","update_user","restore_user","restore_any_user","replicate_user","reorder_user","delete_user","delete_any_user","force_delete_user","force_delete_any_user",
+        "view_section","view_any_section","create_section","update_section","reorder_section","delete_section",
+        "view_item","view_any_item","create_item","update_item","reorder_item","delete_item"
+        ]}]';
         $directPermissions    = '';
 
         static::makeRolesWithPermissions($rolesWithPermissions);

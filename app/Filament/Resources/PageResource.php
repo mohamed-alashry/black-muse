@@ -40,6 +40,7 @@ class PageResource extends Resource
                     ->required(),
                 Forms\Components\Select::make('status')
                     ->options(['active' => 'active', 'inactive' => 'inactive'])
+                    ->default('active')
                     ->required(),
             ]);
     }

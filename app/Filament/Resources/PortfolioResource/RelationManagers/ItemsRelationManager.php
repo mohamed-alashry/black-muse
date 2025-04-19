@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\PageResource\RelationManagers;
+namespace App\Filament\Resources\PortfolioResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -11,11 +11,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SectionsRelationManager extends RelationManager
+class ItemsRelationManager extends RelationManager
 {
     use Translatable;
 
-    protected static string $relationship = 'sections';
+    protected static string $relationship = 'items';
 
     public function form(Form $form): Form
     {
@@ -26,6 +26,9 @@ class SectionsRelationManager extends RelationManager
                     ->maxLength(255),
                 Forms\Components\TextInput::make('subtitle'),
                 Forms\Components\MarkdownEditor::make('content'),
+                Forms\Components\FileUpload::make('photos')
+                    ->multiple()
+                    ->maxParallelUploads(1),
                 Forms\Components\TextInput::make('sort')
                     ->required()
                     ->maxLength(255)
@@ -52,6 +55,8 @@ class SectionsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('subtitle')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\ImageColumn::make('photos')
+                    ->stacked(),
                 Tables\Columns\TextColumn::make('sort')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('viewable')
