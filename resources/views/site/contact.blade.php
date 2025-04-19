@@ -1,6 +1,8 @@
 @extends('layouts.site')
 
-@section('title', 'Contact Us')
+@section('title', $contactPage->title)
+@section('meta_title', $contactPage->meta_title)
+@section('meta_description', $contactPage->meta_desc)
 
 @section('content')
 
@@ -45,25 +47,10 @@
         </form>
 
           <div class="col-12 col-md-7" >
-            <div class="d-flex flex-column gap-3 text-white ">
-              <h2 class="fw-lighter text-white">
-                About
-                <strong class="text-gold">Black Muse</strong>
-              </h2>
-              <p class="fw-lighter fs-5"> My journey behind the lens began in 2012 when I chose photography as an elective
-                course at
-                King Abdulaziz University in Jeddah a surprising pairing with my medical studies. Graduating in 2015, I held not
-                only a degree but also a passion yearning for expression.</p>
-              <div>
-                <h6 class="fs-4">
-                  Honing My Craft and Building My Studio: Between 2015
-                </h6>
-                <p class="fw-lighter fs-5">
-                  and 2019, I dedicated myself to refining my photography skills under the guidance of world-class trainers and
-                  photographers. In 2018, my dream of establishing 'Reem Awad Studio' became a reality
-                </p>
-              </div>
-            </div>
+            <!-- sections -->
+              @foreach($contactPage->sections()->where('status', 'active')->orderBy('sort')->get() as $section)
+               {!! $section->content !!}
+              @endforeach
           </div>
         </div>
       </div>
