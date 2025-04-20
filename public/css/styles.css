@@ -10,6 +10,7 @@ a {
   text-decoration: none;
 }
 
+ul,
 h1,
 h2,
 h3,
@@ -158,16 +159,6 @@ p {
   color: #fff;
 }
 
-@media screen and (min-width: 321px) and (max-width: 767px) {
-  .porto-section {
-    height: 100dvs;
-  }
-}
-@media screen and (min-width: 768px) {
-  .porto-section {
-    height: 100vh;
-  }
-}
 .bindery-card {
   position: relative;
   overflow: hidden;
@@ -243,6 +234,150 @@ p {
   color: #C1B585;
 }
 
+.contact-us-form {
+  border: 1px solid rgba(255, 255, 255, 0.5411764706);
+  border-radius: 30px;
+  padding: 20px;
+}
+.contact-us-form input,
+.contact-us-form textarea {
+  border: 1px solid rgba(255, 255, 255, 0.5411764706);
+}
+.contact-us-form input::-moz-placeholder, .contact-us-form textarea::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.5411764706);
+}
+.contact-us-form input::placeholder,
+.contact-us-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5411764706);
+}
+
+.box-input {
+  position: relative;
+  margin-bottom: 8px;
+}
+.box-input label {
+  color: rgb(108, 117, 125);
+  margin-inline-start: 2px;
+  margin-bottom: 2px;
+}
+.box-input input,
+.box-input select {
+  background-color: #070707;
+  border-radius: 10px;
+  padding-block: 8px;
+  color: #dcdcdc;
+}
+.box-input input:focus,
+.box-input select:focus {
+  background-color: #070707;
+  color: #dcdcdc;
+}
+.box-input .input-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  color: #dcdcdc;
+}
+
+.profile-menu {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+.profile-menu li {
+  color: #dcdcdc;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.profile-menu li i {
+  text-align: center;
+}
+.profile-menu li:last-child {
+  border-bottom: none;
+}
+.profile-menu .active {
+  color: #c8b87e;
+  font-weight: 700;
+}
+
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 20px;
+  color: #fff;
+  font-weight: 300;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.table-profile {
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+.table-profile .table {
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+.table-profile .table th {
+  font-weight: lighter;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+  padding: 12px 16px;
+  color: #fff;
+  background-color: #070707;
+  font-size: 14px;
+}
+.table-profile .table td {
+  padding: 16px;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 16px;
+  background-color: #070707;
+}
+
+.main-content {
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 100%;
+}
+
+.meeting-details-list .label {
+  font-weight: lighter;
+}
+
+.small {
+  color: #fff;
+  font-size: 80%;
+}
+
+#loginModal {
+  background-color: rgba(0, 0, 0, 0.6117647059);
+}
+#loginModal .modal-dialog .modal-content {
+  background-color: rgba(255, 255, 255, 0) !important;
+}
+#loginModal .modal-dialog .modal-content .modal-header {
+  border-bottom: none;
+  color: #fff;
+  flex-direction: column;
+  padding: 0px;
+}
+
+#registerModal {
+  background-color: rgba(0, 0, 0, 0.6117647059);
+}
+#registerModal .modal-dialog .modal-content {
+  background-color: rgba(255, 255, 255, 0) !important;
+}
+#registerModal .modal-dialog .modal-content .modal-header {
+  border-bottom: none;
+  color: #fff;
+  flex-direction: column;
+  padding: 0px;
+}
+
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .respnsive-section {
     display: grid;
@@ -252,7 +387,20 @@ p {
     gap: 20px;
   }
   .respnsive-section div {
-    columns: 1;
+    -moz-columns: 1;
+         columns: 1;
+  }
+  .porto-section {
+    height: 100dvs;
+  }
+  .table-header {
+    padding: 10px;
+  }
+  .profile-menu li {
+    border-bottom: none;
+  }
+  .profile-menu li i {
+    display: none;
   }
 }
 @media screen and (min-width: 768px) {
@@ -263,19 +411,10 @@ p {
     gap: 20px;
   }
   .respnsive-section div {
-    columns: 1;
+    -moz-columns: 1;
+         columns: 1;
   }
-}
-.contact-us-form {
-  border: 1px solid rgba(255, 255, 255, 0.5411764706);
-  border-radius: 30px;
-  padding: 20px;
-}
-.contact-us-form input, .contact-us-form textarea {
-  border: 1px solid rgba(255, 255, 255, 0.5411764706);
-}
-.contact-us-form input::placeholder, .contact-us-form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.5411764706);
-}
-
-/*# sourceMappingURL=styles.css.map */
+  .porto-section {
+    height: 100vh;
+  }
+}/*# sourceMappingURL=styles.css.map */

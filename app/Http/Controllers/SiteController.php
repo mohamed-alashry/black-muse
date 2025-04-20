@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Page;
+use App\Models\Portfolio;
 
 class SiteController extends Controller
 {
@@ -10,12 +11,6 @@ class SiteController extends Controller
    {
     $homePage = Page::where('id', 1)->with('sections')->firstOrFail();
     return view('site.home',compact('homePage'));
-   }
-   
-   public function portfolio() 
-   {
-     $portfolioPage = Page::where('id', 4)->with('sections')->firstOrFail();
-     return view('site.portfolio',compact('portfolioPage'));
    }
 
    public function about() 
