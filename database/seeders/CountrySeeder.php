@@ -14,7 +14,7 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-       DB::table('countries')->insert([
+        DB::table('countries')->insert([
             ['name' => json_encode(['ar' => 'السعودية', 'en' => 'Saudi Arabia'])],
             ['name' => json_encode(['ar' => 'مصر', 'en' => 'Egypt'])],
             ['name' => json_encode(['ar' => 'الإمارات', 'en' => 'UAE'])],

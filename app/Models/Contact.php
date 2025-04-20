@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-   protected $fillable = ['email', 'name', 'subject', 'message'];
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
 }

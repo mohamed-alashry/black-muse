@@ -15,7 +15,7 @@ class SectionSeeder extends Seeder
     public function run(): void
     {
         //Section::factory()->count(5)->create();
-          $html_en = '
+        $html_en = '
                   <!-- About Section -->
                   <section class="about-section py-5 " style="background-image: url(./images/about-bg.png);">
                     <div class="container d-flex flex-column gap-3 text-white">
@@ -67,7 +67,7 @@ class SectionSeeder extends Seeder
 
                 ';
 
-           $html_ar = '
+        $html_ar = '
                  <!-- قسم من نحن -->
                     <section class="about-section py-5" style="background-image: url(./images/about-bg.png);">
                       <div class="container d-flex flex-column gap-3 text-white text-end" dir="rtl">
@@ -114,78 +114,78 @@ class SectionSeeder extends Seeder
                     </section>
                 ';
 
-          $sections = [
+        $sections = [
             [
-                'id' => 1,
-                'title' => json_encode(['en' => 'About Black Muse', 'ar' => 'عن Black Muse']),
-                'page_id' => 1,
-                'subtitle' => json_encode(['ar' => null]),
-                'content' => json_encode([
-                    "en" => $html_en, 
+                'id'         => 1,
+                'title'      => json_encode(['en' => 'About Black Muse', 'ar' => 'عن Black Muse']),
+                'page_id'    => 1,
+                'subtitle'   => json_encode(['ar' => null]),
+                'content'    => json_encode([
+                    "en" => $html_en,
                     "ar" => $html_ar
                 ]),
-                'sort' => 1,
-                'viewable' => 0,
-                'editable' => 0,
-                'deletable' => 0,
-                'status' => 'active',
+                'sort'       => 1,
+                'viewable'   => 1,
+                'editable'   => 1,
+                'deletable'  => 1,
+                'status'     => 'active',
                 'created_at' => Carbon::parse('2025-04-18 20:41:16'),
                 'updated_at' => Carbon::parse('2025-04-18 20:45:01'),
             ],
             [
-                'id' => 2,
-                'title' => json_encode(['en' => 'About Black Muse', 'ar' => 'عن Black Muse']),
-                'page_id' => 4,
-                'subtitle' => json_encode(['ar' => null]),
-                'content' => json_encode([
-                    "en" => $html_en, 
+                'id'         => 2,
+                'title'      => json_encode(['en' => 'About Black Muse', 'ar' => 'عن Black Muse']),
+                'page_id'    => 4,
+                'subtitle'   => json_encode(['ar' => null]),
+                'content'    => json_encode([
+                    "en" => $html_en,
                     "ar" => $html_ar
                 ]),
-                'sort' => 1,
-                'viewable' => 0,
-                'editable' => 0,
-                'deletable' => 0,
-                'status' => 'active',
+                'sort'       => 1,
+                'viewable'   => 1,
+                'editable'   => 1,
+                'deletable'  => 1,
+                'status'     => 'active',
                 'created_at' => Carbon::parse('2025-04-18 20:41:16'),
                 'updated_at' => Carbon::parse('2025-04-18 20:45:01'),
             ],
             [
-                'id' => 3,
-                'title' => json_encode(['en' => 'About Black Muse', 'ar' => 'عن Black Muse']),
-                'page_id' => 5,
-                'subtitle' => json_encode(['ar' => null]),
-                'content' => json_encode([
-                    "en" => $html_en, 
+                'id'         => 3,
+                'title'      => json_encode(['en' => 'About Black Muse', 'ar' => 'عن Black Muse']),
+                'page_id'    => 5,
+                'subtitle'   => json_encode(['ar' => null]),
+                'content'    => json_encode([
+                    "en" => $html_en,
                     "ar" => $html_ar
                 ]),
-                'sort' => 1,
-                'viewable' => 0,
-                'editable' => 0,
-                'deletable' => 0,
-                'status' => 'active',
+                'sort'       => 1,
+                'viewable'   => 1,
+                'editable'   => 1,
+                'deletable'  => 1,
+                'status'     => 'active',
                 'created_at' => Carbon::parse('2025-04-18 20:41:16'),
                 'updated_at' => Carbon::parse('2025-04-18 20:45:01'),
             ],
             [
-                'id' => 4,
-                'title' => json_encode(['en' => 'About Black Muse', 'ar' => 'عن Black Muse']),
-                'page_id' => 6,
-                'subtitle' => json_encode(['ar' => null]),
-               'content' => json_encode([
-                    "en" => $html_en, 
+                'id'         => 4,
+                'title'      => json_encode(['en' => 'About Black Muse', 'ar' => 'عن Black Muse']),
+                'page_id'    => 6,
+                'subtitle'   => json_encode(['ar' => null]),
+                'content'    => json_encode([
+                    "en" => $html_en,
                     "ar" => $html_ar
                 ]),
-                'sort' => 1,
-                'viewable' => 0,
-                'editable' => 0,
-                'deletable' => 0,
-                'status' => 'active',
+                'sort'       => 1,
+                'viewable'   => 1,
+                'editable'   => 1,
+                'deletable'  => 1,
+                'status'     => 'active',
                 'created_at' => Carbon::parse('2025-04-18 20:41:16'),
                 'updated_at' => Carbon::parse('2025-04-18 21:27:46'),
             ],
         ];
 
-         foreach ($sections as $section) {
+        foreach ($sections as $section) {
             DB::table('sections')->updateOrInsert(
                 ['id' => $section['id']],
                 $section
