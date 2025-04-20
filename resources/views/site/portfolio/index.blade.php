@@ -14,11 +14,11 @@
     ])
 
 
-  @include('partials.site.portfolio-section')
+    @include('partials.site.portfolio-section')
 
-  <!-- sections -->
-  @foreach($portfolioPage->sections()->where('status', 'active')->orderBy('sort')->get() as $section)
-   {!! $section->content !!}
-  @endforeach
+    <!-- sections -->
+    @foreach($portfolioPage->sections as $section)
+        {!! $section->content !!}
+    @endforeach
 
 @endsection
