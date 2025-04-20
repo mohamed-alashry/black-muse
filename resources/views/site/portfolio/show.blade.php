@@ -13,9 +13,19 @@
     ])
 
     <!-- sections -->
-    @foreach($portfolio->items as $item)
-        {!! $item->content !!}
+    @foreach($portfolio->items as $key => $item)
+        @if($key % 2 == 0)
+            <section class="about-section py-5 bg-main">
+        @else
+            <section class="about-section py-5"
+                     style="background-image: url({{asset('images/about-bg.png')}});">
+        @endif
+                <div class="container d-flex flex-column gap-3 text-white">
+                    {!! $item->content !!}
+                </div>
+            </section>
     @endforeach
+
 
 @endsection
 

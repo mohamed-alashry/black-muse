@@ -45,17 +45,15 @@
                         <i class="fa-solid fa-arrow-right-to-bracket"></i> Send Now
                     </button>
 
-
                 </form>
 
-                <div class="col-12 col-md-7">
+                <div class="col-12 col-md-7" style="color: #fff">
                     <!-- sections -->
                     @foreach($contactPage->sections as $section)
                         {!! $section->content !!}
                     @endforeach
                 </div>
             </div>
-        </div>
         </div>
     </section>
 
