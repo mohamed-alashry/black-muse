@@ -13,15 +13,16 @@ class Portfolio extends Model
 {
     use HasFactory, HasTranslations;
 
-    public array $translatable = ['meta_title', 'meta_desc'];
+    public array $translatable = ['title', 'meta_title', 'meta_desc'];
 
     protected $casts = [
-        'id' => 'integer',
+        'id'         => 'integer',
+        'title'      => 'array',
         'meta_title' => 'array',
-        'meta_desc' => 'array',
-        'viewable' => 'boolean',
-        'editable' => 'boolean',
-        'deletable' => 'boolean',
+        'meta_desc'  => 'array',
+        'viewable'   => 'boolean',
+        'editable'   => 'boolean',
+        'deletable'  => 'boolean',
     ];
 
     #[Scope]

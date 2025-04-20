@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('portfolios', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->json('title');
             $table->string('photo');
             $table->json('meta_title')->nullable();
             $table->json('meta_desc')->nullable();
