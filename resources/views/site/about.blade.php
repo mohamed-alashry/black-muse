@@ -6,17 +6,16 @@
 
 @section('content')
 
-  <!-- hero section -->
-   @include('partials.site.hero-section', [
-        'title' => 'Know More',
-        'highlight' => 'About Us',
-        'breadcrumb' => 'About Us'
-    ])
+    <!-- hero section -->
+    @include('partials.site.hero-section', [
+         'title' => 'Know More',
+         'highlight' => 'About Us',
+         'breadcrumb' => 'About Us'
+     ])
 
-   <!-- sections -->
-  @foreach($aboutPage->sections()->where('status', 'active')->orderBy('sort')->get() as $section)
-   {!! $section->content !!}
-  @endforeach
-
+    <!-- sections -->
+    @foreach($aboutPage->sections as $section)
+        {!! $section->content !!}
+    @endforeach
 
 @endsection

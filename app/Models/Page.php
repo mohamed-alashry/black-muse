@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,6 +21,14 @@ class Page extends Model
         'editable' => 'boolean',
         'deletable' => 'boolean',
     ];
+
+    #[Scope]
+    protected function withActiveSections(Builder $query): void
+    {
+        $query->with(['sections' => function ($q) {
+            $q->where('status', 'active')->orderBy('sort', 'asc');
+        }]);
+    }
 
     public function sections(): HasMany
     {

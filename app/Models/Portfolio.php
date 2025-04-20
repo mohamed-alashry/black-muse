@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -21,6 +23,14 @@ class Portfolio extends Model
         'editable' => 'boolean',
         'deletable' => 'boolean',
     ];
+
+    #[Scope]
+    protected function withActiveItems(Builder $query): void
+    {
+        $query->with(['items' => function ($q) {
+            $q->where('status', 'active')->orderBy('sort', 'asc');
+        }]);
+    }
 
     public function items(): HasMany
     {

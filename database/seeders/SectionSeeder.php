@@ -135,7 +135,7 @@ class SectionSeeder extends Seeder
             [
                 'id'         => 2,
                 'title'      => json_encode(['en' => 'About Black Muse', 'ar' => 'عن Black Muse']),
-                'page_id'    => 4,
+                'page_id'    => 2,
                 'subtitle'   => json_encode(['ar' => null]),
                 'content'    => json_encode([
                     "en" => $html_en,
@@ -152,7 +152,7 @@ class SectionSeeder extends Seeder
             [
                 'id'         => 3,
                 'title'      => json_encode(['en' => 'About Black Muse', 'ar' => 'عن Black Muse']),
-                'page_id'    => 5,
+                'page_id'    => 3,
                 'subtitle'   => json_encode(['ar' => null]),
                 'content'    => json_encode([
                     "en" => $html_en,
@@ -169,7 +169,7 @@ class SectionSeeder extends Seeder
             [
                 'id'         => 4,
                 'title'      => json_encode(['en' => 'About Black Muse', 'ar' => 'عن Black Muse']),
-                'page_id'    => 6,
+                'page_id'    => 4,
                 'subtitle'   => json_encode(['ar' => null]),
                 'content'    => json_encode([
                     "en" => $html_en,

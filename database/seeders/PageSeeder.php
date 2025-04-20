@@ -29,7 +29,7 @@ class PageSeeder extends Seeder
                 'updated_at' => Carbon::parse('2025-04-18 21:03:40'),
             ],
             [
-                'id'         => 4,
+                'id'         => 2,
                 'title'      => 'Our Portfolio',
                 'meta_title' => json_encode(['en' => 'Our Portfolio Page', 'ar' => 'نماذج من أعمالنا']),
                 'meta_desc'  => json_encode(['en' => 'Our Portfolio Page', 'ar' => 'نماذج من أعمالنا']),
@@ -41,7 +41,7 @@ class PageSeeder extends Seeder
                 'updated_at' => Carbon::parse('2025-04-18 21:02:32'),
             ],
             [
-                'id'         => 5,
+                'id'         => 3,
                 'title'      => 'About Us',
                 'meta_title' => json_encode(['en' => 'About Us Page', 'ar' => 'نبذة عن ']),
                 'meta_desc'  => json_encode(['en' => 'Know More About Us', 'ar' => 'نبذة عن Black Muse']),
@@ -53,7 +53,7 @@ class PageSeeder extends Seeder
                 'updated_at' => Carbon::parse('2025-04-18 21:12:00'),
             ],
             [
-                'id'         => 6,
+                'id'         => 4,
                 'title'      => 'Our Contact Us',
                 'meta_title' => json_encode(['en' => 'Our Contact Us Page', 'ar' => 'تواصل مع Black Muse']),
                 'meta_desc'  => json_encode(['en' => 'Our Contact Us Page', 'ar' => 'تواصل مع Black Muse']),
