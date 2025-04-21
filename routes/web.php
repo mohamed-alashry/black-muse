@@ -24,5 +24,6 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 
 Route::middleware(['auth:client'])->group(function () {
     Route::get('/profile', [ClientController::class, 'profile'])->name('site.profile');
-    Route::post('/profile/update', [ClientController::class, 'update'])->name('site.profile.update');
+    Route::post('/profile/update-info', [ClientController::class, 'updateInfo'])->name('site.updateInfo');
+    Route::post('/profile/update-password', [ClientController::class, 'updatePassword'])->name('site.updatePassword');
 });

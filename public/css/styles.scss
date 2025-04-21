@@ -268,7 +268,19 @@ p {
   border: 1px solid #FFFFFF8A;
   border-radius: 30px;
   padding: 20px;
+  input,
+  select {
+    background-color: #070707;
+    border-radius: 10px;
+    padding-block: 8px;
+    color: #dcdcdc;
 
+    &:focus {
+      background-color: #070707;
+      color: #dcdcdc;
+
+    }
+  }
   input,
   textarea {
     border: 1px solid #FFFFFF8A;
@@ -312,6 +324,7 @@ p {
   }
 
 }
+
 
 .profile-menu {
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -397,10 +410,12 @@ p {
 }
 
 #loginModal {
-    background-color: #0000009c;
+  background-color: #0000009c;
+
   .modal-dialog {
     .modal-content {
       background-color: #ffffff00 !important;
+
       .modal-header {
         border-bottom: none;
         color: #fff;
@@ -411,11 +426,14 @@ p {
     }
   }
 }
+
 #registerModal {
   background-color: #0000009c;
+
   .modal-dialog {
     .modal-content {
       background-color: #ffffff00 !important;
+
       .modal-header {
         border-bottom: none;
         color: #fff;
@@ -426,6 +444,42 @@ p {
 
     }
   }
+}
+
+#calendar {
+  width: 100%;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border: 0px;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+  border: 0px;
+}
+
+.fc-daygrid-day-top {
+  justify-content: center;
+}
+
+.fc-col-header-cell-cushion {
+  color: #fff;
+
+}
+
+.fc-daygrid-day-number {
+  color: #fff;
+
+}
+
+.fc-daygrid-day-events {
+  display: none !important;
+}
+
+.fc-button-primary {
+  background: none !important;
+  border: none !important;
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {

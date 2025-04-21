@@ -32,6 +32,12 @@
 
   <script>
     $(document).ready(function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('do') === 'login') {
+        const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+        loginModal.show();
+      }
+        
       $('#loginForm').on('submit', function(e) {
         e.preventDefault();
 

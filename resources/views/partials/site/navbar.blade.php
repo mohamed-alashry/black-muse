@@ -25,7 +25,7 @@
               </p>
             </div>
             <ul class="dropdown-menu bg-main">
-              <li><button class="dropdown-item" type="button"><i class="fa-regular fa-user"></i> Profile</button></li>
+              <li><a href="{{ route('site.profile') }}" class="dropdown-item" type="button"><i class="fa-regular fa-user"></i> My Profile</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>

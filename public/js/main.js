@@ -44,3 +44,25 @@ $(document).ready(function () {
     },
   });
 });
+document.addEventListener('DOMContentLoaded', function () {
+  const calendarEl = document.getElementById('calendar');
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    headerToolbar: {
+      left: 'title',
+      center: '',
+      right: 'prev,next'
+    },
+    editable: true,
+    selectable: true,
+    select:((info=>{console.log(info.startStr);
+    })),
+    validRange:{
+      start:  new Date(new Date().setDate(new Date().getDate() + 1))
+    },
+    events:false
+    
+  });
+
+  calendar.render();
+});

@@ -59,6 +59,6 @@
 
     @push('scripts')
         <script src="{{ asset('js/pages/contact.js') }}"></script>
-@endpush
+    @endpush
 
 @endsection
