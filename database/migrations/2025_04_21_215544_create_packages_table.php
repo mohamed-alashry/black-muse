@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
             $table->json('name');
-            $table->foreignId('service_id')->constrained();
+            $table->foreignId('service_id')->constrained()->onDelete('cascade');
             $table->decimal('base_price');
             $table->enum('status', ["active","inactive"])->default('active');
             $table->timestamps();

@@ -19,11 +19,13 @@ class Feature extends Model
 
     public function blockedDates(): MorphMany
     {
-        return $this->morphMany(BlockedDate::class, 'blockeddateable');
+        return $this->morphMany(BlockedDate::class, 'blockable');
     }
 
     public function packages(): BelongsToMany
     {
-        return $this->belongsToMany(Package::class);
+        return $this->belongsToMany(Package::class)
+            ->withPivot('is_default')
+            ->withTimestamps();
     }
 }

@@ -21,7 +21,7 @@ class Package extends Model
 
     public function blockedDates(): MorphMany
     {
-        return $this->morphMany(BlockedDate::class, 'blockeddateable');
+        return $this->morphMany(BlockedDate::class, 'blockable');
     }
 
     public function service(): BelongsTo
@@ -31,6 +31,8 @@ class Package extends Model
 
     public function features(): BelongsToMany
     {
-        return $this->belongsToMany(Feature::class);
+        return $this->belongsToMany(Feature::class)
+            ->withPivot('is_default')
+            ->withTimestamps();
     }
 }

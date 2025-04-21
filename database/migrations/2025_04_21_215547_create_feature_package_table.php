@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('feature_package', function (Blueprint $table) {
-            $table->foreignId('feature_id');
-            $table->foreignId('package_id');
+            $table->foreignId('feature_id')->constrained()->onDelete('cascade');
+            $table->foreignId('package_id')->constrained()->onDelete('cascade');
+            $table->boolean('is_default')->default(true);
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();
