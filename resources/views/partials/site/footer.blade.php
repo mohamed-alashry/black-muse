@@ -14,9 +14,7 @@
         </div>
       </div>
       <div class="d-flex gap-4">
-        <p class="terms-text">Terms of Sale</p> 
-        <p class="terms-text ">Terms of Use</p>
-        <p class="terms-text"> Privacy Policy</p>
+        <a class="terms-text" href="{{ route('site.terms_conditions') }}">Terms & Conditions</a>
       </div>
     </div>
   </section>

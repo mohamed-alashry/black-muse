@@ -17,7 +17,7 @@
     </section>
 
     <!-- Services section -->
-    <section class="bg-main py-5">
+    <section class="bg-main py-5" id="services">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="text-white fw-lighter">
@@ -46,7 +46,7 @@
     @include('partials.site.portfolio-section')
 
     <!-- Bindery & Lab section -->
-    <section class="bg-main py-5">
+    <section class="bg-main py-5" id="binderies">
         <div class="container">
             <div class="respnsive-section">
                 <div class="fw-lighter">

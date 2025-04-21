@@ -15,6 +15,13 @@ class SiteController extends Controller
         return view('site.home', compact('homePage'));
     }
 
+    public function terms_conditions()
+    {
+        $termsPage = Page::where('id', 2)->withActiveSections()->firstOrFail();
+
+        return view('site.terms_conditions', compact('termsPage'));
+    }
+    
     public function about()
     {
         $aboutPage = Page::where('id', 3)->withActiveSections()->firstOrFail();

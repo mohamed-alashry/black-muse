@@ -1,23 +1,20 @@
 @extends('layouts.site')
 
-@section('title', $portfolioPage->title)
-@section('meta_title', $portfolioPage->meta_title)
-@section('meta_description', $portfolioPage->meta_desc)
+@section('title', $termsPage->title)
+@section('meta_title', $termsPage->meta_title)
+@section('meta_description', $termsPage->meta_desc)
 
 @section('content')
 
     <!-- hero section -->
     @include('partials.site.hero-section', [
-        'title' => 'Our',
-        'highlight' => 'Portfolio',
-        'breadcrumb' => 'Portfolio'
-    ])
-
-
-    @include('partials.site.portfolio-section')
+         'title' => 'Terms & Conditions – ',
+         'highlight' => ' Black Muse',
+         'breadcrumb' => 'Terms & Conditions'
+     ])
 
     <!-- sections -->
-    @foreach($portfolioPage->sections as $key => $section)
+    @foreach($termsPage->sections as $key => $section)
         @if($key % 2 == 0)
             <section class="about-section py-5 bg-main">
                 @else
@@ -28,6 +25,6 @@
                             {!! $section->content !!}
                         </div>
                     </section>
-            @endforeach
+   @endforeach
 
 @endsection

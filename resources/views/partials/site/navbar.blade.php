@@ -54,13 +54,13 @@
             <a class="nav-link text-white" href="{{ route('site.home') }}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="">Services</a>
+            <a class="nav-link text-white" href="@if(Route::currentRouteName() !== 'site.home'){{ route('site.home') }}@endif#services">Services</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="">Bindery & Lab</a>
+            <a class="nav-link text-white" href="@if(Route::currentRouteName() !== 'site.home'){{ route('site.home') }}@endif#binderies">Bindery & Lab</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="{{ route('site.portfolio') }}">Portfolio</a>
+            <a class="nav-link text-white" href="@if(Route::currentRouteName() !== 'site.home'){{ route('site.home') }}@endif#protofolios">Portfolio</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="{{ route('site.about') }}">About Us</a>
