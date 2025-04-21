@@ -7,17 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Spatie\Translatable\HasTranslations;
 
 class Package extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
-    protected $casts = [
-        'id' => 'integer',
-        'name' => 'array',
-        'service_id' => 'integer',
-        'base_price' => 'decimal',
-    ];
+    public array $translatable = ['name'];
 
     public function blockedDates(): MorphMany
     {

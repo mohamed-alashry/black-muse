@@ -4,13 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Translatable\HasTranslations;
 
 class QuestionOption extends Model
 {
+    use HasTranslations;
 
+    public array $translatable = ['text'];
     protected $casts = [
         'id' => 'integer',
-        'text' => 'array',
         'question_id' => 'integer',
     ];
 

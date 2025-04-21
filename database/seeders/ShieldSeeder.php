@@ -21,6 +21,7 @@ class ShieldSeeder extends Seeder
         "view_item","view_any_item","create_item","update_item","reorder_item","delete_item",
         "view_client","view_any_client","create_client","update_client","restore_client","restore_any_client","replicate_client","reorder_client","delete_client","delete_any_client","force_delete_client","force_delete_any_client",
         "view_contact","view_any_contact","create_contact","update_contact","restore_contact","restore_any_contact","replicate_contact","reorder_contact","delete_contact","delete_any_contact","force_delete_contact","force_delete_any_contact"
+        "view_service","view_any_service","create_service","update_service","restore_service","restore_any_service","replicate_service","reorder_service","delete_service","delete_any_service","force_delete_service","force_delete_any_service"
         ]}]';
         $directPermissions    = '';
 
