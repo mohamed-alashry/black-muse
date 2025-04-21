@@ -85,18 +85,14 @@ class PageResource extends Resource
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist->schema([
-            Section::make('Meta Info')->schema([
+            Section::make()->schema([
                 TextEntry::make('title'),
                 TextEntry::make('meta_title'),
                 TextEntry::make('meta_desc'),
-            ])->columnSpan(2),
-            Section::make('Status')->schema([
                 TextEntry::make('viewable'),
                 TextEntry::make('editable'),
                 TextEntry::make('deletable'),
                 TextEntry::make('status'),
-            ])->columns(2),
-            Section::make('Dates')->schema([
                 TextEntry::make('created_at'),
                 TextEntry::make('updated_at'),
             ])->columns(2)
