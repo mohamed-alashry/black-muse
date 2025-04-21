@@ -81,9 +81,18 @@
     </section>
 
     <!-- sections -->
-    @foreach($homePage->sections as $section)
-        {!! $section->content !!}
-    @endforeach
+    @foreach($homePage->sections as $key => $section)
+        @if($key % 2 == 0)
+            <section class="about-section py-5 bg-main">
+                @else
+                    <section class="about-section py-5"
+                             style="background-image: url({{asset('images/about-bg.png')}});">
+                        @endif
+                        <div class="container d-flex flex-column gap-3 text-white">
+                            {!! $section->content !!}
+                        </div>
+                    </section>
+            @endforeach
 
 
-@endsection
+            @endsection

@@ -30,9 +30,9 @@ class PageSeeder extends Seeder
             ],
             [
                 'id'         => 2,
-                'title'      => 'Our Portfolio',
-                'meta_title' => json_encode(['en' => 'Our Portfolio Page', 'ar' => 'نماذج من أعمالنا']),
-                'meta_desc'  => json_encode(['en' => 'Our Portfolio Page', 'ar' => 'نماذج من أعمالنا']),
+                'title'      => 'Terms & Conditions',
+                'meta_title' => json_encode(['en' => 'Terms & Conditions Page', 'ar' => 'الشروط والاحكام']),
+                'meta_desc'  => json_encode(['en' => 'Terms & Conditions Page', 'ar' => 'الشروط والاحكام']),
                 'viewable'   => 1,
                 'editable'   => 1,
                 'deletable'  => 0,

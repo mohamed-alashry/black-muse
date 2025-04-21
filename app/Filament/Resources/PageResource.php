@@ -8,12 +8,13 @@ use App\Filament\Resources\PageResource\RelationManagers\SectionsRelationManager
 use App\Models\Page;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PageResource extends Resource
 {
@@ -79,6 +80,27 @@ class PageResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist->schema([
+            Section::make('Meta Info')->schema([
+                TextEntry::make('title'),
+                TextEntry::make('meta_title'),
+                TextEntry::make('meta_desc'),
+            ])->columnSpan(2),
+            Section::make('Status')->schema([
+                TextEntry::make('viewable'),
+                TextEntry::make('editable'),
+                TextEntry::make('deletable'),
+                TextEntry::make('status'),
+            ])->columns(2),
+            Section::make('Dates')->schema([
+                TextEntry::make('created_at'),
+                TextEntry::make('updated_at'),
+            ])->columns(2)
+        ]);
     }
 
     public static function getRelations(): array
