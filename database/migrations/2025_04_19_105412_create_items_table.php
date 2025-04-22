@@ -20,10 +20,10 @@ return new class extends Migration
             $table->json('subtitle')->nullable();
             $table->json('content')->nullable();
             $table->json('photos')->nullable();
-            $table->string('sort')->default('1');
             $table->boolean('viewable')->default(1);
             $table->boolean('editable')->default(1);
             $table->boolean('deletable')->default(1);
+            $table->unsignedTinyInteger('sort')->default(1);
             $table->enum('status', ["active","inactive"])->default('active');
             $table->timestamps();
         });

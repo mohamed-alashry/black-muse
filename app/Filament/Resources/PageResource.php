@@ -73,7 +73,7 @@ class PageResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+//                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -83,22 +83,22 @@ class PageResource extends Resource
             ]);
     }
 
-    public static function infolist(Infolist $infolist): Infolist
-    {
-        return $infolist->schema([
-            Section::make()->schema([
-                TextEntry::make('title'),
-                TextEntry::make('meta_title'),
-                TextEntry::make('meta_desc'),
-                IconEntry::make('viewable')->boolean(),
-                IconEntry::make('editable')->boolean(),
-                IconEntry::make('deletable')->boolean(),
-                TextEntry::make('status'),
-                TextEntry::make('created_at'),
-                TextEntry::make('updated_at'),
-            ])->columns(2)
-        ]);
-    }
+//    public static function infolist(Infolist $infolist): Infolist
+//    {
+//        return $infolist->schema([
+//            Section::make()->schema([
+//                TextEntry::make('title'),
+//                TextEntry::make('meta_title'),
+//                TextEntry::make('meta_desc'),
+//                IconEntry::make('viewable')->boolean(),
+//                IconEntry::make('editable')->boolean(),
+//                IconEntry::make('deletable')->boolean(),
+//                TextEntry::make('status'),
+//                TextEntry::make('created_at'),
+//                TextEntry::make('updated_at'),
+//            ])->columns(2)
+//        ]);
+//    }
 
     public static function getRelations(): array
     {
@@ -112,7 +112,7 @@ class PageResource extends Resource
         return [
             'index'  => Pages\ListPages::route('/'),
             'create' => Pages\CreatePage::route('/create'),
-            'view'   => Pages\ViewPage::route('/{record}'),
+//            'view'   => Pages\ViewPage::route('/{record}'),
             'edit'   => Pages\EditPage::route('/{record}/edit'),
         ];
     }

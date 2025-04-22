@@ -25,20 +25,25 @@ class ItemsRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('subtitle'),
-                Forms\Components\MarkdownEditor::make('content'),
+                Forms\Components\MarkdownEditor::make('content')
+                    ->columnSpan(2),
                 Forms\Components\FileUpload::make('photos')
                     ->multiple()
                     ->maxParallelUploads(1),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\Toggle::make('viewable')
+                            ->required(),
+                        Forms\Components\Toggle::make('editable')
+                            ->required(),
+                        Forms\Components\Toggle::make('deletable')
+                            ->required(),
+                    ])->columns(3),
                 Forms\Components\TextInput::make('sort')
                     ->required()
-                    ->maxLength(255)
+                    ->numeric()
+                    ->minValue(1)
                     ->default(1),
-                Forms\Components\Toggle::make('viewable')
-                    ->required(),
-                Forms\Components\Toggle::make('editable')
-                    ->required(),
-                Forms\Components\Toggle::make('deletable')
-                    ->required(),
                 Forms\Components\Select::make('status')
                     ->options(['active' => 'active', 'inactive' => 'inactive'])
                     ->default('active')
