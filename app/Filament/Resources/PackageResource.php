@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PackageResource\Pages;
 use App\Filament\Resources\PackageResource\RelationManagers;
+use App\Filament\Resources\PackageResource\RelationManagers\FeaturesRelationManager;
 use App\Models\Package;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -31,7 +32,8 @@ class PackageResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('base_price')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->prefix('$'),
                 Forms\Components\Select::make('status')
                     ->options(['active' => 'active', 'inactive' => 'inactive'])
                     ->default('active')
@@ -78,7 +80,7 @@ class PackageResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            FeaturesRelationManager::class,
         ];
     }
 
