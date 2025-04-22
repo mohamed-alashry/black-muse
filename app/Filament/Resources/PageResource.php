@@ -8,6 +8,7 @@ use App\Filament\Resources\PageResource\RelationManagers\SectionsRelationManager
 use App\Models\Page;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
@@ -89,9 +90,9 @@ class PageResource extends Resource
                 TextEntry::make('title'),
                 TextEntry::make('meta_title'),
                 TextEntry::make('meta_desc'),
-                TextEntry::make('viewable'),
-                TextEntry::make('editable'),
-                TextEntry::make('deletable'),
+                IconEntry::make('viewable')->boolean(),
+                IconEntry::make('editable')->boolean(),
+                IconEntry::make('deletable')->boolean(),
                 TextEntry::make('status'),
                 TextEntry::make('created_at'),
                 TextEntry::make('updated_at'),

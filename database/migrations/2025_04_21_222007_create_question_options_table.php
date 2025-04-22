@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->json('text');
             $table->foreignId('question_id')->constrained();
+            $table->tinyInteger('sort')->default(1);
             $table->timestamps();
         });
 
