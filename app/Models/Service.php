@@ -21,6 +21,8 @@ class Service extends Model
 
     public function questions(): MorphToMany
     {
-        return $this->morphToMany(Question::class, 'questionable');
+        return $this->morphToMany(Question::class, 'questionable')
+            ->withPivot('is_required')
+            ->withTimestamps();
     }
 }

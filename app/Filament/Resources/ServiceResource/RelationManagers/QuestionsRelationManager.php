@@ -1,27 +1,21 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\ServiceResource\RelationManagers;
 
-use App\Filament\Resources\QuestionResource\Pages;
-use App\Filament\Resources\QuestionResource\RelationManagers;
-use App\Models\Question;
 use Filament\Forms;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
-use Filament\Resources\Concerns\Translatable;
-use Filament\Resources\Resource;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class QuestionResource extends Resource
+class QuestionsRelationManager extends RelationManager
 {
-    use Translatable;
+    protected static string $relationship = 'questions';
 
-    protected static ?string $model = Question::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -39,6 +33,9 @@ class QuestionResource extends Resource
                     ])
                     ->default('text')
                     ->required(),
+                Forms\Components\Checkbox::make('is_required')
+                    ->default(1)
+                    ->columnSpan(2),
                 Repeater::make('options')
                     ->relationship()
                     ->schema([
@@ -51,49 +48,38 @@ class QuestionResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('text')
             ->columns([
                 Tables\Columns\TextColumn::make('text'),
-                Tables\Columns\TextColumn::make('type'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\CheckboxColumn::make('is_required'),
             ])
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+                Tables\Actions\AttachAction::make()
+                    ->preloadRecordSelect()
+                    ->multiple()
+                    ->form(fn(Tables\Actions\AttachAction $action): array => [
+                        $action->getRecordSelect(),
+                        Forms\Components\Checkbox::make('is_required')
+                            ->default(0),
+                    ]),
+            ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DetachAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DetachBulkAction::make(),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index'  => Pages\ListQuestions::route('/'),
-            'create' => Pages\CreateQuestion::route('/create'),
-            'view'   => Pages\ViewQuestion::route('/{record}'),
-            'edit'   => Pages\EditQuestion::route('/{record}/edit'),
-        ];
     }
 }

@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->json('text');
             $table->enum('type', ["text","textarea","select","radio","checkbox","number","date"])->default('text');
-            $table->boolean('is_required')->default(false);
             $table->timestamps();
         });
     }

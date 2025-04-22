@@ -15,8 +15,9 @@ return new class extends Migration
 
         Schema::create('questionables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('question_id')->constrained();
+            $table->foreignId('question_id')->constrained()->onDelete('cascade');
             $table->morphs('questionable');
+            $table->boolean('is_required')->default(false);
             $table->timestamps();
         });
 

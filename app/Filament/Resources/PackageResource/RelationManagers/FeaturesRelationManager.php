@@ -33,7 +33,7 @@ class FeaturesRelationManager extends RelationManager
                     ->required(),
                 Forms\Components\Checkbox::make('is_default')
                     ->default(1)
-                ->columnSpan(2),
+                    ->columnSpan(2),
             ]);
     }
 
@@ -56,7 +56,7 @@ class FeaturesRelationManager extends RelationManager
                 Tables\Actions\AttachAction::make()
                     ->preloadRecordSelect()
                     ->multiple()
-                    ->form(fn (Tables\Actions\AttachAction $action): array => [
+                    ->form(fn(Tables\Actions\AttachAction $action): array => [
                         $action->getRecordSelect(),
                         Forms\Components\Checkbox::make('is_default')
                             ->default(1),
