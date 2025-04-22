@@ -12,7 +12,6 @@ class BlockedDate extends Model
 
     protected $casts = [
         'id' => 'integer',
-        'date' => 'date',
     ];
 
     public function blockable(): MorphTo

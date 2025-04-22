@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PackageResource\Pages;
 use App\Filament\Resources\PackageResource\RelationManagers;
-use App\Filament\Resources\PackageResource\RelationManagers\FeaturesRelationManager;
 use App\Models\Package;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -80,7 +79,8 @@ class PackageResource extends Resource
     public static function getRelations(): array
     {
         return [
-            FeaturesRelationManager::class,
+            RelationManagers\FeaturesRelationManager::class,
+            RelationManagers\BlockedDatesRelationManager::class
         ];
     }
 
