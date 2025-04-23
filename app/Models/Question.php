@@ -12,10 +12,6 @@ class Question extends Model
     use HasTranslations;
 
     public array $translatable = ['text'];
-    protected $casts = [
-        'id' => 'integer',
-        'is_required' => 'boolean',
-    ];
 
     public function options(): HasMany
     {
