@@ -8,8 +8,6 @@ use Filament\Resources\RelationManagers\Concerns\Translatable;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ItemsRelationManager extends RelationManager
 {
@@ -27,9 +25,6 @@ class ItemsRelationManager extends RelationManager
                 Forms\Components\TextInput::make('subtitle'),
                 Forms\Components\MarkdownEditor::make('content')
                     ->columnSpan(2),
-                Forms\Components\FileUpload::make('photos')
-                    ->multiple()
-                    ->maxParallelUploads(1),
 //                Forms\Components\Section::make()
 //                    ->schema([
 //                        Forms\Components\Toggle::make('viewable')
@@ -48,6 +43,12 @@ class ItemsRelationManager extends RelationManager
                     ->options(['active' => 'active', 'inactive' => 'inactive'])
                     ->default('active')
                     ->required(),
+                Forms\Components\FileUpload::make('photos')
+                    ->multiple()
+                    ->image()
+                    ->maxSize(1024) // Size in KB (1MB in this case)
+                    ->reorderable()
+                    ->maxParallelUploads(1),
             ]);
     }
 
