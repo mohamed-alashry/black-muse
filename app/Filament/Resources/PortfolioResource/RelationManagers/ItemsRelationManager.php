@@ -30,15 +30,15 @@ class ItemsRelationManager extends RelationManager
                 Forms\Components\FileUpload::make('photos')
                     ->multiple()
                     ->maxParallelUploads(1),
-                Forms\Components\Section::make()
-                    ->schema([
-                        Forms\Components\Toggle::make('viewable')
-                            ->required(),
-                        Forms\Components\Toggle::make('editable')
-                            ->required(),
-                        Forms\Components\Toggle::make('deletable')
-                            ->required(),
-                    ])->columns(3),
+//                Forms\Components\Section::make()
+//                    ->schema([
+//                        Forms\Components\Toggle::make('viewable')
+//                            ->required(),
+//                        Forms\Components\Toggle::make('editable')
+//                            ->required(),
+//                        Forms\Components\Toggle::make('deletable')
+//                            ->required(),
+//                    ])->columns(3),
                 Forms\Components\TextInput::make('sort')
                     ->required()
                     ->numeric()
@@ -64,12 +64,12 @@ class ItemsRelationManager extends RelationManager
                     ->stacked(),
                 Tables\Columns\TextColumn::make('sort')
                     ->searchable(),
-                Tables\Columns\IconColumn::make('viewable')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('editable')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('deletable')
-                    ->boolean(),
+//                Tables\Columns\IconColumn::make('viewable')
+//                    ->boolean(),
+//                Tables\Columns\IconColumn::make('editable')
+//                    ->boolean(),
+//                Tables\Columns\IconColumn::make('deletable')
+//                    ->boolean(),
                 Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

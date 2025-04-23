@@ -60,7 +60,7 @@ class FeatureResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+//                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -82,7 +82,7 @@ class FeatureResource extends Resource
         return [
             'index' => Pages\ListFeatures::route('/'),
             'create' => Pages\CreateFeature::route('/create'),
-            'view' => Pages\ViewFeature::route('/{record}'),
+//            'view' => Pages\ViewFeature::route('/{record}'),
             'edit' => Pages\EditFeature::route('/{record}/edit'),
         ];
     }

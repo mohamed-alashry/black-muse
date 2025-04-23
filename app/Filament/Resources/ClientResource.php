@@ -10,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
 
 class ClientResource extends Resource
@@ -78,7 +76,7 @@ class ClientResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+//                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -100,7 +98,7 @@ class ClientResource extends Resource
         return [
             'index' => Pages\ListClients::route('/'),
             'create' => Pages\CreateClient::route('/create'),
-            'view' => Pages\ViewClient::route('/{record}'),
+//            'view' => Pages\ViewClient::route('/{record}'),
             'edit' => Pages\EditClient::route('/{record}/edit'),
         ];
     }

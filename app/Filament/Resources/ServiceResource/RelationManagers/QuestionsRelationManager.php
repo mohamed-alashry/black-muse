@@ -5,14 +5,15 @@ namespace App\Filament\Resources\ServiceResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\Concerns\Translatable;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class QuestionsRelationManager extends RelationManager
 {
+    use Translatable;
+
     protected static string $relationship = 'questions';
 
     public function form(Form $form): Form

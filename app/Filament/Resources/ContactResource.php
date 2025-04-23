@@ -7,12 +7,13 @@ use App\Filament\Resources\ContactResource\RelationManagers;
 use App\Models\Contact;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ContactResource extends Resource
 {
@@ -73,13 +74,29 @@ class ContactResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                //                Tables\Actions\EditAction::make(),
+//                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist->schema([
+            Section::make()->schema([
+                TextEntry::make('client.name'),
+                TextEntry::make('name'),
+                TextEntry::make('email'),
+                TextEntry::make('subject'),
+                TextEntry::make('message'),
+                TextEntry::make('status'),
+                TextEntry::make('created_at'),
+                TextEntry::make('updated_at'),
+            ])->columns(2)
+        ]);
     }
 
     public static function getRelations(): array
@@ -94,7 +111,7 @@ class ContactResource extends Resource
         return [
             'index'  => Pages\ListContacts::route('/'),
             'create' => Pages\CreateContact::route('/create'),
-            'view'   => Pages\ViewContact::route('/{record}'),
+//            'view'   => Pages\ViewContact::route('/{record}'),
             'edit'   => Pages\EditContact::route('/{record}/edit'),
         ];
     }

@@ -34,12 +34,12 @@ class PageResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('meta_title'),
                 Forms\Components\TextInput::make('meta_desc'),
-                Forms\Components\Toggle::make('viewable')
-                    ->required(),
-                Forms\Components\Toggle::make('editable')
-                    ->required(),
-                Forms\Components\Toggle::make('deletable')
-                    ->required(),
+//                Forms\Components\Toggle::make('viewable')
+//                    ->required(),
+//                Forms\Components\Toggle::make('editable')
+//                    ->required(),
+//                Forms\Components\Toggle::make('deletable')
+//                    ->required(),
                 Forms\Components\Select::make('status')
                     ->options(['active' => 'active', 'inactive' => 'inactive'])
                     ->default('active')
@@ -53,12 +53,12 @@ class PageResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\IconColumn::make('viewable')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('editable')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('deletable')
-                    ->boolean(),
+//                Tables\Columns\IconColumn::make('viewable')
+//                    ->boolean(),
+//                Tables\Columns\IconColumn::make('editable')
+//                    ->boolean(),
+//                Tables\Columns\IconColumn::make('deletable')
+//                    ->boolean(),
                 Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -77,9 +77,9 @@ class PageResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+//                Tables\Actions\BulkActionGroup::make([
+//                    Tables\Actions\DeleteBulkAction::make(),
+//                ]),
             ]);
     }
 

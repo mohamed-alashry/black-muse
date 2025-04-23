@@ -35,12 +35,12 @@ class PortfolioResource extends Resource
                     ->image(),
                 Forms\Components\TextInput::make('meta_title'),
                 Forms\Components\TextInput::make('meta_desc'),
-                Forms\Components\Toggle::make('viewable')
-                    ->required(),
-                Forms\Components\Toggle::make('editable')
-                    ->required(),
-                Forms\Components\Toggle::make('deletable')
-                    ->required(),
+//                Forms\Components\Toggle::make('viewable')
+//                    ->required(),
+//                Forms\Components\Toggle::make('editable')
+//                    ->required(),
+//                Forms\Components\Toggle::make('deletable')
+//                    ->required(),
                 Forms\Components\Select::make('status')
                     ->options(['active' => 'active', 'inactive' => 'inactive'])
                     ->default('active')
@@ -55,12 +55,12 @@ class PortfolioResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('photo'),
-                Tables\Columns\IconColumn::make('viewable')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('editable')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('deletable')
-                    ->boolean(),
+//                Tables\Columns\IconColumn::make('viewable')
+//                    ->boolean(),
+//                Tables\Columns\IconColumn::make('editable')
+//                    ->boolean(),
+//                Tables\Columns\IconColumn::make('deletable')
+//                    ->boolean(),
                 Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -75,7 +75,7 @@ class PortfolioResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+//                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -97,7 +97,7 @@ class PortfolioResource extends Resource
         return [
             'index'  => Pages\ListPortfolios::route('/'),
             'create' => Pages\CreatePortfolio::route('/create'),
-            'view'   => Pages\ViewPortfolio::route('/{record}'),
+//            'view'   => Pages\ViewPortfolio::route('/{record}'),
             'edit'   => Pages\EditPortfolio::route('/{record}/edit'),
         ];
     }

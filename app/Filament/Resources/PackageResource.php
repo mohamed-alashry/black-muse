@@ -48,6 +48,7 @@ class PackageResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('service.name')
                     ->numeric()
+                    ->money()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('base_price')
                     ->numeric()
@@ -66,7 +67,7 @@ class PackageResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+//                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -89,7 +90,7 @@ class PackageResource extends Resource
         return [
             'index' => Pages\ListPackages::route('/'),
             'create' => Pages\CreatePackage::route('/create'),
-            'view' => Pages\ViewPackage::route('/{record}'),
+//            'view' => Pages\ViewPackage::route('/{record}'),
             'edit' => Pages\EditPackage::route('/{record}/edit'),
         ];
     }

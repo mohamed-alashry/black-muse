@@ -57,7 +57,7 @@ class ServiceResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+//                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -79,7 +79,7 @@ class ServiceResource extends Resource
         return [
             'index' => Pages\ListServices::route('/'),
             'create' => Pages\CreateService::route('/create'),
-            'view' => Pages\ViewService::route('/{record}'),
+//            'view' => Pages\ViewService::route('/{record}'),
             'edit' => Pages\EditService::route('/{record}/edit'),
         ];
     }

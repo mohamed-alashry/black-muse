@@ -70,7 +70,7 @@ class QuestionResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+//                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -92,7 +92,7 @@ class QuestionResource extends Resource
         return [
             'index'  => Pages\ListQuestions::route('/'),
             'create' => Pages\CreateQuestion::route('/create'),
-            'view'   => Pages\ViewQuestion::route('/{record}'),
+//            'view'   => Pages\ViewQuestion::route('/{record}'),
             'edit'   => Pages\EditQuestion::route('/{record}/edit'),
         ];
     }
