@@ -21,6 +21,7 @@ class QuestionsRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\TextInput::make('text')
+                    ->suffix('?')
                     ->required(),
                 Forms\Components\Select::make('type')
                     ->options([
@@ -54,7 +55,8 @@ class QuestionsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('text')
             ->columns([
-                Tables\Columns\TextColumn::make('text'),
+                Tables\Columns\TextColumn::make('text')
+                ->suffix('?'),
                 Tables\Columns\CheckboxColumn::make('is_required'),
             ])
             ->filters([

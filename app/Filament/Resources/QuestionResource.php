@@ -26,6 +26,7 @@ class QuestionResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('text')
+                    ->suffix('?')
                     ->required(),
                 Forms\Components\Select::make('type')
                     ->options([
@@ -55,7 +56,8 @@ class QuestionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('text'),
+                Tables\Columns\TextColumn::make('text')
+                ->suffix('?'),
                 Tables\Columns\TextColumn::make('type'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
