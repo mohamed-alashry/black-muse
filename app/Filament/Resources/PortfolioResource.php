@@ -32,6 +32,7 @@ class PortfolioResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('photo')
                     ->required()
+                    ->maxSize(1024) // Size in KB (1MB in this case)
                     ->image(),
                 Forms\Components\TextInput::make('meta_title'),
                 Forms\Components\TextInput::make('meta_desc'),
