@@ -19,9 +19,9 @@
         @else
             <section class="about-section py-5"
                      style="background-image: url({{asset('images/about-bg.png')}});">
-        @endif
+                @endif
                 <div class="container d-flex flex-column gap-3 text-white">
-                    {!! $item->content !!}
+                    {!! str()->markdown($item->content) !!}
                 </div>
             </section>
     @endforeach

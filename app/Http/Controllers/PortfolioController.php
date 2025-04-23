@@ -12,6 +12,6 @@ class PortfolioController extends Controller
     {
         $portfolio = Portfolio::query()->withActiveItems()->findOrFail($id);
 
-        return view('site.portfolio.show', compact('portfolio'));
+        return view('site.portfolio', compact('portfolio'));
     }
 }
