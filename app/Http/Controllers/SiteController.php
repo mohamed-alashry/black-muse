@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Page;
-use App\Models\Portfolio;
 
 class SiteController extends Controller
 {
@@ -21,7 +19,7 @@ class SiteController extends Controller
 
         return view('site.terms_conditions', compact('termsPage'));
     }
-    
+
     public function about()
     {
         $aboutPage = Page::where('id', 3)->withActiveSections()->firstOrFail();
