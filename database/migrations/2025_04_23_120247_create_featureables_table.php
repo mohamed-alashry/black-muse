@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('feature_package', function (Blueprint $table) {
-            $table->foreignId('feature_id')->constrained()->onDelete('cascade');
-            $table->foreignId('package_id')->constrained()->onDelete('cascade');
+        Schema::create('featureables', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('feature_id')->constrained();
+            $table->morphs('featureable');
             $table->boolean('is_default')->default(true);
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('feature_package');
+        Schema::dropIfExists('featureables');
     }
 };
