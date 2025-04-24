@@ -12,7 +12,7 @@
       <div class="portfolio-carousel owl-carousel z-3">
       
         <!-- Portfolios -->
-        @foreach(\App\Models\Portfolio::where('status', 'active')->orderBy('id')->get() as $portfolio)
+        @foreach(\App\Models\Portfolio::where('status', 'active')->orderBy('id','desc')->get() as $portfolio)
            <div class="porto-card ">
             <a href="{{ route('site.portfolio.show', $portfolio->id) }}">
                <img class="porto-img" src="{{ asset('storage/'.$portfolio->photo) }}" alt="imagecard">

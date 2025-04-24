@@ -17,30 +17,7 @@
     </section>
 
     <!-- Services section -->
-    <section class="bg-main py-5" id="services">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div class="text-white fw-lighter">
-                    <h2 class="fw-lighter">Our <strong class="text-gold">Black Muse</strong> Services</h2>
-                    <p class="fs-4">What we offer</p>
-                </div>
-                <a class="d-flex align-items-center text-secondary gap-1 btn">
-                    <p>View All</p>
-                    <i class="fa-solid fa-chevron-right"></i>
-                </a>
-            </div>
-            <!-- Services slider -->
-            <div class="services-carousel owl-carousel">
-                <div class="service-card">
-                    <img src="{{ asset('images/imagecard.png') }}" alt="imagecard">
-                    <div class="info-service px-1 py-3">
-                        <h5>Wedding Services</h5>
-                        <button class="btn btn-service" type="button">Choose a Package Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include('partials.site.service-section')
 
     <!-- Portfolio Category -->
     @include('partials.site.portfolio-section')
