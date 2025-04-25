@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,7 +13,7 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->json('text');
-            $table->enum('type', ["text","textarea","select","radio","checkbox","number","date"])->default('text');
+            $table->enum('type', ["text", "textarea", "select", "radio", "checkbox", "number", "date", "file", "color"])->default('text');
             $table->timestamps();
         });
     }

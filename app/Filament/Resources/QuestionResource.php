@@ -37,6 +37,8 @@ class QuestionResource extends Resource
                         'checkbox' => 'Checkbox',
                         'number'   => 'Number',
                         'date'     => 'Date',
+                        'file'     => 'Image Upload',
+                        'color'    => 'Color',
                     ])
                     ->default('text')
                     ->required(),
@@ -45,9 +47,15 @@ class QuestionResource extends Resource
                     ->schema([
                         Forms\Components\TextInput::make('text')
                             ->required()
-                            ->label('Label'),
+                            ->label('Label')
+                            ->visible(fn($get) => $get('../../type') !== 'color'),
+
+                        Forms\Components\ColorPicker::make('text')
+                            ->required()
+                            ->label('Label')
+                            ->visible(fn($get) => $get('../../type') === 'color'),
                     ])
-                    ->visible(fn($get) => in_array($get('type'), ['select', 'radio', 'checkbox']))
+                    ->visible(fn($get) => in_array($get('type'), ['select', 'radio', 'checkbox', 'color']))
                     ->orderColumn(),
             ]);
     }
@@ -57,7 +65,7 @@ class QuestionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('text')
-                ->suffix('?'),
+                    ->suffix('?'),
                 Tables\Columns\TextColumn::make('type'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -73,7 +81,7 @@ class QuestionResource extends Resource
             ])
             ->actions([
 //                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -94,7 +102,7 @@ class QuestionResource extends Resource
         return [
             'index'  => Pages\ListQuestions::route('/'),
             'create' => Pages\CreateQuestion::route('/create'),
-//            'view'   => Pages\ViewQuestion::route('/{record}'),
+            //            'view'   => Pages\ViewQuestion::route('/{record}'),
             'edit'   => Pages\EditQuestion::route('/{record}/edit'),
         ];
     }
