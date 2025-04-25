@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use App\Models\Service;
+use App\Models\Portfolio;
 
 class SiteController extends Controller
 {
     public function home()
     {
-        $homePage = Page::where('id', 1)->withActiveSections()->firstOrFail();
-
-        return view('site.home', compact('homePage'));
+        $homePage   = Page::where('id', 1)->withActiveSections()->firstOrFail();
+        $portfolios = Portfolio::where('status', 'active')->orderBy('id','desc')->get();
+        $services   = Service::where('status', 'active')->orderBy('id','desc')->get();
+        return view('site.home', compact('homePage','portfolios','services'));
     }
 
     public function terms_conditions()
