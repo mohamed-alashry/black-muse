@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             FeatureablesTableSeeder::class,
             ServicesTableSeeder::class,
             PackagesTableSeeder::class,
+            ClientsTableSeeder::class
         ]);
     }
 }
