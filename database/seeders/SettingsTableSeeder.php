@@ -14,12 +14,12 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('settings')->delete();
-
+        
         \DB::table('settings')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'key' => 'x',
@@ -27,7 +27,7 @@ class SettingsTableSeeder extends Seeder
                 'created_at' => '2025-04-23 16:12:17',
                 'updated_at' => '2025-04-23 16:12:17',
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'key' => 'facebook',
@@ -35,7 +35,7 @@ class SettingsTableSeeder extends Seeder
                 'created_at' => '2025-04-23 16:12:32',
                 'updated_at' => '2025-04-23 16:12:32',
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'key' => 'instagram',
@@ -43,7 +43,7 @@ class SettingsTableSeeder extends Seeder
                 'created_at' => '2025-04-23 16:13:03',
                 'updated_at' => '2025-04-23 16:13:03',
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'key' => 'youtube',
@@ -51,7 +51,7 @@ class SettingsTableSeeder extends Seeder
                 'created_at' => '2025-04-23 16:13:19',
                 'updated_at' => '2025-04-23 16:13:19',
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
                 'key' => 'linkedin',
@@ -59,7 +59,7 @@ class SettingsTableSeeder extends Seeder
                 'created_at' => '2025-04-23 16:13:26',
                 'updated_at' => '2025-04-23 16:13:26',
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
                 'key' => 'address',
@@ -67,7 +67,7 @@ class SettingsTableSeeder extends Seeder
                 'created_at' => '2025-04-23 16:13:48',
                 'updated_at' => '2025-04-23 16:13:48',
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 7,
                 'key' => 'phone',
@@ -75,7 +75,7 @@ class SettingsTableSeeder extends Seeder
                 'created_at' => '2025-04-23 16:14:03',
                 'updated_at' => '2025-04-23 16:14:03',
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 8,
                 'key' => 'email',
@@ -83,7 +83,7 @@ class SettingsTableSeeder extends Seeder
                 'created_at' => '2025-04-23 16:14:19',
                 'updated_at' => '2025-04-23 16:14:19',
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 9,
                 'key' => 'map',
@@ -91,8 +91,32 @@ class SettingsTableSeeder extends Seeder
                 'created_at' => '2025-04-23 16:16:58',
                 'updated_at' => '2025-04-23 16:16:58',
             ),
+            9 => 
+            array (
+                'id' => 10,
+                'key' => 'meeting_start_time',
+                'value' => '10:00',
+                'created_at' => '2025-04-26 02:32:38',
+                'updated_at' => '2025-04-26 02:32:38',
+            ),
+            10 => 
+            array (
+                'id' => 11,
+                'key' => 'meeting_end_time',
+                'value' => '14:00',
+                'created_at' => '2025-04-26 02:32:38',
+                'updated_at' => '2025-04-26 02:32:38',
+            ),
+            11 => 
+            array (
+                'id' => 12,
+                'key' => 'meeting_duration',
+                'value' => '30',
+                'created_at' => '2025-04-26 02:34:07',
+                'updated_at' => '2025-04-26 02:34:07',
+            ),
         ));
-
-
+        
+        
     }
 }
