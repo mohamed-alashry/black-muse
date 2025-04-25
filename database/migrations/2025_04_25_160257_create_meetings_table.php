@@ -20,6 +20,10 @@ return new class extends Migration
             $table->dateTime('start_at');
             $table->dateTime('end_at');
             $table->unsignedTinyInteger('duration')->comment('in minutes');
+            $table->enum('type', ["online", "offline"])->default('online');
+            $table->string('link')->nullable();
+            $table->text('notes')->nullable();
+            $table->enum('status', ["pending", "done", "canceled"])->default('pending');
             $table->timestamps();
         });
 

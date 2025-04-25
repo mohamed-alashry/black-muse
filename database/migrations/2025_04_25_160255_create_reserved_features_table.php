@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('booking_customizations', function (Blueprint $table) {
+        Schema::create('reserved_features', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('booking_id')->constrained()->cascadeOnDelete();
             $table->foreignId('feature_id')->constrained()->cascadeOnDelete();
-            $table->boolean('included')->default(1);
+            $table->morphs('reservable');
+            $table->json('name');
+            $table->decimal('price');
+            $table->boolean('is_default')->default(1);
             $table->timestamps();
         });
 
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('booking_customizations');
+        Schema::dropIfExists('reserved_features');
     }
 };
