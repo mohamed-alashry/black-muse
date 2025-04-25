@@ -19,5 +19,16 @@ class DatabaseSeeder extends Seeder
             SectionSeeder::class,
             SettingsTableSeeder::class,
         ]);
+
+        # development only seeders
+        $this->call([
+            QuestionsTableSeeder::class,
+            QuestionOptionsTableSeeder::class,
+            QuestionablesTableSeeder::class,
+            FeaturesTableSeeder::class,
+            FeatureablesTableSeeder::class,
+            ServicesTableSeeder::class,
+            PackagesTableSeeder::class,
+        ]);
     }
 }
