@@ -32,6 +32,8 @@ class QuestionsRelationManager extends RelationManager
                         'checkbox' => 'Checkbox',
                         'number'   => 'Number',
                         'date'     => 'Date',
+                        'file'     => 'Image Upload',
+                        'color'    => 'Color',
                     ])
                     ->default('text')
                     ->required(),
@@ -43,9 +45,15 @@ class QuestionsRelationManager extends RelationManager
                     ->schema([
                         Forms\Components\TextInput::make('text')
                             ->required()
-                            ->label('Label'),
+                            ->label('Label')
+                            ->visible(fn($get) => $get('../../type') !== 'color'),
+
+                        Forms\Components\ColorPicker::make('text')
+                            ->required()
+                            ->label('Label')
+                            ->visible(fn($get) => $get('../../type') === 'color'),
                     ])
-                    ->visible(fn($get) => in_array($get('type'), ['select', 'radio', 'checkbox']))
+                    ->visible(fn($get) => in_array($get('type'), ['select', 'radio', 'checkbox', 'color']))
                     ->orderColumn(),
             ]);
     }

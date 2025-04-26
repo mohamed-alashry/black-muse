@@ -21,7 +21,7 @@
           <div class="table-header">
             <h4 class="">You need to pay a down payment</h4>
             <h3 class="text-gold">
-               {{ number_format($bookingData['total_price'], 0) }}
+               {{ number_format($bookingData['down_payment'], 0) }}
                <span class="fs-6 fw-lighter">SAR</span>
             </h3>
           </div>
@@ -66,7 +66,7 @@
                 </div>
                  @if(isset($bookingData['features']) && is_array($bookingData['features']))
                    @foreach($bookingData['features'] as $feature)
-                      <p>{{ $feature['name'] }}</p>
+                      <p>{{ getTranslation($feature['name']) }}</p>
                    @endforeach
                  @else
                   <p>No features selected.</p>

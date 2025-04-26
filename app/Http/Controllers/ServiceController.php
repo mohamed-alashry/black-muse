@@ -19,27 +19,27 @@ use App\Models\Answer;
 
 class ServiceController extends Controller
 {
-    public function showAvailablePackages($id,Request $request)
+    public function showAvailablePackages($id, Request $request)
     {
         if ($request->has('booking_date')) {
-            $date     = $request->booking_date;
+            $date          = $request->booking_date;
             $formattedDate = Carbon::parse($date)->format('d-m-Y');
-            $service  = Service::with(['questions.options'])->findOrFail($id);
-            $packages = $service->packages()
-                        ->where('status', 'active')
-                        ->whereDoesntHave('blockedDates', function (Builder $query) use ($date) {
-                            $query->whereDate('date', $date);
-                        })
-                        ->with(['features' => function ($query) {
-                            $query->where('status', 'active')
-                                  ->orderBy('featureables.is_default', 'desc');
-                        }])->get();
-            $questions = $service->questions;
+            $service       = Service::with(['questions.options'])->findOrFail($id);
+            $packages      = $service->packages()
+                ->where('status', 'active')
+                ->whereDoesntHave('blockedDates', function (Builder $query) use ($date) {
+                    $query->whereDate('date', $date);
+                })
+                ->with(['features' => function ($query) {
+                    $query->where('status', 'active')
+                        ->orderBy('featureables.is_default', 'desc');
+                }])->get();
+            $questions     = $service->questions;
 
-             return view('site.service.packages', compact('formattedDate','service','packages','questions'));
+            return view('site.service.packages', compact('formattedDate', 'service', 'packages', 'questions'));
 
         } else {
-            return redirect()->back()->with('error',"Please select a date first.");
+            return redirect()->back()->with('error', "Please select a date first.");
         }
 
     }
@@ -49,22 +49,22 @@ class ServiceController extends Controller
         $this->validateBooking($request);
 
         $answers = $this->handleAnswers($request);
-        
+
         $allFeatures = $this->getAllFeatures($request);
 
         $this->cacheBookingData($request, $answers, $allFeatures);
 
         session()->flash('success', 'Booking has been temporarily saved successfully.');
+
         return response()->json([
-            'status' => 'success',
-            'redirect_url'  => route('service.booking.confirm'),
+            'status'       => 'success',
+            'redirect_url' => route('service.booking.confirm'),
         ]);
     }
 
     public function confirmBooking()
     {
-        $clientId = auth('client')->user()->id;
-        $cacheKey = 'booking_' . $clientId;
+        $cacheKey = 'booking_' . auth()->id();
 
         if (!Cache::has($cacheKey)) {
             return redirect()->route('site.home')->with('error', 'No booking data found.');
@@ -77,10 +77,10 @@ class ServiceController extends Controller
 
     private function validateBooking(Request $request)
     {
-        $rules = [
+        $rules      = [
             'booking_date' => ['required', 'date'],
-            'service_id' => ['required', 'integer'],
-            'package_id' => ['required', 'integer'],
+            'service_id'   => ['required', 'integer'],
+            'package_id'   => ['required', 'integer'],
         ];
         $attributes = [];
 
@@ -88,8 +88,8 @@ class ServiceController extends Controller
 
         foreach ($service->questions as $question) {
             if ($question->pivot->is_required) {
-                $questionKey = "answers.{$question->id}";
-                $rules[$questionKey] = ['required'];
+                $questionKey              = "answers.{$question->id}";
+                $rules[$questionKey]      = ['required'];
                 $attributes[$questionKey] = "{$question->text} Question";
             }
         }
@@ -100,7 +100,7 @@ class ServiceController extends Controller
             abort(response()->json(['errors' => $validator->errors()], 422));
         }
     }
-    
+
     private function handleAnswers(Request $request)
     {
         $answers = $request->input('answers', []);
@@ -110,11 +110,11 @@ class ServiceController extends Controller
                 if (is_array($file)) {
                     $paths = [];
                     foreach ($file as $singleFile) {
-                        $paths[] = $singleFile->store('temp', 'public');
+                        $paths[] = $singleFile->store('/', 'public');
                     }
                     $answers[$questionId] = $paths;
                 } else {
-                    $answers[$questionId] = $file->store('temp', 'public');
+                    $answers[$questionId] = $file->store('/', 'public');
                 }
             }
         }
@@ -129,7 +129,7 @@ class ServiceController extends Controller
         }])->findOrFail($request->package_id);
 
         $defaultFeatures = $package->features->map(function ($feature) {
-            $name            = json_decode($feature->getRawOriginal('name'), true);
+            $name = json_decode($feature->getRawOriginal('name'), true);
             return [
                 'id'         => $feature->id,
                 'name'       => json_encode($name, JSON_UNESCAPED_UNICODE),
@@ -139,7 +139,7 @@ class ServiceController extends Controller
         })->toArray();
 
         $requestFeatures = Feature::whereIn('id', $request->features ?? [])->get()->map(function ($feature) {
-            $name        = json_decode($feature->getRawOriginal('name'), true);
+            $name = json_decode($feature->getRawOriginal('name'), true);
             return [
                 'id'         => $feature->id,
                 'name'       => json_encode($name, JSON_UNESCAPED_UNICODE),
@@ -152,35 +152,33 @@ class ServiceController extends Controller
     }
 
     private function cacheBookingData(Request $request, array $answers, array $allFeatures)
-    {   
+    {
         $service = Service::findOrFail($request->service_id);
         $package = Package::findOrFail($request->package_id);
-        $prices = $this->calculateTotalPrice($request);
+        $prices  = $this->calculateTotalPrice($request);
 
         $dataToCache = [
-            'booking_date'   => $request->booking_date,
-            'service_id'     => $service->id,
-            'service_name'   => $service->name,
-            'package_id'     => $package->id,
-            'package_name'   => $package->name,
-            'answers'        => $answers,
-            'features'       => $allFeatures,
-            'base_price'     => $prices['base_price'],
-            'features_price' => $prices['features_price'],
-            'total_price'    => $prices['total_price'],
+            'booking_date' => $request->booking_date,
+            'service_id'   => $service->id,
+            'service_name' => $service->name,
+            'package_id'   => $package->id,
+            'package_name' => $package->name,
+            'answers'      => $answers,
+            'features'     => $allFeatures,
+            'total_price'  => $prices['total_price'],
+            'down_payment' => $prices['down_payment'],
         ];
-       // dd($dataToCache);
-        $clientId = auth('client')->user()->id;
-        $cacheKey = 'booking_' . $clientId;
 
-        Cache::forget($cacheKey); 
+        $cacheKey = 'booking_' . auth()->id();
 
-        Cache::put($cacheKey, $dataToCache, now()->addHours(1));
+        Cache::forget($cacheKey);
+
+        Cache::put($cacheKey, $dataToCache, now()->addHour());
     }
 
     private function calculateTotalPrice(Request $request)
     {
-        $package = Package::findOrFail($request->package_id);
+        $package   = Package::findOrFail($request->package_id);
         $basePrice = $package->base_price;
 
         $selectedFeatures = Feature::whereIn('id', $request->features ?? [])->get();
@@ -189,16 +187,17 @@ class ServiceController extends Controller
 
         $totalPrice = $basePrice + $featuresTotalPrice;
 
+        $downPaymentAmount = $totalPrice * 0.5;
+
         return [
-            'base_price' => $basePrice,
-            'features_price' => $featuresTotalPrice,
-            'total_price' => $totalPrice,
+            'total_price'  => $totalPrice,
+            'down_payment' => $downPaymentAmount,
         ];
     }
 
     public function storeBooking()
     {
-        $clientId = auth('client')->user()->id;
+        $clientId = auth()->id();
         $cacheKey = 'booking_' . $clientId;
 
         if (!Cache::has($cacheKey)) {
@@ -207,75 +206,74 @@ class ServiceController extends Controller
 
         $bookingData = Cache::get($cacheKey);
 
-        $referenceNumber = 'BK-' . strtoupper(uniqid());
 
-        $booking = new Booking();
-        $booking->reference_number = $referenceNumber;
+        $booking                   = new Booking();
         $booking->client_id        = $clientId;
         $booking->service_id       = $bookingData['service_id'];
         $booking->package_id       = $bookingData['package_id'];
         $booking->event_date       = $bookingData['booking_date'];
-        $booking->total_price      = ($bookingData['total_price'] ?? 0);
-        $booking->remaining_amount = ($bookingData['total_price'] ?? 0);
-        $booking->paid_amount      =  0;
+        $booking->paid_amount      = $bookingData['down_payment'];
+        $booking->remaining_amount = $bookingData['total_price'] - $bookingData['down_payment'];
+        $booking->total_price      = $bookingData['total_price'];
+        $booking->notes            = $bookingData['notes'] ?? null;
         $booking->save();
 
         BlockedDate::create([
-            'date' => $booking->event_date,
-            'blockable_type' => Booking::class,
-            'blockable_id' => $booking->id,
+            'date'           => $booking->event_date,
+            'blockable_type' => Package::class,
+            'blockable_id'   => $booking->package_id,
         ]);
 
         $features = $bookingData['features'] ?? [];
         foreach ($features as $feature) {
             ReservedFeatures::create([
-                'feature_id' => $feature['id'],
+                'feature_id'      => $feature['id'],
                 'reservable_type' => Booking::class,
-                'reservable_id' => $booking->id,
-                'name' => $feature['name'],
-                'price' => $feature['price'],
-                'is_default' => $feature['is_default'],
-            ]);
-       }
-
-       foreach ($bookingData['answers'] as $questionId => $answerValue) {
-        if (is_null($answerValue)) {
-            continue;
-        }
-
-        $answers = is_array($answerValue) ? $answerValue : [$answerValue];
-
-        foreach ($answers as $answer) {
-            $answer = $this->moveAnswerToStorage($answer); 
-            Answer::create([
-                'question_id'     => $questionId,
-                'value'           => $answer,
-                'answerable_type' => Booking::class,
-                'answerable_id'   => $booking->id,
+                'reservable_id'   => $booking->id,
+                'name'            => $feature['name'],
+                'price'           => $feature['price'],
+                'is_default'      => $feature['is_default'],
             ]);
         }
-    }
+
+        foreach ($bookingData['answers'] as $questionId => $answerValue) {
+            if (is_null($answerValue)) {
+                continue;
+            }
+
+            $answers = is_array($answerValue) ? $answerValue : [$answerValue];
+
+            foreach ($answers as $answer) {
+                $answer = $this->moveAnswerToStorage($answer);
+                Answer::create([
+                    'question_id'     => $questionId,
+                    'value'           => $answer,
+                    'answerable_type' => Booking::class,
+                    'answerable_id'   => $booking->id,
+                ]);
+            }
+        }
 
         Cache::forget($cacheKey);
         session()->flash('success', 'Booking confirmed successfully.');
-        return redirect()->route('service.meeting.confirm',$booking->id);
+        return redirect()->route('service.meeting.confirm', $booking->id);
     }
 
     protected function moveAnswerToStorage($answer)
     {
         if (is_string($answer) && file_exists(public_path('storage/' . $answer))) {
             $file = new File(public_path('storage/' . $answer));
-            
+
             $newPath = Storage::disk('public')->putFile('booking-files', $file);
 
             return $newPath;
         }
 
-        return $answer; 
+        return $answer;
     }
 
     public function confirmMeeting($id)
     {
-      return view('site.service.confirm_meeting');
+        return view('site.service.confirm_meeting');
     }
 }

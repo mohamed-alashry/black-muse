@@ -30,9 +30,8 @@
           break;
 
         case 'select':
-            $options = $question->options()
-                ->orderBy('sort')
-                ->get()
+            $options = $question->options
+                ->sortBy('sort')
                 ->map(function ($option) {
                     return "<option value='{$option->text}'>" . e($option->text) . "</option>";
                 })->implode('');
@@ -43,9 +42,8 @@
             break;
 
         case 'radio':
-            $input = $question->options()
-                ->orderBy('sort')
-                ->get()
+            $input = $question->options
+                ->sortBy('sort')
                 ->map(function ($option) use ($name, $isRequired) {
                     return "
                         <div class='form-check'>
@@ -56,9 +54,8 @@
             break;
 
         case 'checkbox':
-            $input = $question->options()
-                ->orderBy('sort')
-                ->get()
+            $input = $question->options
+                ->sortBy('sort')
                 ->map(function ($option) use ($name) {
                     return "
                         <div class='form-check'>
@@ -67,23 +64,23 @@
                         </div>";
                 })->implode('');
             break;
+
             case 'color':
               $input = '<div class="d-flex flex-wrap gap-3">';
-              $input .= $question->options()
-                  ->orderBy('sort')
-                  ->get()
+              $input .= $question->options
+                  ->sortBy('sort')
                   ->map(function ($option) use ($name) {
                       return "
                           <div class='d-flex align-items-center gap-2'>
-                              <input type='radio' 
-                                  class='form-check-input' 
-                                  name='{$name}' 
-                                  id='color{$option->id}' 
+                              <input type='radio'
+                                  class='form-check-input'
+                                  name='{$name}'
+                                  id='color{$option->id}'
                                   value='{$option->text}'>
-                              
-                              <label for='color{$option->id}' 
-                                  class='d-block rounded-circle border border-2' 
-                                  style='width: 40px; height: 40px; background-color: " . e($option->text) . "; cursor: pointer;'>
+
+                              <label for='color{$option->id}'
+                                  class='d-block rounded-circle border border-2'
+                                  style='width: 30px; height: 30px; background-color: " . e($option->text) . "; cursor: pointer;'>
                               </label>
                           </div>";
                   })->implode('');

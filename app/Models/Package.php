@@ -15,6 +15,13 @@ class Package extends Model
 
     public array $translatable = ['name'];
 
+    protected function casts(): array
+    {
+        return [
+            'base_price' => 'float',
+        ];
+    }
+
     public function blockedDates(): MorphMany
     {
         return $this->morphMany(BlockedDate::class, 'blockable');

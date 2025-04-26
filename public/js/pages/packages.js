@@ -1,7 +1,8 @@
-$(document).ready(function() {
-    
+$(document).ready(function () {
+
 
     let currentLocale = document.documentElement.lang || 'en';
+
     function loadPackageDetails(packageId) {
         var package = packagesData.find(pkg => pkg.id == packageId);
         if (!package) {
@@ -17,18 +18,18 @@ $(document).ready(function() {
                   ${package.base_price}<span class="fs-6 fw-lighter">SAR</span>
                 </h3>
               </div>`;
-        package.features.forEach(function(feature) {
-           let featureName = feature.name[currentLocale] || feature.name['en'];
+        package.features.forEach(function (feature) {
+            let featureName = feature.name[currentLocale] || feature.name['en'];
             featuresHtml += `
                 <div class="item">
                 <div class="d-flex gap-2">
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     class="feature-checkbox"
-                    data-price="${feature.price}"  
+                    data-price="${feature.price}"
                     ${feature.pivot.is_default ? 'checked disabled' : ''}
-                    name="features[]" 
-                    value="${feature.id}" 
+                    name="features[]"
+                    value="${feature.id}"
                     id="feature_${feature.id}">
                 <label for="feature_${feature.id}">${featureName}</label>
                 </div>
@@ -44,12 +45,11 @@ $(document).ready(function() {
 
     }
 
-    
 
-    $('.btn-choose-package').click(function() {
+    $('.btn-choose-package').click(function () {
         var packageId = $(this).data('package-id');
 
-        if($(this).hasClass('active')) {
+        if ($(this).hasClass('active')) {
             $(this).removeClass('active');
             $('#selectedPackageId').val('');
             $('#nextBtn').hide();
@@ -82,71 +82,69 @@ $(document).ready(function() {
 
         $('.total-price').text(total.toFixed(2) + ' SAR');
     }
-  
 
 
-function validateField(element) {
-    let inputType = element.attr('type');
-    let isValidInput = true;
+    function validateField(element) {
+        let inputType = element.attr('type');
+        let isValidInput = true;
 
-    if (inputType === 'checkbox' || inputType === 'radio') {
-        if (!$('[name="' + element.attr('name') + '"]:checked').length) {
-            isValidInput = false;
+        if (inputType === 'checkbox' || inputType === 'radio') {
+            if (!$('[name="' + element.attr('name') + '"]:checked').length) {
+                isValidInput = false;
+            }
+        } else if (inputType === 'file') {
+            if (!element.get(0).files.length) {
+                isValidInput = false;
+            }
+        } else {
+            if (!element.val()) {
+                isValidInput = false;
+            }
         }
-    } else if (inputType === 'file') {
-        if (!element.get(0).files.length) {
-            isValidInput = false;
+
+        if (isValidInput) {
+            element.removeClass('is-invalid').addClass('is-valid');
+        } else {
+            element.removeClass('is-valid').addClass('is-invalid');
         }
-    } else {
-        if (!element.val()) {
-            isValidInput = false;
-        }
+
+        return isValidInput;
     }
 
-    if (isValidInput) {
-        element.removeClass('is-invalid').addClass('is-valid');
-    } else {
-        element.removeClass('is-valid').addClass('is-invalid');
-    }
+    $('#nextBtn').click(function (e) {
+        if (currentTab === $(".tab").length - 1) {
+            e.preventDefault();
 
-    return isValidInput;
-}
+            let selectedPackage = $('#selectedPackageId').val();
+            let isValid = true;
 
-$('#nextBtn').click(function(e) {
-    if (currentTab === $(".tab").length - 1) {
-        e.preventDefault(); 
-
-        let selectedPackage = $('#selectedPackageId').val();
-        let isValid = true;
-
-        if (!selectedPackage) {
-            toastr.error('Please select a package first!');
-            isValid = false;
-        }
-
-        $('.form-packages-section [required]').each(function() {
-            if (!validateField($(this))) {
+            if (!selectedPackage) {
+                toastr.error('Please select a package first!');
                 isValid = false;
             }
-        });
 
-        if (!isValid) {
-            $('#nextBtn').prop('disabled', true);
-            toastr.error('Please fill all required questions.');
-            return;
+            $('.form-packages-section [required]').each(function () {
+                if (!validateField($(this))) {
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) {
+                $('#nextBtn').prop('disabled', true);
+                toastr.error('Please fill all required questions.');
+                return;
+            } else {
+                $('#nextBtn').prop('disabled', false);
+
+            }
         } else {
             $('#nextBtn').prop('disabled', false);
-            
         }
-    }
-    else {
-        $('#nextBtn').prop('disabled', false);
-    }
-});
+    });
 
-$('.form-packages-section [required]').on('input change', function() {
-    validateField($(this));
-});
+    $('.form-packages-section [required]').on('input change', function () {
+        validateField($(this));
+    });
 
 
 });

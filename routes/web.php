@@ -29,9 +29,9 @@ Route::middleware(['auth:client'])->group(function () {
     Route::post('/profile/update-info', [ClientController::class, 'updateInfo'])->name('site.updateInfo');
     Route::post('/profile/update-password', [ClientController::class, 'updatePassword'])->name('site.updatePassword');
 
-    //services and packages 
+    //services and packages
     Route::get('/service-packages/{id}', [ServiceController::class, 'showAvailablePackages'])->name('site.service.packages');
-    //service boocking
+    //service booking
     Route::post('service/booking/cache', [ServiceController::class, 'cacheBooking'])->name('service.booking.cache');
     Route::get('service/booking/confirm', [ServiceController::class, 'confirmBooking'])->name('service.booking.confirm');
     Route::post('service/booking/store', [ServiceController::class, 'storeBooking'])->name('service.booking.store');

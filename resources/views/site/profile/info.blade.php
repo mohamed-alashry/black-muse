@@ -11,7 +11,7 @@
         'breadcrumb' => 'Profile'
     ])
 
-   
+
   <!-- Main Section -->
   <section class=" py-5 bg-main ">
     <div class="container">
@@ -33,7 +33,7 @@
                 <i class="fa-regular fa-pen-to-square"></i>  Change Password
               </li>
 
-             
+
             </ul>
           </div>
         </div>
@@ -102,7 +102,7 @@
               <div class="row">
                 <div class="col-md-12" id="changePasswordMsgs" class="text-white mt-3"></div>
                 <!-- old Password -->
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="box-input">
                     <label class="form-label small ">Old Password</label>
                     <input type="password" name="old_password" class="form-control" >
@@ -144,7 +144,7 @@
             </form>
 
 
-      
+
           </div>
 
         </div>
