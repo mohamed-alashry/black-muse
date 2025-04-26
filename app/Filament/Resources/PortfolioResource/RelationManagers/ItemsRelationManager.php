@@ -8,6 +8,7 @@ use Filament\Resources\RelationManagers\Concerns\Translatable;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class ItemsRelationManager extends RelationManager
 {
@@ -23,8 +24,7 @@ class ItemsRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('subtitle'),
-                Forms\Components\MarkdownEditor::make('content')
-                    ->columnSpan(2),
+                TinyEditor::make('content')->columnSpan(2),
 //                Forms\Components\Section::make()
 //                    ->schema([
 //                        Forms\Components\Toggle::make('viewable')

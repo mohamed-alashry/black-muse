@@ -21,7 +21,7 @@
                      style="background-image: url({{asset('images/about-bg.png')}});">
                 @endif
                 <div class="container d-flex flex-column gap-3 text-white">
-                    {!! str($item->content)->markdown() !!}
+                    {!! $item->content !!}
                 </div>
             </section>
     @endforeach

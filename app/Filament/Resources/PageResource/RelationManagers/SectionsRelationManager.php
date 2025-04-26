@@ -10,6 +10,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class SectionsRelationManager extends RelationManager
 {
@@ -25,8 +26,7 @@ class SectionsRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('subtitle'),
-                Forms\Components\MarkdownEditor::make('content')
-                    ->columnSpan(2),
+                TinyEditor::make('content')->columnSpan(2),
 //                Forms\Components\Section::make()
 //                    ->schema([
 //                        Forms\Components\Toggle::make('viewable')

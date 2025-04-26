@@ -50,7 +50,7 @@
                 <div class="col-12 col-md-7" style="color: #fff">
                     <!-- sections -->
                     @foreach($contactPage->sections as $section)
-                        {!! str($section->content)->markdown() !!}
+                        {!! $section->content !!}
                     @endforeach
                 </div>
             </div>

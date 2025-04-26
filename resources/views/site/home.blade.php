@@ -29,8 +29,8 @@
                     <i class="fa-solid fa-chevron-right"></i>
                 </a> -->
             </div>
-           
-         <div class="services-carousel owl-carousel">  
+
+         <div class="services-carousel owl-carousel">
              <!-- Services slider -->
             @foreach($services as $service)
                     <div class="service-card">
@@ -46,7 +46,7 @@
       </section>
 
     <!-- Portfolio section -->
-      <section class="bg-main py-3 porto-section" id="protofolios" style="background-image: url(./images/portohero.png);">
+      <section class="bg-main py-3 porto-section" id="protofolios" style="background-image: url({{asset('images/portohero.png')}});">
           <div class="row h-100">
             <div class="col-md-4 my-auto">
               <div class="porto-summry text-white d-flex flex-column gap-2 z-3 mb-2 mx-md-5 mx-2">
@@ -58,7 +58,7 @@
             </div>
             <div class="col-md-8 mt-auto ps-md-5">
               <div class="portfolio-carousel owl-carousel z-3">
-              
+
                 <!-- Portfolios slider-->
                 @foreach($portfolios as $portfolio)
                    <div class="porto-card ">
@@ -119,7 +119,7 @@
                      style="background-image: url({{asset('images/about-bg.png')}});">
                 @endif
                 <div class="container d-flex flex-column gap-3 text-white">
-                    {!! str($section->content)->markdown() !!}
+                    {!! $section->content !!}
                 </div>
             </section>
     @endforeach
