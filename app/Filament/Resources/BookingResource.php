@@ -7,6 +7,9 @@ use App\Filament\Resources\BookingResource\RelationManagers;
 use App\Models\Booking;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -22,36 +25,36 @@ class BookingResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('client_id')
-                    ->relationship('client', 'name')
-                    ->required(),
-                Forms\Components\Select::make('service_id')
-                    ->relationship('service', 'name')
-                    ->required(),
-                Forms\Components\Select::make('package_id')
-                    ->relationship('package', 'name')
-                    ->required(),
-                Forms\Components\DatePicker::make('event_date')
-                    ->required(),
-                Forms\Components\TextInput::make('paid_amount')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('remaining_amount')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('total_price')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\Textarea::make('notes')
-                    ->columnSpanFull(),
-                Forms\Components\Select::make('payment_status')
-                    ->options(['down_payment' => 'down_payment', 'full_payment' => 'full_payment'])
-                    ->default('down_payment')
-                    ->required(),
-                Forms\Components\Select::make('booking_status')
-                    ->options(['new' => 'new', 'confirmed' => 'confirmed', 'complete' => 'complete', 'cancelled' => 'cancelled'])
-                    ->default('new')
-                    ->required(),
+//                Forms\Components\Select::make('client_id')
+//                    ->relationship('client', 'name')
+//                    ->required(),
+//                Forms\Components\Select::make('service_id')
+//                    ->relationship('service', 'name')
+//                    ->required(),
+//                Forms\Components\Select::make('package_id')
+//                    ->relationship('package', 'name')
+//                    ->required(),
+//                Forms\Components\DatePicker::make('event_date')
+//                    ->required(),
+//                Forms\Components\TextInput::make('paid_amount')
+//                    ->required()
+//                    ->numeric(),
+//                Forms\Components\TextInput::make('remaining_amount')
+//                    ->required()
+//                    ->numeric(),
+//                Forms\Components\TextInput::make('total_price')
+//                    ->required()
+//                    ->numeric(),
+//                Forms\Components\MarkdownEditor::make('notes')
+//                    ->columnSpanFull(),
+//                Forms\Components\Select::make('payment_status')
+//                    ->options(['down_payment' => 'down_payment', 'full_payment' => 'full_payment'])
+//                    ->default('down_payment')
+//                    ->required(),
+Forms\Components\Select::make('booking_status')
+    ->options(['new' => 'new', 'confirmed' => 'confirmed', 'complete' => 'complete', 'cancelled' => 'cancelled'])
+    ->default('new')
+    ->required(),
             ]);
     }
 
@@ -105,6 +108,28 @@ class BookingResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist->schema([
+            Section::make()->schema([
+                TextEntry::make('reference_number'),
+                TextEntry::make('client.name'),
+                TextEntry::make('service.name'),
+                TextEntry::make('package.name'),
+                TextEntry::make('event_date'),
+                TextEntry::make('paid_amount'),
+                TextEntry::make('remaining_amount'),
+                TextEntry::make('total_price'),
+                TextEntry::make('payment_status'),
+                TextEntry::make('booking_status'),
+                TextEntry::make('created_at'),
+                TextEntry::make('updated_at'),
+                TextEntry::make('notes')
+                ->columnSpanFull(),
+            ])->columns(2)
+        ]);
     }
 
     public static function getRelations(): array
