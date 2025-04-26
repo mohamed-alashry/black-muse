@@ -112,6 +112,7 @@ class BookingResource extends Resource
         return [
             RelationManagers\FeaturesRelationManager::class,
             RelationManagers\MeetingRelationManager::class,
+            RelationManagers\AnswersRelationManager::class,
         ];
     }
 
