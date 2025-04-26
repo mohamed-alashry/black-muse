@@ -9,6 +9,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class FeaturesRelationManager extends RelationManager
 {
@@ -63,5 +64,41 @@ class FeaturesRelationManager extends RelationManager
                     Tables\Actions\DetachBulkAction::make(),
                 ]),
             ]);
+    }
+
+    // Disable all permissions
+    public function canCreate(): bool
+    {
+        return false;
+    }
+
+    public function canAttachAny(): bool
+    {
+        return false;
+    }
+
+    protected function canAttach(): bool
+    {
+        return false;
+    }
+
+    public function canDetachAny(): bool
+    {
+        return false;
+    }
+
+    protected function canDetach(Model $record): bool
+    {
+        return false;
+    }
+
+    public function canDelete($record): bool
+    {
+        return false;
+    }
+
+    public function canEdit($record): bool
+    {
+        return false;
     }
 }
