@@ -36,14 +36,15 @@ class SettingResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('key'),
-                Tables\Columns\TextColumn::make('value'),
+                Tables\Columns\TextColumn::make('value')
+                    ->limit(100),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-//                Tables\Actions\DeleteAction::make(),
+                //                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
 //                Tables\Actions\BulkActionGroup::make([
