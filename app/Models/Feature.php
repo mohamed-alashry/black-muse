@@ -25,4 +25,15 @@ class Feature extends Model
             ->withPivot('is_default')
             ->withTimestamps();
     }
+
+    public function bookings(): MorphToMany
+    {
+        return $this->morphedByMany(Booking::class, 'reservable', 'reserved_features')
+            ->withPivot([
+                'name',
+                'price',
+                'is_default',
+            ])
+            ->withTimestamps();
+    }
 }

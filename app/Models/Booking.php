@@ -54,7 +54,7 @@ class Booking extends Model
 
     public function features(): MorphToMany
     {
-        return $this->morphToMany(Feature::class, 'reservable')
+        return $this->morphToMany(Feature::class, 'reservable', 'reserved_features')
             ->withPivot([
                 'name',
                 'price',
