@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->decimal('total_price');
             $table->text('notes')->nullable();
             $table->enum('payment_status', ["down_payment", "full_payment"])->default('down_payment');
-            $table->enum('booking_status', ["new", "confirmed", "complete", "canceled"])->default('new');
+            $table->enum('booking_status', ["new", "confirmed", "complete", "cancelled"])->default('new');
             $table->timestamps();
         });
 

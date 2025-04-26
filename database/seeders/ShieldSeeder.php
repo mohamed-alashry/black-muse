@@ -26,7 +26,8 @@ class ShieldSeeder extends Seeder
         "view_feature","view_any_feature","create_feature","update_feature","restore_feature","restore_any_feature","replicate_feature","reorder_feature","delete_feature","delete_any_feature","force_delete_feature","force_delete_any_feature",
         "view_blocked_date","view_any_blocked_date","create_blocked_date","update_blocked_date","reorder_blocked_date","delete_blocked_date","delete_any_blocked_date",
         "view_question","view_any_question","create_question","update_question","restore_question","restore_any_question","replicate_question","reorder_question","delete_question","delete_any_question","force_delete_question","force_delete_any_question",
-        "view_setting","view_any_setting","create_setting","update_setting","restore_setting","restore_any_setting","replicate_setting","reorder_setting","delete_setting","delete_any_setting","force_delete_setting","force_delete_any_setting"
+        "view_setting","view_any_setting","create_setting","update_setting","restore_setting","restore_any_setting","replicate_setting","reorder_setting","delete_setting","delete_any_setting","force_delete_setting","force_delete_any_setting",
+        "view_booking","view_any_booking","create_booking","update_booking","restore_booking","restore_any_booking","replicate_booking","reorder_booking","delete_booking","delete_any_booking","force_delete_booking","force_delete_any_booking"
         ]}]';
         $directPermissions    = '';
 

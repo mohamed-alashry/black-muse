@@ -13,16 +13,24 @@ class Booking extends Model
 {
 
     protected $casts = [
-        'id' => 'integer',
+        'id'               => 'integer',
         'reference_number' => 'string',
-        'client_id' => 'integer',
-        'service_id' => 'integer',
-        'package_id' => 'integer',
-        'event_date' => 'date',
-        'paid_amount' => 'decimal',
-        'remaining_amount' => 'decimal',
-        'total_price' => 'decimal',
+        'client_id'        => 'integer',
+        'service_id'       => 'integer',
+        'package_id'       => 'integer',
+        'event_date'       => 'date',
+        'paid_amount'      => 'float',
+        'remaining_amount' => 'float',
+        'total_price'      => 'float',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($booking) {
+            $booking->reference_number = 'BK-' . strtoupper(uniqid());
+        });
+    }
 
     public function client(): BelongsTo
     {
