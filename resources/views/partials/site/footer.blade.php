@@ -31,12 +31,12 @@
     <div class=" container d-flex align-items-center justify-content-between flex-wrap gap-2 text-white">
         <p class="fw-lighter">All Rights Reserved © 2024</p>
         <div class="d-flex gap-2">
-            <img src="./images/mastercard.svg" alt="item">
-            <img src="./images/visa.svg" alt="item">
-            <img src="./images/tabby.svg" alt="item" s>
-            <img src="./images/tamara.svg" alt="item">
-            <img src="./images/ex.svg" alt="item">
-            <img src="./images/cash.svg" alt="item">
+            <img src="{{ asset('images/mastercard.svg') }}" alt="item">
+            <img src="{{ asset('images/visa.svg') }}" alt="item">
+            <img src="{{ asset('images/tabby.svg') }}" alt="item" s>
+            <img src="{{ asset('images/tamara.svg') }}" alt="item">
+            <img src="{{ asset('images/ex.svg') }}" alt="item">
+            <img src="{{ asset('images/cash.svg') }}" alt="item">
         </div>
         <p class="fw-lighter">Developed By: <strong>
                 Exception.com.sa

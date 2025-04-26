@@ -17,7 +17,7 @@
             <div class="d-flex align-items-center gap-1 btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               <div class="h-100 w-100 overflow-hidden">
-                <img src="./images/profile.png" alt="" srcset="">
+                <img src="{{ asset('images/profile.png') }}" alt="" srcset="">
               </div>
               <p class="text-white fw-light d-flex gap-1 align-items-center">
                 Welcome, <span class="fw-bold">{{ auth('client')->user()->name }}</span>

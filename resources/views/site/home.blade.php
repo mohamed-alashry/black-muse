@@ -37,7 +37,20 @@
                         <img src="{{ asset('storage/'.$service->photo) }}" alt="imagecard">
                         <div class="info-service px-1 py-3">
                             <h5>{{$service->name}}</h5>
-                            <button   @if (auth('client')->check()) class="btn btn-service"  @else class="btn btn-service"   data-bs-toggle="modal" data-bs-target="#loginModal" @endif type="button">Choose a Package Now</button>
+                            <button
+                              type="button"
+                              class="btn btn-service"
+                              @if(auth('client')->check())
+                                data-bs-toggle="modal"
+                                data-bs-target="#calendarModalToggle"
+                                data-service-id="{{ $service->id }}"
+                              @else
+                                data-bs-toggle="modal"
+                                data-bs-target="#loginModal"
+                              @endif
+                            >
+                              Choose a Package Now
+                            </button>
                         </div>
                     </div>
             @endforeach
@@ -123,5 +136,9 @@
                 </div>
             </section>
     @endforeach
+
+    
+    @include('partials.site.modals.booking_date')
+
 
 @endsection

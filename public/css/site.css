@@ -1,0 +1,33 @@
+   .toast-success {
+    background-color: #000 !important;
+     color: #fff !important;
+   }
+  .flatpickr-calendar,.flatpickr-months .flatpickr-month {
+    background-color: #000; 
+    color: #fff;           
+    border: 1px solid #444;
+  }
+
+  .flatpickr-calendar .flatpickr-day, span.flatpickr-weekday{
+    color: #fff;
+  }
+
+  .flatpickr-calendar .flatpickr-day:hover {
+    background-color: #444;
+  }
+
+  .flatpickr-calendar .flatpickr-day.today {
+    border-color: #fff;
+  }
+
+  .flatpickr-calendar .flatpickr-months,
+  .flatpickr-calendar .flatpickr-weekdays {
+    background-color: #111;
+    color: #fff;
+  }
+
+  .btn-choose-package.active {
+    background-color: white !important;
+    color: black !important;
+    border: 2px solid gold  !important;
+  }

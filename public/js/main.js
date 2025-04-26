@@ -44,25 +44,107 @@ $(document).ready(function () {
     },
   });
 });
-document.addEventListener('DOMContentLoaded', function () {
-  const calendarEl = document.getElementById('calendar');
-  const calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    headerToolbar: {
-      left: 'title',
-      center: '',
-      right: 'prev,next'
-    },
-    editable: true,
-    selectable: true,
-    select:((info=>{console.log(info.startStr);
-    })),
-    validRange:{
-      start:  new Date(new Date().setDate(new Date().getDate() + 1))
-    },
-    events:false
-    
-  });
 
-  calendar.render();
-});
+
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+
+
+function showTab(n) {
+    var x = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+
+    var nextBtn = document.getElementById("nextBtn");
+
+    if (n == 0) {
+        document.getElementById("prevBtn").style.display = "none";
+    } else {
+        document.getElementById("prevBtn").style.display = "inline";
+    }
+
+    if (currentTab === $(".tab").length - 1) {
+        nextBtn.innerHTML = "Submit";
+        nextBtn.classList.add("submit");
+        nextBtn.setAttribute("onclick", "submitFormWizard()");
+    } else {
+        nextBtn.innerHTML = "Next";
+        nextBtn.classList.remove("submit");
+        nextBtn.setAttribute("onclick", "nextPrev(1)");
+    }
+
+    fixStepIndicator(n);
+}
+
+function nextPrev(n) {
+  var x = document.getElementsByClassName("tab");
+
+  if (currentTab == x.length - 1 && n == 1) {
+    return false; 
+  }
+
+  x[currentTab].style.display = "none";
+
+  currentTab = currentTab + n;
+
+  showTab(currentTab);
+}
+
+
+
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class to the current step:
+  x[n].className += " active";
+
+    if (n === 2) {
+        $('#nextBtn').prop('disabled', true);
+    } else {
+        $('#nextBtn').prop('disabled', false);
+    }
+}
+
+
+function submitFormWizard() {
+  var form = document.getElementById('formWizard');
+  var formData = new FormData(form);
+  var actionUrl = form.getAttribute('action'); 
+
+  $.ajax({
+    url: actionUrl,
+    method: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+     beforeSend: function () {
+      $('.submit').prop('disabled', true).html(`
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...`);
+      $('.Msgs').html(""); 
+     },
+    complete: function () {
+         $('.submit').prop('disabled', false).html(`Submit`);
+      },
+    success: function(response) {
+      if (response.status === 'success') {
+         window.location.href = response.redirect_url; 
+        }else{
+         $('.Msgs').html(`<p style="padding:15px" class="text-danger">`+response.message+ `</p>`); 
+       }
+
+      },
+      error: function (xhr) {
+       let errors = xhr.responseJSON.errors;
+       let errorHtml = ``;
+        $.each(errors, function (key, value) {
+         errorHtml += `<div class="alert alert-danger">${value}</div>`;
+       });
+        errorHtml += ``;
+        $('.Msgs').html(errorHtml);
+      }
+  });
+}
