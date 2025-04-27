@@ -11,8 +11,8 @@ class SiteController extends Controller
     public function home()
     {
         $homePage   = Page::where('id', 1)->withActiveSections()->firstOrFail();
-        $portfolios = Portfolio::where('status', 'active')->orderBy('id','desc')->get();
-        $services   = Service::where('status', 'active')->orderBy('id','desc')->get();
+        $portfolios = Portfolio::where('status', 'active')->get();
+        $services   = Service::where('status', 'active')->get();
         return view('site.home', compact('homePage','portfolios','services'));
     }
 

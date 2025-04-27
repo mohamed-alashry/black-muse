@@ -28,7 +28,10 @@ class PackageResource extends Resource
                     ->required(),
                 Forms\Components\Select::make('service_id')
                     ->relationship('service', 'name')
-                    ->required(),
+                    ->required()
+                    ->native(false)
+                    ->searchable('name')
+                    ->preload(),
                 Forms\Components\TextInput::make('base_price')
                     ->required()
                     ->numeric()
@@ -68,7 +71,7 @@ class PackageResource extends Resource
             ])
             ->actions([
 //                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -88,10 +91,10 @@ class PackageResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPackages::route('/'),
+            'index'  => Pages\ListPackages::route('/'),
             'create' => Pages\CreatePackage::route('/create'),
-//            'view' => Pages\ViewPackage::route('/{record}'),
-            'edit' => Pages\EditPackage::route('/{record}/edit'),
+            //            'view' => Pages\ViewPackage::route('/{record}'),
+            'edit'   => Pages\EditPackage::route('/{record}/edit'),
         ];
     }
 }

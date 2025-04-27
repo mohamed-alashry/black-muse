@@ -11,6 +11,7 @@ use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class ServiceResource extends Resource
 {
@@ -26,13 +27,14 @@ class ServiceResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required(),
-                Forms\Components\FileUpload::make('photo')
-                    ->required()
-                    ->image(),
                 Forms\Components\Select::make('status')
                     ->options(['active' => 'active', 'inactive' => 'inactive'])
                     ->default('active')
                     ->required(),
+                Forms\Components\FileUpload::make('photo')
+                    ->required()
+                    ->image(),
+                Forms\Components\Textarea::make('description'),
             ]);
     }
 
@@ -42,6 +44,7 @@ class ServiceResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('category'),
                 Tables\Columns\ImageColumn::make('photo'),
                 Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('created_at')

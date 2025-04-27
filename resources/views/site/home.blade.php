@@ -32,7 +32,7 @@
 
          <div class="services-carousel owl-carousel">
              <!-- Services slider -->
-            @foreach($services as $service)
+            @foreach($services->where('category', 'photography') as $service)
                     <div class="service-card">
                         <img src="{{ asset('storage/'.$service->photo) }}" alt="imagecard">
                         <div class="info-service px-1 py-3">
@@ -101,24 +101,15 @@
                     </a>
                 </div>
                 <!-- Two example cards -->
-                @for ($i = 0; $i < 2; $i++)
-                    <div class="bindery-card">
-                        <img src="{{ asset('images/imagecard.png') }}" alt="imagecard">
-                        <div class="info-bindery p-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5>Wedding Services</h5>
-                                <div>
-                                    <span class="fw-lighter">starts from</span>
-                                    <div class="d-flex align-items-center gap-1">
-                                        <p class="fs-4 lh-1">200</p>
-                                        <span class="text-uppercase fw-lighter lh-1">SAR</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn btn-bindery" type="button">Choose a Package Now</button>
+                @foreach($services->where('category', '!=', 'photography') as $service)
+                    <div class="service-card">
+                        <img src="{{ asset('storage/'.$service->photo) }}" alt="imagecard">
+                        <div class="info-service px-1 py-3">
+                                <h5>{{ $service->name  }}</h5>
+                            <button class="btn btn-service" type="button">Choose a Package Now</button>
                         </div>
                     </div>
-                @endfor
+                @endforeach
             </div>
         </div>
     </section>
@@ -137,7 +128,7 @@
             </section>
     @endforeach
 
-    
+
     @include('partials.site.modals.booking_date')
 
 

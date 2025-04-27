@@ -13,7 +13,7 @@ class Package extends Model
 {
     use HasFactory, HasTranslations;
 
-    public array $translatable = ['name'];
+    public array $translatable = ['name', 'description'];
 
     protected function casts(): array
     {
