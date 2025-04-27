@@ -42,6 +42,7 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
+            ->navigationGroups($this->getNavigationGroups())
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -60,5 +61,17 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+    }
+
+    public function getNavigationGroups(): array
+    {
+        return [
+            'Dashboard',
+            'Bookings',
+            'Services',
+            'Website Content',
+            'User Management',
+            'Settings',
+        ];
     }
 }
