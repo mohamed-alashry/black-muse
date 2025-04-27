@@ -51,10 +51,10 @@ class BookingResource extends Resource
 //                    ->options(['down_payment' => 'down_payment', 'full_payment' => 'full_payment'])
 //                    ->default('down_payment')
 //                    ->required(),
-Forms\Components\Select::make('booking_status')
-    ->options(['new' => 'new', 'confirmed' => 'confirmed', 'complete' => 'complete', 'cancelled' => 'cancelled'])
-    ->default('new')
-    ->required(),
+                Forms\Components\Select::make('booking_status')
+                    ->options(['new' => 'new', 'confirmed' => 'confirmed', 'complete' => 'complete', 'cancelled' => 'cancelled'])
+                    ->default('new')
+                    ->required(),
             ]);
     }
 
@@ -127,7 +127,7 @@ Forms\Components\Select::make('booking_status')
                 TextEntry::make('created_at'),
                 TextEntry::make('updated_at'),
                 TextEntry::make('notes')
-                ->columnSpanFull(),
+                    ->columnSpanFull(),
             ])->columns(2)
         ]);
     }
