@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\BookingResource\RelationManagers;
+namespace App\Filament\Resources\OrderResource\RelationManagers;
 
 use App\Models\Feature;
 use Filament\Forms;
