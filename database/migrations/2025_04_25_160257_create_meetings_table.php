@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('booking_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->dateTime('start_at');
-            $table->dateTime('end_at');
+            $table->date('date');
+            $table->time('start_at');
+            $table->time('end_at');
             $table->unsignedTinyInteger('duration')->comment('in minutes');
             $table->enum('type', ["online", "offline"])->default('online');
             $table->string('link')->nullable();
