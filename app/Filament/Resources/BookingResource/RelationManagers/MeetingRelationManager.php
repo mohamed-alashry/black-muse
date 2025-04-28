@@ -31,12 +31,14 @@ class MeetingRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('start_at')
+            ->recordTitleAttribute('date')
             ->columns([
+                Tables\Columns\TextColumn::make('date')
+                    ->date(),
                 Tables\Columns\TextColumn::make('start_at')
-                    ->dateTime(),
+                    ->time(),
                 Tables\Columns\TextColumn::make('end_at')
-                    ->dateTime(),
+                    ->time(),
                 Tables\Columns\TextColumn::make('duration')
                     ->suffix(' min'),
                 Tables\Columns\TextColumn::make('type'),
