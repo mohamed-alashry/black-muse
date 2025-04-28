@@ -31,10 +31,17 @@ Route::middleware(['auth:client'])->group(function () {
 
     //services and packages
     Route::get('/service-packages/{id}', [ServiceController::class, 'showAvailablePackages'])->name('site.service.packages');
+   
     //service booking
     Route::post('service/booking/cache', [ServiceController::class, 'cacheBooking'])->name('service.booking.cache');
     Route::get('service/booking/confirm', [ServiceController::class, 'confirmBooking'])->name('service.booking.confirm');
     Route::post('service/booking/store', [ServiceController::class, 'storeBooking'])->name('service.booking.store');
+    Route::get('service/booking', [ServiceController::class, 'viewBooking'])->name('service.booking.show');
+
     //meeting
     Route::get('service/meeting/confirm/{id}', [ServiceController::class, 'confirmMeeting'])->name('service.meeting.confirm');
+    Route::post('service/meeting/available-times', [ServiceController::class, 'availableTimes']);
+    Route::post('/service/meeting/save', [ServiceController::class, 'save']);
+
+
 });
