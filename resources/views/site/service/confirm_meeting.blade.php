@@ -14,22 +14,24 @@
      ])
 
 
+  <input type="hidden" id="booking_id" value="{{request('id')}}">
   <section class="py-5 bg-main">
     <div class="container">
       <div class="table-profile">
-        <div class="table-header justify-content-center">
-          <h4>
-            You’ve Successfully Paid the downpayment
-            <span class="bg-white text-black rounded px-1">
-              <i class="fas fa-check"></i>
-            </span>
-          </h4>
+        <div class="table-header">
+          <h5 class="fw-light">Choose the Meeting Time</h5>
+          <div class="">Online meeting
+            <!-- <select class="form-select">
+              <option value="1" selected>Online meeting</option>
+              <option value="2">Offline meeting</option>
+            </select> -->
+          </div>
         </div>
         <div class="row p-4">
           <!-- First Section -->
           <div class="col-md-6">
-            <div class="d-flex flex-column gap-2 pt-5">
-              <h5>Choose your Meeting way</h5>
+            <div class="d-flex flex-column pt-5">
+              <h5>Why we need this meeting:</h5>
               <span class="py-2 fw-lighter">
                 Text to explain why user should pay this downpayment Text to
                 explain why user should pay this downpayment Text to explain
@@ -54,29 +56,52 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="rounded-5" style="border: 1px solid rgba(255, 255, 255, 0.1)">
+            <div class="rounded-5 meeting_date" style="border: 1px solid rgba(255, 255, 255, 0.1)">
               <div class="table-header">
-                <h5>Your Meeting Details</h5>
+                <h5>Meeting Date</h5>
               </div>
-              <div class="p-4 d-flex flex-column gap-3 align-items-center">
-                <button class="btn bg-white text-black rounded-3 w-100">
+              <div class="p-4 d-flex flex-column gap-2 align-items-center">
+                <input type="date" class="datepicker" id="meeting_date"/>
+                <button id="confirm_date_meeting" 
+                  class="btn bg-white mb-1 fw-bold text-black rounded-3">
                   <i class="far fa-calendar-plus"></i>
-                  Online Meeting
-                </button>
-                <button class="btn bg-white text-black rounded-3 w-100">
-                  <i class="fa-solid fa-building"></i>
-                  Meeting at our Office
-                </button>
-                <button class="btn bg-white text-black rounded-3 w-100">
-                  <i class="fa-solid fa-location-crosshairs"></i> Meeting at
-                  your Location
+                  Confirm This Date Now
                 </button>
               </div>
             </div>
+            <br>
+            <div class="rounded-5 d-flex flex-column gap-2 meeting_time" style="border: 1px solid rgba(255, 255, 255, 0.1);display:none !important;">
+              <div class="table-header">
+                <h5>Meeting Time</h5>
+              </div>
+              <div class="p-4 d-flex flex-column gap-4 align-items-center">
+                <div class="d-flex justify-content-between align-items-center w-100">
+                  <button class="btn border rounded-4 text-white w-50" type="button" id="change_date">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Choose
+                    Another Date
+                  </button>
+                  <h5 style="margin:auto;" id="date_selected_text"></h5>
+                </div>
+                <div class="d-flex flex-wrap gap-2 justify-content-center w-100" id="timeSlots">
+                 
+                </div>
+                <button class="btn bg-white mb-1 fw-bold text-black rounded-3" id="confirm_time_meeting">
+                  <i class="far fa-calendar-plus"></i>
+                  Confirm This Date Now
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
   </section>
+
+
+
+    @push('scripts')
+        <script src="{{ asset('js/pages/meeting.js') }}"></script>
+    @endpush
 
 @endsection

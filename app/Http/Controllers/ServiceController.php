@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon;
 use Illuminate\Http\File;
 use App\Models\Service;
 use App\Models\Package;
@@ -16,6 +15,9 @@ use App\Models\Booking;
 use App\Models\BlockedDate;
 use App\Models\ReservedFeatures;
 use App\Models\Answer;
+use App\Models\Meeting;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class ServiceController extends Controller
 {
@@ -275,5 +277,73 @@ class ServiceController extends Controller
     public function confirmMeeting($id)
     {
         return view('site.service.confirm_meeting');
+    }
+
+    public function availableTimes(Request $request)
+    {
+        $date = $request->input('date'); 
+        $startTime = setting('meeting_start_time');
+        $endTime   = setting('meeting_end_time');
+        $duration  = setting('meeting_duration');  /// in minutes
+
+        $start = Carbon::createFromFormat('Y-m-d H:i', "$date $startTime");
+        $end = Carbon::createFromFormat('Y-m-d H:i', "$date $endTime");
+        $period = CarbonPeriod::create($start, "{$duration} minutes", $end);
+
+        $bookedMeetings = Meeting::whereDate('date', $date)->get();
+
+        $bookedSlots = [];
+        foreach ($bookedMeetings as $meeting) {
+            $bookedSlots[] = Carbon::parse($meeting->start_at)->format('H:i');
+        }
+
+        $availableTimes = [];
+        
+          while ($start->copy()->addMinutes((int) $duration)->lte($end)) {
+                $from = $start->format('h:i');
+                $to = $start->copy()->addMinutes((int) $duration)->format('h:i a');
+                if (!in_array($from, $bookedSlots)) {
+                    $availableTimes[] = [
+                        'from' => $from,
+                        'to' => $to,
+                    ];
+                }
+
+                $start->addMinutes((int) $duration);
+            }
+
+        return response()->json([
+            'status' => 'success',
+            'times'  => $availableTimes,
+        ]);
+    }
+    public function save(Request $request)
+    {
+        $request->validate([
+            'date'       => 'required|date',
+            'booking_id' => 'required',
+            'from'       => 'required',
+            'to'         => 'required',
+        ]);
+
+        $meeting = new Meeting();
+        $meeting->booking_id = $request->booking_id;
+        $meeting->date       = $request->date;
+        $meeting->start_at   = str_replace([' ','am','pm'],'',$request->from);
+        $meeting->end_at     = str_replace([' ','am','pm'],'',$request->to);
+        $meeting->duration   = setting('meeting_duration');
+        $meeting->save();
+
+        return response()->json([
+            'message' => 'Meeting saved successfully.',
+            'meeting_id' => $meeting->id,
+        ]);
+    }
+    public function viewBooking()
+    { 
+        $id      = request('id');
+        $booking = booking::with('package.features')->findOrFail($id);
+
+        return view('site.service.view_booking',compact("booking"));
     }
 }
