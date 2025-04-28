@@ -54,7 +54,7 @@ class BookingResource extends Resource
 //                    ->default('down_payment')
 //                    ->required(),
                 Forms\Components\Select::make('booking_status')
-                    ->options(['new' => 'new', 'confirmed' => 'confirmed', 'complete' => 'complete', 'cancelled' => 'cancelled'])
+                    ->options(['new' => 'new', 'confirmed' => 'confirmed', 'completed' => 'completed', 'cancelled' => 'cancelled'])
                     ->default('new')
                     ->required(),
             ]);

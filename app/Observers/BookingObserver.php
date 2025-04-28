@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\User;
 use App\Notifications\BookingCreated;
 use App\Notifications\BookingReceived;
+use App\Notifications\BookingStatusChanged;
 use Illuminate\Contracts\Events\ShouldHandleEventsAfterCommit;
 
 class BookingObserver implements ShouldHandleEventsAfterCommit
@@ -17,7 +18,10 @@ class BookingObserver implements ShouldHandleEventsAfterCommit
     {
         $admin = User::find(1);
 
+        # Send Notification to Admin
         $admin->notify(new BookingCreated($booking));
+
+        # Send Notification to Client
         $booking->client->notify(new BookingReceived($booking));
     }
 
@@ -26,7 +30,9 @@ class BookingObserver implements ShouldHandleEventsAfterCommit
      */
     public function updated(Booking $booking): void
     {
-        //
+        if ($booking->isDirty('booking_status')) {
+            $booking->client->notify(new BookingStatusChanged($booking));
+        }
     }
 
     /**

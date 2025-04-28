@@ -11,8 +11,8 @@
 
       <div class="collapse navbar-collapse  d-md-flex flex-md-column align-items-end flex-sm-column-reverse "
         id="navbarToggler">
-      
-      @if (auth('client')->check())   
+
+      @if (auth('client')->check())
         <div class="dropdown">
             <div class="d-flex align-items-center gap-1 btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
               aria-expanded="false">
@@ -69,7 +69,7 @@
             <a class="nav-link text-white" href="{{ route('site.contact') }}">Contact Us</a>
           </li>
         </ul>
-        
+
       </div>
     </div>
   </nav>

@@ -258,7 +258,8 @@ class ServiceController extends Controller
 
         Cache::forget($cacheKey);
         session()->flash('success', 'Booking confirmed successfully.');
-        return redirect()->route('service.meeting.confirm', $booking->id);
+
+        return redirect()->route('booking.meeting.confirm', $booking->id);
     }
 
     protected function moveAnswerToStorage($answer)
@@ -286,7 +287,7 @@ class ServiceController extends Controller
 
     public function availableTimes(Request $request)
     {
-        $date = $request->input('date'); 
+        $date = $request->input('date');
         $startTime = setting('meeting_start_time');
         $endTime   = setting('meeting_end_time');
         $duration  = setting('meeting_duration');  /// in minutes
@@ -303,7 +304,7 @@ class ServiceController extends Controller
         }
 
         $availableTimes = [];
-        
+
           while ($start->copy()->addMinutes((int) $duration)->lte($end)) {
                 $from = $start->format('h:i');
                 $to = $start->copy()->addMinutes((int) $duration)->format('h:i a');
@@ -344,9 +345,9 @@ class ServiceController extends Controller
             'meeting_id' => $meeting->id,
         ]);
     }
-    
+
     public function viewBooking()
-    { 
+    {
         $id      = request('id');
         $booking = booking::with('package.features')->findOrFail($id);
 
@@ -354,7 +355,7 @@ class ServiceController extends Controller
     }
 
     public function viewMeeting($id)
-    { 
+    {
         $meeting = Meeting::findOrFail($id);
         return view('site.service.join_meeting',compact("meeting"));
     }

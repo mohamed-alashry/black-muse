@@ -52,6 +52,7 @@ Route::get('/notification', function () {
     $user = \App\Models\User::find(1);
 
 //    return (new \App\Notifications\BookingCreated($booking))
-    return (new \App\Notifications\BookingReceived($booking))
+//    return (new \App\Notifications\BookingReceived($booking))
+    return (new \App\Notifications\BookingStatusChanged($booking))
         ->toMail($booking->client);
 });

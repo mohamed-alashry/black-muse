@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class BookingReceived extends Notification implements ShouldQueue
+class BookingStatusChanged extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -35,10 +35,10 @@ class BookingReceived extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Booking Received')
-            ->markdown('mail.booking.received', [
+            ->subject($this->generateSubject())
+            ->markdown('mail.booking.status-changed', [
                 'booking' => $this->booking,
-                'locale' => app()->getLocale(),
+                'notifiable' => $notifiable,
             ]);
     }
 
@@ -52,5 +52,19 @@ class BookingReceived extends Notification implements ShouldQueue
         return [
             //
         ];
+    }
+
+    protected function generateSubject()
+    {
+        switch ($this->booking->booking_status) {
+            case 'confirmed':
+                return __('Booking Confirmed');
+            case 'cancelled':
+                return __('Booking Cancelled');
+            case 'completed':
+                return __('Booking Completed');
+            default:
+                return __('Booking Updated');
+        }
     }
 }
