@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Booking;
 use App\Models\User;
 use App\Notifications\BookingCreated;
+use App\Notifications\BookingReceived;
 use Illuminate\Contracts\Events\ShouldHandleEventsAfterCommit;
 
 class BookingObserver implements ShouldHandleEventsAfterCommit
@@ -17,6 +18,7 @@ class BookingObserver implements ShouldHandleEventsAfterCommit
         $admin = User::find(1);
 
         $admin->notify(new BookingCreated($booking));
+        $booking->client->notify(new BookingReceived($booking));
     }
 
     /**
