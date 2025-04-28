@@ -43,6 +43,8 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\FilamentInfoWidget::class,
             ])
             ->navigationGroups($this->getNavigationGroups())
+            ->databaseNotifications()
+            ->databaseNotificationsPolling(60)
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
