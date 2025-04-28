@@ -39,9 +39,10 @@ Route::middleware(['auth:client'])->group(function () {
     Route::get('service/booking', [ServiceController::class, 'viewBooking'])->name('service.booking.show');
 
     //meeting
-    Route::get('service/meeting/confirm/{id}', [ServiceController::class, 'confirmMeeting'])->name('service.meeting.confirm');
-    Route::post('service/meeting/available-times', [ServiceController::class, 'availableTimes']);
-    Route::post('/service/meeting/save', [ServiceController::class, 'save']);
+    Route::get('booking/meeting/{id}', [ServiceController::class, 'viewMeeting'])->name('booking.meeting.show');
+    Route::get('booking/meeting/confirm/{id}', [ServiceController::class, 'confirmMeeting'])->name('booking.meeting.confirm');
+    Route::post('booking/meeting/available-times', [ServiceController::class, 'availableTimes']);
+    Route::post('/booking/meeting/save', [ServiceController::class, 'save']);
 
 
 });

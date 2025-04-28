@@ -21,7 +21,7 @@ $(document).ready(function () {
 
     function fetchAvailableTimes(date, button) {
         $.ajax({
-            url: '/service/meeting/available-times',  
+            url: '/booking/meeting/available-times',  
             type: 'POST',
             data: {
                 date: date,
@@ -74,7 +74,7 @@ $(document).ready(function () {
     const toTime = selectedButton.data('to');      
 
     $.ajax({
-        url: '/service/meeting/save',
+        url: '/booking/meeting/save',
         type: 'POST',
         data: {
             booking_id : $('#booking_id').val(),

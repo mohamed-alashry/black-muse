@@ -10,7 +10,7 @@
      @include('partials.site.hero-section', [
          'title' => 'Confirm  ',
          'highlight' => 'Meeting',
-         'breadcrumb' => 'Meeting'
+         'breadcrumb' => 'Meeting / '.$booking->reference_number
      ])
 
 

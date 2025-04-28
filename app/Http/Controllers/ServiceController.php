@@ -276,7 +276,12 @@ class ServiceController extends Controller
 
     public function confirmMeeting($id)
     {
-        return view('site.service.confirm_meeting');
+      $booking = Booking::where('id',$id)->first();
+      $meeting = Meeting::where('booking_id',$id)->first();
+      if(!$meeting){
+        return view('site.service.confirm_meeting',compact('booking','meeting'));
+      }
+      return redirect()->route('site.home');
     }
 
     public function availableTimes(Request $request)
@@ -339,11 +344,18 @@ class ServiceController extends Controller
             'meeting_id' => $meeting->id,
         ]);
     }
+    
     public function viewBooking()
     { 
         $id      = request('id');
         $booking = booking::with('package.features')->findOrFail($id);
 
         return view('site.service.view_booking',compact("booking"));
+    }
+
+    public function viewMeeting($id)
+    { 
+        $meeting = Meeting::findOrFail($id);
+        return view('site.service.join_meeting',compact("meeting"));
     }
 }
