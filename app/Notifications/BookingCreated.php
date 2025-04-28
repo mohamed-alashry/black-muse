@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Filament\Notifications\Notification as FilamentNotification;
 
-class BookingCreatedNotification extends Notification implements ShouldQueue
+class BookingCreated extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -36,7 +36,9 @@ class BookingCreatedNotification extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)->markdown('mail.booking.created');
+        return (new MailMessage)
+            ->subject('New Booking Created')
+            ->markdown('mail.booking.created', ['booking' => $this->booking]);
     }
 
     /**

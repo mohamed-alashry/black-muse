@@ -31,7 +31,7 @@ Route::middleware(['auth:client'])->group(function () {
 
     //services and packages
     Route::get('/service-packages/{id}', [ServiceController::class, 'showAvailablePackages'])->name('site.service.packages');
-   
+
     //service booking
     Route::post('service/booking/cache', [ServiceController::class, 'cacheBooking'])->name('service.booking.cache');
     Route::get('service/booking/confirm', [ServiceController::class, 'confirmBooking'])->name('service.booking.confirm');
@@ -44,4 +44,12 @@ Route::middleware(['auth:client'])->group(function () {
     Route::post('/service/meeting/save', [ServiceController::class, 'save']);
 
 
+});
+
+Route::get('/notification', function () {
+    $booking = \App\Models\Booking::find(22);
+    $user = \App\Models\User::find(1);
+
+    return (new \App\Notifications\BookingCreated($booking))
+        ->toMail($user);
 });
