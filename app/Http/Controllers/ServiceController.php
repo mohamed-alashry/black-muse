@@ -331,8 +331,10 @@ class ServiceController extends Controller
             'to'         => 'required',
         ]);
 
+        $link = $this->generateJitsiMeetingLink($request->booking_id);
         $meeting = new Meeting();
         $meeting->booking_id = $request->booking_id;
+        $meeting->link       = $link;
         $meeting->date       = $request->date;
         $meeting->start_at   = str_replace([' ','am','pm'],'',$request->from);
         $meeting->end_at     = str_replace([' ','am','pm'],'',$request->to);
@@ -353,9 +355,12 @@ class ServiceController extends Controller
         return view('site.service.view_booking',compact("booking"));
     }
 
-    public function viewMeeting($id)
-    { 
-        $meeting = Meeting::findOrFail($id);
-        return view('site.service.join_meeting',compact("meeting"));
+    private function generateJitsiMeetingLink($booking_id)
+    {
+        $booking = booking::findOrFail($booking_id);
+        $domain = 'https://meet.jit.si'; 
+        $roomName = $booking->reference_number; 
+        $meetingLink = $domain . '/' . $roomName;
+        return $meetingLink;
     }
 }

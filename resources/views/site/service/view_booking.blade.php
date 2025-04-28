@@ -132,7 +132,7 @@
                       <div class="p-3 ps-5">
                       
                         <ul class="meeting-details-list d-flex flex-column gap-3">
-                          @if($booking->meeting->count() > 0)
+                          @if($booking->meeting)
                             <li>
                               <span class="label">Meeting Date:</span>
                               <span>
@@ -155,7 +155,7 @@
                             </li>
                             <li>
                               <span class="label">Meeting Link:</span>
-                              <a target="_blank" href="{{url('booking/meeting/'.$booking->meeting->id)}}">Join Meeting</a>
+                              <a target="_blank" href="{{$booking->meeting->link}}">Join Meeting</a>
                             </li>
                            @else
                                <a href="{{url('booking/meeting/confirm/'.$booking->id)}}" id="confirm_date_meeting" style="margin:auto;" 
