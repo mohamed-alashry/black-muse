@@ -106,7 +106,7 @@
                         <img src="{{ asset('storage/'.$service->photo) }}" alt="imagecard">
                         <div class="info-service px-1 py-3">
                                 <h5>{{ $service->name  }}</h5>
-                            <button class="btn btn-service" type="button">Choose a Package Now</button>
+                            <a href="{{ route('site.service.packages', $service->id) }}" class="btn btn-service" type="button">Choose a Package Now</a>
                         </div>
                     </div>
                 @endforeach

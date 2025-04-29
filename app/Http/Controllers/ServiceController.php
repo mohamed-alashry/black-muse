@@ -23,26 +23,26 @@ class ServiceController extends Controller
 {
     public function showAvailablePackages($id, Request $request)
     {
-        if ($request->has('booking_date')) {
-            $date          = $request->booking_date;
-            $formattedDate = Carbon::parse($date)->format('d-m-Y');
-            $service       = Service::with(['questions.options'])->findOrFail($id);
-            $packages      = $service->packages()
-                ->where('status', 'active')
-                ->whereDoesntHave('blockedDates', function (Builder $query) use ($date) {
-                    $query->whereDate('date', $date);
-                })
-                ->with(['features' => function ($query) {
-                    $query->where('status', 'active')
-                        ->orderBy('featureables.is_default', 'desc');
-                }])->get();
-            $questions     = $service->questions;
+        $service = Service::with(['questions.options'])->findOrFail($id);
 
-            return view('site.service.packages', compact('formattedDate', 'service', 'packages', 'questions'));
-
-        } else {
+        if ($service->category === 'photography' && !$request->has('booking_date')) {
             return redirect()->back()->with('error', "Please select a date first.");
         }
+
+        $packages  = $service->packages()
+            ->where('status', 'active')
+            ->when($request->get('booking_date'), function ($query, $date) {
+                $query->whereDoesntHave('blockedDates', function (Builder $q) use ($date) {
+                    $q->whereDate('date', $date);
+                });
+            })
+            ->with(['features' => function ($query) {
+                $query->where('status', 'active')
+                    ->orderBy('featureables.is_default', 'desc');
+            }])->get();
+        $questions = $service->questions;
+
+        return view('site.service.packages', compact('service', 'packages', 'questions'));
 
     }
 
@@ -277,23 +277,23 @@ class ServiceController extends Controller
 
     public function confirmMeeting($id)
     {
-      $booking = Booking::where('id',$id)->first();
-      $meeting = Meeting::where('booking_id',$id)->first();
-      if(!$meeting){
-        return view('site.service.confirm_meeting',compact('booking','meeting'));
-      }
-      return redirect()->route('site.home');
+        $booking = Booking::where('id', $id)->first();
+        $meeting = Meeting::where('booking_id', $id)->first();
+        if (!$meeting) {
+            return view('site.service.confirm_meeting', compact('booking', 'meeting'));
+        }
+        return redirect()->route('site.home');
     }
 
     public function availableTimes(Request $request)
     {
-        $date = $request->input('date');
+        $date      = $request->input('date');
         $startTime = setting('meeting_start_time');
         $endTime   = setting('meeting_end_time');
         $duration  = setting('meeting_duration');  /// in minutes
 
-        $start = Carbon::createFromFormat('Y-m-d H:i', "$date $startTime");
-        $end = Carbon::createFromFormat('Y-m-d H:i', "$date $endTime");
+        $start  = Carbon::createFromFormat('Y-m-d H:i', "$date $startTime");
+        $end    = Carbon::createFromFormat('Y-m-d H:i', "$date $endTime");
         $period = CarbonPeriod::create($start, "{$duration} minutes", $end);
 
         $bookedMeetings = Meeting::whereDate('date', $date)->get();
@@ -305,24 +305,25 @@ class ServiceController extends Controller
 
         $availableTimes = [];
 
-          while ($start->copy()->addMinutes((int) $duration)->lte($end)) {
-                $from = $start->format('h:i');
-                $to = $start->copy()->addMinutes((int) $duration)->format('h:i a');
-                if (!in_array($from, $bookedSlots)) {
-                    $availableTimes[] = [
-                        'from' => $from,
-                        'to' => $to,
-                    ];
-                }
-
-                $start->addMinutes((int) $duration);
+        while ($start->copy()->addMinutes((int)$duration)->lte($end)) {
+            $from = $start->format('h:i');
+            $to   = $start->copy()->addMinutes((int)$duration)->format('h:i a');
+            if (!in_array($from, $bookedSlots)) {
+                $availableTimes[] = [
+                    'from' => $from,
+                    'to'   => $to,
+                ];
             }
+
+            $start->addMinutes((int)$duration);
+        }
 
         return response()->json([
             'status' => 'success',
             'times'  => $availableTimes,
         ]);
     }
+
     public function save(Request $request)
     {
         $request->validate([
@@ -332,18 +333,18 @@ class ServiceController extends Controller
             'to'         => 'required',
         ]);
 
-        $link = $this->generateJitsiMeetingLink($request->booking_id);
-        $meeting = new Meeting();
+        $link                = $this->generateJitsiMeetingLink($request->booking_id);
+        $meeting             = new Meeting();
         $meeting->booking_id = $request->booking_id;
         $meeting->link       = $link;
         $meeting->date       = $request->date;
-        $meeting->start_at   = str_replace([' ','am','pm'],'',$request->from);
-        $meeting->end_at     = str_replace([' ','am','pm'],'',$request->to);
+        $meeting->start_at   = str_replace([' ', 'am', 'pm'], '', $request->from);
+        $meeting->end_at     = str_replace([' ', 'am', 'pm'], '', $request->to);
         $meeting->duration   = setting('meeting_duration');
         $meeting->save();
 
         return response()->json([
-            'message' => 'Meeting saved successfully.',
+            'message'    => 'Meeting saved successfully.',
             'meeting_id' => $meeting->id,
         ]);
     }
@@ -353,14 +354,14 @@ class ServiceController extends Controller
         $id      = request('id');
         $booking = booking::with('package.features')->findOrFail($id);
 
-        return view('site.service.view_booking',compact("booking"));
+        return view('site.service.view_booking', compact("booking"));
     }
 
     private function generateJitsiMeetingLink($booking_id)
     {
-        $booking = booking::findOrFail($booking_id);
-        $domain = 'https://meet.jit.si';
-        $roomName = $booking->reference_number;
+        $booking     = booking::findOrFail($booking_id);
+        $domain      = 'https://meet.jit.si';
+        $roomName    = $booking->reference_number;
         $meetingLink = $domain . '/' . $roomName;
         return $meetingLink;
     }

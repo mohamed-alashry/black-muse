@@ -17,7 +17,7 @@
         <section class="py-5 bg-main">
             <div class="container">
                 <div class="alert alert-info">
-                    <p>No packages are available on this day ({{$formattedDate}}).</p>
+                    <p>No packages available.</p>
                 </div>
             </div>
         </section>
@@ -34,7 +34,9 @@
                             <h1 class="fs-4 fw-lighter">
                                 <strong class="text-gold">{{$service->name}}</strong> Service
                             </h1>
-                            <p class="fw-lighter">Available packages on: {{$formattedDate}} </p>
+                            @if(request('booking_date'))
+                                <p class="fw-lighter">Available packages on: {{request('booking_date')}} </p>
+                            @endif
                         </div>
                         <div class="packages-section">
                             <input type="hidden" name="booking_date" value="{{request('booking_date')}}">
