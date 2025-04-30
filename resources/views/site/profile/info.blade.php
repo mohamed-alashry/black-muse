@@ -149,7 +149,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                   
+
                   @foreach($client->bookings as $booking)
                         <tr>
                             <td>#{{ $booking->id }}</td>
@@ -160,7 +160,7 @@
                             <td>{{ $booking->paid_amount }} <span class="small">SAR</span></td>
                             <td> {{ ucfirst($booking->booking_status) }}</td>
                             <td>
-                                <a href="{{url('service/booking?id='.$booking->id)}}" class="btn border rounded">
+                                <a href="{{route('service.booking.show', $booking->id)}}" class="btn border rounded">
                                     <i class="fa-solid fa-arrow-right text-white"></i>
                                 </a>
                             </td>

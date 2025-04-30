@@ -25,7 +25,7 @@
     @else
         <section class="py-5 bg-main">
             <div class="container">
-                <form id="formWizard" action="{{route('service.booking.cache')}}" enctype="multipart/form-data">
+                <form id="formWizard" action="{{route('service.reservation.cache')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="text-white mt-3 Msgs"></div>
                     <!-- One "tab" for each step in the form: -->
@@ -34,12 +34,12 @@
                             <h1 class="fs-4 fw-lighter">
                                 <strong class="text-gold">{{$service->name}}</strong> Service
                             </h1>
-                            @if(request('booking_date'))
-                                <p class="fw-lighter">Available packages on: {{request('booking_date')}} </p>
+                            @if(request('event_date'))
+                                <p class="fw-lighter">Available packages on: {{request('event_date')}} </p>
                             @endif
                         </div>
                         <div class="packages-section">
-                            <input type="hidden" name="booking_date" value="{{request('booking_date')}}">
+                            <input type="hidden" name="event_date" value="{{request('event_date')}}">
                             <input type="hidden" name="service_id" value="{{$service->id}}">
                             <input type="hidden" name="package_id" id="selectedPackageId">
                             @foreach($packages as $package)

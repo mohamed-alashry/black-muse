@@ -32,11 +32,13 @@ Route::middleware(['auth:client'])->group(function () {
     //services and packages
     Route::get('/service-packages/{id}', [ServiceController::class, 'showAvailablePackages'])->name('site.service.packages');
 
-    //service booking
-    Route::post('service/booking/cache', [ServiceController::class, 'cacheBooking'])->name('service.booking.cache');
-    Route::get('service/booking/confirm', [ServiceController::class, 'confirmBooking'])->name('service.booking.confirm');
+    //service reservation
+    Route::post('service/reservation/cache', [ServiceController::class, 'cacheReservation'])->name('service.reservation.cache');
+    Route::get('service/reservation/confirm', [ServiceController::class, 'confirmReservation'])->name('service.reservation.confirm');
     Route::post('service/booking/store', [ServiceController::class, 'storeBooking'])->name('service.booking.store');
-    Route::get('service/booking', [ServiceController::class, 'viewBooking'])->name('service.booking.show');
+    Route::get('service/booking/{id}', [ServiceController::class, 'viewBooking'])->name('service.booking.show');
+    Route::post('service/order/store', [ServiceController::class, 'storeOrder'])->name('service.order.store');
+    Route::get('service/order/{id}', [ServiceController::class, 'viewOrder'])->name('service.order.show');
 
     //meeting
     Route::get('booking/meeting/confirm/{id}', [ServiceController::class, 'confirmMeeting'])->name('booking.meeting.confirm');

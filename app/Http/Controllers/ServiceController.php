@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
@@ -25,13 +26,13 @@ class ServiceController extends Controller
     {
         $service = Service::with(['questions.options'])->findOrFail($id);
 
-        if ($service->category === 'photography' && !$request->has('booking_date')) {
+        if ($service->category === 'photography' && !$request->has('event_date')) {
             return redirect()->back()->with('error', "Please select a date first.");
         }
 
         $packages  = $service->packages()
             ->where('status', 'active')
-            ->when($request->get('booking_date'), function ($query, $date) {
+            ->when($request->get('event_date'), function ($query, $date) {
                 $query->whereDoesntHave('blockedDates', function (Builder $q) use ($date) {
                     $q->whereDate('date', $date);
                 });
@@ -46,47 +47,51 @@ class ServiceController extends Controller
 
     }
 
-    public function cacheBooking(Request $request)
+    public function cacheReservation(Request $request)
     {
-        $this->validateBooking($request);
+        $this->validateReservation($request);
 
         $answers = $this->handleAnswers($request);
 
         $allFeatures = $this->getAllFeatures($request);
 
-        $this->cacheBookingData($request, $answers, $allFeatures);
+        $this->cacheReservationData($request, $answers, $allFeatures);
 
-        session()->flash('success', 'Booking has been temporarily saved successfully.');
+        session()->flash('success', 'Reservation has been temporarily saved successfully.');
 
         return response()->json([
             'status'       => 'success',
-            'redirect_url' => route('service.booking.confirm'),
+            'redirect_url' => route('service.reservation.confirm'),
         ]);
     }
 
-    public function confirmBooking()
+    public function confirmReservation()
     {
-        $cacheKey = 'booking_' . auth()->id();
+        $cacheKey = 'reservation_' . auth()->id();
 
         if (!Cache::has($cacheKey)) {
-            return redirect()->route('site.home')->with('error', 'No booking data found.');
+            return redirect()->route('site.home')->with('error', 'No reservation data found.');
         }
 
-        $bookingData = Cache::get($cacheKey);
+        $reservationData = Cache::get($cacheKey);
 
-        return view('site.service.confirm_booking', compact('bookingData'));
+        return view('site.service.confirm_reservation', compact('reservationData'));
     }
 
-    private function validateBooking(Request $request)
+    private function validateReservation(Request $request)
     {
         $rules      = [
-            'booking_date' => ['required', 'date'],
-            'service_id'   => ['required', 'integer'],
-            'package_id'   => ['required', 'integer'],
+            'event_date' => ['nullable', 'date'],
+            'service_id' => ['required', 'integer'],
+            'package_id' => ['required', 'integer'],
         ];
         $attributes = [];
 
         $service = Service::with('questions')->findOrFail($request->service_id);
+
+        if ($service->category === 'photography') {
+            $rules['event_date'] = ['required', 'date'];
+        }
 
         foreach ($service->questions as $question) {
             if ($question->pivot->is_required) {
@@ -153,25 +158,26 @@ class ServiceController extends Controller
         return array_merge($defaultFeatures, $requestFeatures);
     }
 
-    private function cacheBookingData(Request $request, array $answers, array $allFeatures)
+    private function cacheReservationData(Request $request, array $answers, array $allFeatures)
     {
         $service = Service::findOrFail($request->service_id);
         $package = Package::findOrFail($request->package_id);
         $prices  = $this->calculateTotalPrice($request);
 
         $dataToCache = [
-            'booking_date' => $request->booking_date,
-            'service_id'   => $service->id,
-            'service_name' => $service->name,
-            'package_id'   => $package->id,
-            'package_name' => $package->name,
-            'answers'      => $answers,
-            'features'     => $allFeatures,
-            'total_price'  => $prices['total_price'],
-            'down_payment' => $prices['down_payment'],
+            'event_date'       => $request->event_date ?? null,
+            'service_id'       => $service->id,
+            'service_name'     => $service->name,
+            'service_category' => $service->category,
+            'package_id'       => $package->id,
+            'package_name'     => $package->name,
+            'answers'          => $answers,
+            'features'         => $allFeatures,
+            'total_price'      => $prices['total_price'],
+            'down_payment'     => $prices['down_payment'],
         ];
 
-        $cacheKey = 'booking_' . auth()->id();
+        $cacheKey = 'reservation_' . auth()->id();
 
         Cache::forget($cacheKey);
 
@@ -200,24 +206,23 @@ class ServiceController extends Controller
     public function storeBooking()
     {
         $clientId = auth()->id();
-        $cacheKey = 'booking_' . $clientId;
+        $cacheKey = 'reservation_' . $clientId;
 
         if (!Cache::has($cacheKey)) {
-            return redirect()->route('packages.index')->with('error', 'No booking data found.');
+            return redirect()->route('packages.index')->with('error', 'No reservation data found.');
         }
 
-        $bookingData = Cache::get($cacheKey);
-
+        $reservationData = Cache::get($cacheKey);
 
         $booking                   = new Booking();
         $booking->client_id        = $clientId;
-        $booking->service_id       = $bookingData['service_id'];
-        $booking->package_id       = $bookingData['package_id'];
-        $booking->event_date       = $bookingData['booking_date'];
-        $booking->paid_amount      = $bookingData['down_payment'];
-        $booking->remaining_amount = $bookingData['total_price'] - $bookingData['down_payment'];
-        $booking->total_price      = $bookingData['total_price'];
-        $booking->notes            = $bookingData['notes'] ?? null;
+        $booking->service_id       = $reservationData['service_id'];
+        $booking->package_id       = $reservationData['package_id'];
+        $booking->event_date       = $reservationData['event_date'];
+        $booking->paid_amount      = $reservationData['down_payment'];
+        $booking->remaining_amount = $reservationData['total_price'] - $reservationData['down_payment'];
+        $booking->total_price      = $reservationData['total_price'];
+        $booking->notes            = $reservationData['notes'] ?? null;
         $booking->save();
 
         BlockedDate::create([
@@ -226,40 +231,33 @@ class ServiceController extends Controller
             'blockable_id'   => $booking->package_id,
         ]);
 
-        $features = $bookingData['features'] ?? [];
-        foreach ($features as $feature) {
-            ReservedFeatures::create([
-                'feature_id'      => $feature['id'],
-                'reservable_type' => Booking::class,
-                'reservable_id'   => $booking->id,
-                'name'            => $feature['name'],
-                'price'           => $feature['price'],
-                'is_default'      => $feature['is_default'],
-            ]);
-        }
-
-        foreach ($bookingData['answers'] as $questionId => $answerValue) {
-            if (is_null($answerValue)) {
-                continue;
-            }
-
-            $answers = is_array($answerValue) ? $answerValue : [$answerValue];
-
-            foreach ($answers as $answer) {
-                $answer = $this->moveAnswerToStorage($answer);
-                Answer::create([
-                    'question_id'     => $questionId,
-                    'value'           => $answer,
-                    'answerable_type' => Booking::class,
-                    'answerable_id'   => $booking->id,
-                ]);
-            }
-        }
-
-        Cache::forget($cacheKey);
-        session()->flash('success', 'Booking confirmed successfully.');
+        $this->saveRelatedData($reservationData, $booking, $cacheKey);
 
         return redirect()->route('booking.meeting.confirm', $booking->id);
+    }
+
+    public function storeOrder()
+    {
+        $clientId = auth()->id();
+        $cacheKey = 'reservation_' . $clientId;
+
+        if (!Cache::has($cacheKey)) {
+            return redirect()->route('packages.index')->with('error', 'No reservation data found.');
+        }
+
+        $reservationData = Cache::get($cacheKey);
+
+        $order              = new Order();
+        $order->client_id   = $clientId;
+        $order->service_id  = $reservationData['service_id'];
+        $order->package_id  = $reservationData['package_id'];
+        $order->total_price = $reservationData['total_price'];
+        $order->notes       = $reservationData['notes'] ?? null;
+        $order->save();
+
+        $this->saveRelatedData($reservationData, $order, $cacheKey);
+
+        return redirect()->route('service.order.show', $order->id);
     }
 
     protected function moveAnswerToStorage($answer)
@@ -349,12 +347,18 @@ class ServiceController extends Controller
         ]);
     }
 
-    public function viewBooking()
+    public function viewBooking($id)
     {
-        $id      = request('id');
-        $booking = booking::with('package.features')->findOrFail($id);
+        $booking = Booking::with('package.features')->findOrFail($id);
 
         return view('site.service.view_booking', compact("booking"));
+    }
+
+    public function viewOrder($id)
+    {
+        $order = Order::with('package.features')->findOrFail($id);
+
+        return view('site.service.view_order', compact("order"));
     }
 
     private function generateJitsiMeetingLink($booking_id)
@@ -364,5 +368,47 @@ class ServiceController extends Controller
         $roomName    = $booking->reference_number;
         $meetingLink = $domain . '/' . $roomName;
         return $meetingLink;
+    }
+
+    /**
+     * @param mixed $reservationData
+     * @param mixed $reservation
+     * @param string $cacheKey
+     * @return void
+     */
+    protected function saveRelatedData(mixed $reservationData, mixed $reservation, string $cacheKey): void
+    {
+        $features = $reservationData['features'] ?? [];
+        foreach ($features as $feature) {
+            ReservedFeatures::create([
+                'feature_id'      => $feature['id'],
+                'reservable_type' => get_class($reservation),
+                'reservable_id'   => $reservation->id,
+                'name'            => $feature['name'],
+                'price'           => $feature['price'],
+                'is_default'      => $feature['is_default'],
+            ]);
+        }
+
+        foreach ($reservationData['answers'] as $questionId => $answerValue) {
+            if (is_null($answerValue)) {
+                continue;
+            }
+
+            $answers = is_array($answerValue) ? $answerValue : [$answerValue];
+
+            foreach ($answers as $answer) {
+                $answer = $this->moveAnswerToStorage($answer);
+                Answer::create([
+                    'question_id'     => $questionId,
+                    'value'           => $answer,
+                    'answerable_type' => get_class($reservation),
+                    'answerable_id'   => $reservation->id,
+                ]);
+            }
+        }
+
+        Cache::forget($cacheKey);
+        session()->flash('success', 'Booking confirmed successfully.');
     }
 }

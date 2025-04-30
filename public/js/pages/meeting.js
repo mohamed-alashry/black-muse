@@ -21,7 +21,7 @@ $(document).ready(function () {
 
     function fetchAvailableTimes(date, button) {
         $.ajax({
-            url: '/booking/meeting/available-times',  
+            url: '/booking/meeting/available-times',
             type: 'POST',
             data: {
                 date: date,
@@ -53,14 +53,14 @@ $(document).ready(function () {
             .attr('data-from', time.from)
             .attr('data-to', time.to);
             button.click(function () {
-                $('.timebtn').removeClass('selected'); 
-                $(this).addClass('selected'); 
+                $('.timebtn').removeClass('selected');
+                $(this).addClass('selected');
              });
             container.append(button);
         });
     }
 
-    
+
     $('#confirm_time_meeting').click(function () {
     const selectedButton = $('.timebtn.selected');
 
@@ -69,9 +69,9 @@ $(document).ready(function () {
         return;
     }
 
-    const meetingDate = $('#meeting_date').val(); 
-    const fromTime = selectedButton.data('from');  
-    const toTime = selectedButton.data('to');      
+    const meetingDate = $('#meeting_date').val();
+    const fromTime = selectedButton.data('from');
+    const toTime = selectedButton.data('to');
 
     $.ajax({
         url: '/booking/meeting/save',
@@ -90,7 +90,7 @@ $(document).ready(function () {
         },
         success: function (response) {
             toastr.success('Meeting saved successfully!');
-            window.location.href = '/service/booking?id='+$('#booking_id').val();
+            window.location.href = '/service/booking/'+$('#booking_id').val();
         },
         error: function () {
             toastr.error('An error occurred while saving the meeting.');
