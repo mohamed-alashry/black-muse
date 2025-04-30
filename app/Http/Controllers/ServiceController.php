@@ -44,7 +44,6 @@ class ServiceController extends Controller
         $questions = $service->questions;
 
         return view('site.service.packages', compact('service', 'packages', 'questions'));
-
     }
 
     public function cacheReservation(Request $request)
