@@ -11,18 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('question_options', function (Blueprint $table) {
+        Schema::create('question_dependencies', function (Blueprint $table) {
             $table->id();
-            $table->json('label');
-            $table->foreignId('question_id')->constrained()->onDelete('cascade');
-            $table->string('value');
+            $table->foreignId('question_option_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('child_question_id')->constrained('questions')->cascadeOnDelete();
             $table->unsignedTinyInteger('sort')->default(1);
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('question_options');
+        Schema::dropIfExists('question_dependencies');
     }
 };

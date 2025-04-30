@@ -20,8 +20,8 @@ class QuestionResource extends Resource
     protected static ?string $model = Question::class;
 
     protected static ?string $navigationGroup = 'Services';
-    protected static ?int $navigationSort = 4;
-    protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
+    protected static ?int    $navigationSort  = 4;
+    protected static ?string $navigationIcon  = 'heroicon-o-question-mark-circle';
 
     public static function form(Form $form): Form
     {
@@ -32,32 +32,44 @@ class QuestionResource extends Resource
                     ->required(),
                 Forms\Components\Select::make('type')
                     ->options([
-                        'text'     => 'Text',
-                        'textarea' => 'Textarea',
-                        'select'   => 'Select',
-                        'radio'    => 'Radio',
-                        'checkbox' => 'Checkbox',
-                        'number'   => 'Number',
-                        'date'     => 'Date',
-                        'file'     => 'Image Upload',
-                        'color'    => 'Color',
+                        'text'         => 'Text',
+                        'textarea'     => 'Textarea',
+                        'select'       => 'Select',
+                        'radio'        => 'Radio',
+                        'checkbox'     => 'Checkbox',
+                        'number'       => 'Number',
+                        'date'         => 'Date',
+                        'file-upload'  => 'Image Upload',
+                        'color-select' => 'Color Select',
+                        'image-select' => 'Image Select',
                     ])
                     ->default('text')
                     ->required(),
                 Repeater::make('options')
                     ->relationship()
                     ->schema([
-                        Forms\Components\TextInput::make('text')
-                            ->required()
-                            ->label('Label')
-                            ->visible(fn($get) => $get('../../type') !== 'color'),
+                        Forms\Components\TextInput::make('value')
+                            ->required(),
 
-                        Forms\Components\ColorPicker::make('text')
+                        Forms\Components\TextInput::make('label')
                             ->required()
-                            ->label('Label')
-                            ->visible(fn($get) => $get('../../type') === 'color'),
+                            ->visible(fn($get) => !in_array($get('../../type'), ['color-select', 'image-select'])),
+
+                        Forms\Components\ColorPicker::make('label')
+                            ->required()
+                            ->visible(fn($get) => $get('../../type') === 'color-select'),
+
+                        Forms\Components\FileUpload::make('label')
+                            ->required()
+                            ->visible(fn($get) => $get('../../type') === 'image-select'),
+
+                        Forms\Components\Select::make('child_question_ids')
+                            ->label('Show Question When Selected')
+                            ->multiple()
+                            ->relationship('childQuestions', 'text')
+                            ->helperText('Which questions appear if this option is chosen?'),
                     ])
-                    ->visible(fn($get) => in_array($get('type'), ['select', 'radio', 'checkbox', 'color']))
+                    ->visible(fn($get) => in_array($get('type'), ['select', 'radio', 'checkbox', 'color-select', 'image-select']))
                     ->orderColumn(),
             ]);
     }

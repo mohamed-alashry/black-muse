@@ -15,7 +15,7 @@ class Question extends Model
 
     public function options(): HasMany
     {
-        return $this->hasMany(QuestionOption::class);
+        return $this->hasMany(QuestionOption::class)->orderBy('sort');
     }
 
     public function services(): MorphToMany

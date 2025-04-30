@@ -24,7 +24,7 @@ class ServiceController extends Controller
 {
     public function showAvailablePackages($id, Request $request)
     {
-        $service = Service::with(['questions.options'])->findOrFail($id);
+        $service = Service::with(['questions.options.childQuestions.options'])->findOrFail($id);
 
         if ($service->category === 'photography' && !$request->has('event_date')) {
             return redirect()->back()->with('error', "Please select a date first.");

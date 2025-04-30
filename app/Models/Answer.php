@@ -19,6 +19,11 @@ class Answer extends Model
         return $this->belongsTo(Question::class);
     }
 
+    public function option(): BelongsTo
+    {
+        return $this->belongsTo(QuestionOption::class, 'question_option_id');
+    }
+
     public function answerable(): MorphTo
     {
         return $this->morphTo();

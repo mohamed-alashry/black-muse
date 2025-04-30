@@ -13,7 +13,19 @@ return new class extends Migration {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->json('text');
-            $table->enum('type', ["text", "textarea", "select", "radio", "checkbox", "number", "date", "file", "color"])->default('text');
+            $table->enum('type', [
+                "text",
+                "textarea",
+                "select",
+                "radio",
+                "checkbox",
+                "number",
+                "date",
+                "file-upload",
+                "color-select",
+                "image-select"
+            ])->default('text');
+            $table->unsignedSmallInteger('sort')->default(1);
             $table->timestamps();
         });
     }
