@@ -33,6 +33,12 @@
             <li class="p-md-3" id="booked-tab" data-bs-toggle="tab" data-bs-target="#booked-tab-pane" type="button" role="tab" aria-controls="booked-tab-pane">
               <i class="fa-regular fa-file-lines"></i> Booked Services
             </li>
+
+            <li class="p-md-3 d-flex align-items-center mb-md-5" id="order-tab" data-bs-toggle="tab"
+                data-bs-target="#order-tab-pane" type="button" role="tab" aria-controls="order-tab-pane">
+              <i class="fas fa-history"></i> Order History
+            </li>
+
           </ul>
         </div>
       </div>
@@ -139,6 +145,7 @@
                   <thead>
                     <tr>
                       <th>ID</th>
+                      <th>Reference Number</th>
                       <th>Service Name</th>
                       <th>Event Date</th>
                       <th>Booking Date</th>
@@ -150,9 +157,10 @@
                   </thead>
                   <tbody>
 
-                  @foreach($client->bookings as $booking)
+                  @foreach($client->bookings as $b => $booking)
                         <tr>
-                            <td>#{{ $booking->id }}</td>
+                            <td>#{{ $b+1 }}</td>
+                            <td><small>{{ $booking->reference_number }}</small></td>
                             <td>{{ $booking->service->name }}</td>
                             <td>{{\Carbon\Carbon::parse($booking->event_date)->format('d-m-Y')}}</td>
                             <td>{{\Carbon\Carbon::parse($booking->created_at)->format('d-m-Y')}}</td>
@@ -171,10 +179,55 @@
                 </table>
               </div>
             </div>
-
-            <!-- Additional Views for Meetings & Payments can be added here similarly -->
-
           </div>
+
+
+             <!-- Order History Tab -->
+            <div class="tab-pane fade" id="order-tab-pane" role="tabpanel" aria-labelledby="order-tab">
+              <!-- List History -->
+              <div class="table-profile">
+                <div class="table-header">
+                  <h5 class="mb-0">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    Order History
+                  </h5>
+                </div>
+                <div class="table-responsive ">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Reference Number</th>
+                        <th>Order Name</th>
+                        <th>Order Date</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                    @foreach($client->orders as $o => $order)
+                      <tr>
+                        <td>#{{ $o+1 }}</td>
+                        <td><small>{{ $order->reference_number }}</small></td>
+                        <td>{{ $order->service->name }}</td>
+                        <td>{{\Carbon\Carbon::parse($order->created_at)->format('d-m-Y')}}</td>
+                        <td>{{ $order->total_price }} <span class="small">SAR</span></td>
+                        <td> {{ ucfirst($order->status) }}</td>
+                        <td>
+                          <a href="{{route('service.order.show', $order->id)}}" class="btn border rounded">
+                            <i class="fa-solid fa-arrow-right text-white"></i>
+                          </a>
+                        </td>
+                      </tr>
+                   @endforeach
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
 
         </div>
       </div>

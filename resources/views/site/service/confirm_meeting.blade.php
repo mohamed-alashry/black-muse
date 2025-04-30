@@ -1,8 +1,8 @@
 @extends('layouts.site')
 
-@section('title', "Confirm Meeting")
-@section('meta_title', "Confirm Meeting")
-@section('meta_description', "Confirm Meeting")
+@section('title', $confirmMeetingPage->title)
+@section('meta_title', $confirmMeetingPage->meta_title)
+@section('meta_description', $confirmMeetingPage->meta_desc)
 
 
 @section('content')
@@ -30,30 +30,11 @@
         <div class="row p-4">
           <!-- First Section -->
           <div class="col-md-6">
-            <div class="d-flex flex-column pt-5">
-              <h5>Why we need this meeting:</h5>
-              <span class="py-2 fw-lighter">
-                Text to explain why user should pay this downpayment Text to
-                explain why user should pay this downpayment Text to explain
-                why user should pay this downpayment Text to explain why user
-                should pay this downpayment Text to explain why user should
-                pay this downpayment Text to explain why user should pay this
-                downpayment Text should pay this downpayment
-              </span>
-              <h5 class="fw-bold">List of terms:</h5>
-              <ul class="ms-4">
-                <li>Text to explain why user should pay</li>
-                <li>This downpayment Text to explain why user</li>
-                <li>Should pay this downpayment</li>
-                <li>Text to explain why user should pay</li>
-                <li>This downpayment Text to explain why user</li>
-                <li>Should pay this downpayment</li>
-                <li>Text to explain why user should pay</li>
-                <li>This downpayment Text to explain why user</li>
-                <li>Should pay this downpayment</li>
-                <li>Text to explain why user should pay</li>
-              </ul>
-            </div>
+            @foreach($confirmMeetingPage->sections as $key => $section)
+                <div class="d-flex flex-column pt-5">
+                   {!! $section->content !!}
+                </div>                
+            @endforeach
           </div>
           <div class="col-md-6">
             <div class="rounded-5 meeting_date" style="border: 1px solid rgba(255, 255, 255, 0.1)">

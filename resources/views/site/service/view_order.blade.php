@@ -73,9 +73,15 @@
                         <div class="h-100 w-100 rounded-4 overflow-hidden position-relative text-center">
                             <img src="{{ asset('storage/'.$order->service->photo) }}"
                                  class="w-100 h-100 object-fit-contain" alt="imagecard">
-                            <p class="position-absolute bottom-0 bg-main w-100 p-1 rounded-4">Wedding Services </p>
+                            <p class="position-absolute bottom-0 bg-main w-100 p-1 rounded-4">{{$order->service->name}} </p>
                         </div>
                     </div>
+
+                  <a class="btn bg-white text-black w-50 mt-2" href="{{route('site.service.packages', $order->service->id)}}">
+                    <i class="fas fa-redo"></i>
+                    Re-order Again
+                  </a>
+
                 </div>
 
             </div>

@@ -19,5 +19,10 @@ class Client extends Authenticatable
     {
         return $this->hasMany(Booking::class);
     }
-    
+   
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
 }

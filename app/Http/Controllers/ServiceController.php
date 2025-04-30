@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
@@ -274,10 +275,12 @@ class ServiceController extends Controller
 
     public function confirmMeeting($id)
     {
-        $booking = Booking::where('id', $id)->first();
-        $meeting = Meeting::where('booking_id', $id)->first();
+        $booking            = Booking::where('id', $id)->first();
+        $meeting            = Meeting::where('booking_id', $id)->first();
+        $confirmMeetingPage = Page::where('id', 6)->withActiveSections()->firstOrFail();
+
         if (!$meeting) {
-            return view('site.service.confirm_meeting', compact('booking', 'meeting'));
+         return view('site.service.confirm_meeting', compact('booking', 'meeting','confirmMeetingPage'));
         }
         return redirect()->route('site.home');
     }
@@ -353,6 +356,17 @@ class ServiceController extends Controller
         return view('site.service.view_booking', compact("booking"));
     }
 
+    public function completeBooking($id)
+    {
+        $booking                   = Booking::findOrFail($id);
+        $booking->payment_status   = 'full_payment';
+        $booking->remaining_amount = 0;
+        $booking->paid_amount      = $booking->total_price;
+        $booking->save();
+        session()->flash('success', 'Payment completed and booking confirmed.');
+        return redirect()->back();
+    }
+    
     public function viewOrder($id)
     {
         $order = Order::with('package.features')->findOrFail($id);
