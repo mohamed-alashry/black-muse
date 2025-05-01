@@ -92,15 +92,90 @@
                         <div class="h-100 w-100 rounded-4 overflow-hidden position-relative text-center">
                             <img src="{{ asset('storage/'.$booking->service->photo) }}"
                                  class="w-100 h-100 object-fit-contain" alt="imagecard">
-                            <p class="position-absolute bottom-0 bg-main w-100 p-1 rounded-4">Wedding Services </p>
+                            <p class="position-absolute bottom-0 bg-main w-100 p-1 rounded-4">{{$booking->service->name}} </p>
                         </div>
                     </div>
                 </div>
 
             </div>
 
+        @if($booking->remaining_amount > 0)
             <br>
+              <div class="table-profile">
+                <div class="table-header">
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="fas fa-credit-card fs-3"></i>
+                    <div class="d-flex flex-column gap-2 fw-light">
+                      <h4 class="">Pay the Rest of amount</h4>
+                      <p class="">Ref. No. {{$booking->reference_number}} ({{$booking->service->name}} - {{$booking->package->name}}) </p>
+                    </div>
+                  </div>
+                  <h3 class="text-gold">
+                    {{$booking->paid_amount}}<span class="fs-6 fw-lighter">SAR</span>
+                  </h3>
+                </div>
+                <div class="row d-flex p-4">
+                  <!-- Left Column -->
+                  <div class="col-md-7">
+                    <div class="fw-lighter d-flex flex-column gap-4">
+                      <h5 class="fw-light">You need to Pay <span class="text-gold">{{$booking->paid_amount}}<span
+                            class="fs-6 fw-lighter">SAR</span></span> to be able to confirm your service</h5>
+                      <p>
+                        Text to explain why user should pay this downpayment Text to explain why user should pay this
+                        downpayment Text to explain why user should pay this downpayment Text to explain why user should
+                        pay this downpayment.
+                      </p>
+                      <p>
+                        User should pay this why user should pay this downpayment Text to explain why user should pay
+                        this
+                        downpayment Text to explain why user should pay this downpayment Text to explain why user should
+                        pay this.
+                      </p>
+                      <h5 class="fw-bold">List of terms:</h5>
+                      <ul class="ms-4">
+                        <li>Text to explain why user should pay</li>
+                        <li>This downpayment Text to explain why user</li>
+                        <li>Should pay this downpayment</li>
+                        <li>Text to explain why user should pay</li>
+                        <li>This downpayment Text to explain why user</li>
+                        <li>Should pay this downpayment</li>
+                        <li>Text to explain why user should pay</li>
+                        <li>This downpayment Text to explain why user</li>
+                        <li>Should pay this downpayment</li>
+                        <li>Text to explain why user should pay</li>
+                      </ul>
+                    </div>
 
+                  </div>
+                  <!-- Right Column -->
+                  <div class="col-md-5">
+                    <div class="rounded-5" style="border: 1px solid rgba(255, 255, 255, 0.1);">
+                      <div class="table-header">
+                        <h6>Choose your Payment Method</h6>
+                      </div>
+                      <div class="p-3 d-flex align-items-center flex-column gap-2">
+                        <form action="{{ route('booking.complete', $booking->id) }}" method="POST">
+                              @csrf
+                              @method('PUT')
+                              <button type="submit" class="btn text-black bg-white rounded-4 px-4">
+                                  <i class="far fa-credit-card"></i>
+                                  Pay with Debit/Credit Card
+                              </button>
+                          </form>
+                        <div class="d-flex gap-2">
+                          <img src="{{ asset('images/mastercard.svg') }}" alt="item">
+                          <img src="{{ asset('images/visa.svg') }}" alt="item">
+                          <img src="{{ asset('images/ex.svg') }}" alt="item">
+                          <img src="{{ asset('images/cash.svg') }}" alt="item">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        @endif
+
+            <br>
             <div class="table-profile">
                 <div class="table-header">
                     <p>#{{$booking->id}} {{$booking->service->name}}</p>

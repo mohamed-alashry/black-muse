@@ -64,6 +64,31 @@ class PageSeeder extends Seeder
                 'created_at' => Carbon::parse('2025-04-18 21:20:12'),
                 'updated_at' => Carbon::parse('2025-04-18 21:21:05'),
             ],
+            [
+                'id'         => 5,
+                'title'      => 'Confirm Booking',
+                'meta_title' => json_encode(['en' => 'Confirm Booking', 'ar' => 'Confirm Booking']),
+                'meta_desc'  => json_encode(['en' => 'Confirm Booking', 'ar' => 'Confirm Booking']),
+                'viewable'   => 1,
+                'editable'   => 1,
+                'deletable'  => 0,
+                'status'     => 'active',
+                'created_at' => Carbon::parse('2025-04-18 21:20:12'),
+                'updated_at' => Carbon::parse('2025-04-18 21:21:05'),
+           ],
+           [
+                'id'         => 6,
+                'title'      => 'Confirm Meeting',
+                'meta_title' => json_encode(['en' => 'Confirm Meeting', 'ar' => 'Confirm Meeting']),
+                'meta_desc'  => json_encode(['en' => 'Confirm Meeting', 'ar' => 'Confirm Meeting']),
+                'viewable'   => 1,
+                'editable'   => 1,
+                'deletable'  => 0,
+                'status'     => 'active',
+                'created_at' => Carbon::parse('2025-04-18 21:20:12'),
+                'updated_at' => Carbon::parse('2025-04-18 21:21:05'),
+            ],
+
         ];
 
 
