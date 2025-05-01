@@ -27,34 +27,11 @@
                     </div>
                     <div class="row d-flex px-2 py-4">
                         <div class="col-md-8">
+                           @foreach($termsPageID->sections as $key => $section)
                             <div class="fw-lighter d-flex flex-column gap-4">
-                                <p>
-                                    Text to explain why user should pay this downpayment Text to
-                                    explain why user should pay this downpayment Text to explain
-                                    why user should pay this downpayment Text to explain why
-                                    user should pay this downpayment. User should pay this why
-                                    user should pay this downpayment Text to explain why user
-                                    should pay this downpayment Text to explain why user should
-                                    pay this downpayment Text to explain why user should pay
-                                    this.
-                                </p>
-                                <h5 class="fw-bold">List of terms:</h5>
-                                <ul class="ms-4">
-                                    <li>Text to explain why user should pay</li>
-                                    <li>This downpayment Text to explain why user</li>
-                                    <li>Should pay this downpayment</li>
-                                    <li>Text to explain why user should pay</li>
-                                    <li>Should pay this downpayment</li>
-                                    <li>This downpayment Text to explain why user</li>
-                                    <li>Should pay this downpayment</li>
-                                    <li>Text to explain why user should pay</li>
-                                </ul>
-                                <a class="btn border rounded-4 text-white w-50"
-                                   href="{{route('site.service.packages',[$reservationData['service_id'], 'event_date'=>$reservationData['event_date']])}}">
-                                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Choose
-                                    Another Package
-                                </a>
+                              {!! $section->content !!}
                             </div>
+                           @endforeach
                         </div>
                         <div class="col-md-4">
                             <div class="down-package-card bg-main">

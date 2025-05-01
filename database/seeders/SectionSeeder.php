@@ -109,8 +109,46 @@ class SectionSeeder extends Seeder
 
             [
                 'id'         => 6,
-                'title'      => json_encode(['en' => 'Choose the Meeting Time', 'ar' => '']),
+                'title'      => json_encode(['en' => 'You need to pay a down payment', 'ar' => '']),
                 'page_id'    => 6,
+                'subtitle'   => json_encode(['ar' => null]),
+                'content'    => json_encode([
+                    "en" => $html_en,
+                    "ar" => $html_ar
+                ]),
+                'sort'       => 1,
+                'viewable'   => 1,
+                'editable'   => 1,
+                'deletable'  => 1,
+                'status'     => 'active',
+                'created_at' => Carbon::parse('2025-04-18 20:41:16'),
+                'updated_at' => Carbon::parse('2025-04-18 21:27:46'),
+            ],
+
+
+             [
+                'id'         => 7,
+                'title'      => json_encode(['en' => 'You need to pay a down payment', 'ar' => '']),
+                'page_id'    => 7,
+                'subtitle'   => json_encode(['ar' => null]),
+                'content'    => json_encode([
+                    "en" => $html_en,
+                    "ar" => $html_ar
+                ]),
+                'sort'       => 1,
+                'viewable'   => 1,
+                'editable'   => 1,
+                'deletable'  => 1,
+                'status'     => 'active',
+                'created_at' => Carbon::parse('2025-04-18 20:41:16'),
+                'updated_at' => Carbon::parse('2025-04-18 21:27:46'),
+            ],
+
+
+            [
+                'id'         => 8,
+                'title'      => json_encode(['en' => 'Choose the Meeting Time', 'ar' => '']),
+                'page_id'    => 8,
                 'subtitle'   => json_encode(['ar' => null]),
                 'content'    => json_encode([
                     "en" => $html_en,

@@ -30,7 +30,7 @@ class PageSeeder extends Seeder
             ],
             [
                 'id'         => 2,
-                'title'      => 'Terms & Conditions',
+                'title'      => 'Terms & Conditions Page',
                 'meta_title' => json_encode(['en' => 'Terms & Conditions Page', 'ar' => 'الشروط والاحكام']),
                 'meta_desc'  => json_encode(['en' => 'Terms & Conditions Page', 'ar' => 'الشروط والاحكام']),
                 'viewable'   => 1,
@@ -66,9 +66,9 @@ class PageSeeder extends Seeder
             ],
             [
                 'id'         => 5,
-                'title'      => 'Confirm Booking',
-                'meta_title' => json_encode(['en' => 'Confirm Booking', 'ar' => 'Confirm Booking']),
-                'meta_desc'  => json_encode(['en' => 'Confirm Booking', 'ar' => 'Confirm Booking']),
+                'title'      => 'Terms & Conditions – Photography Services',
+                'meta_title' => json_encode(['en' => 'Terms & Conditions – Photography Services', 'ar' => 'Terms & Conditions – Photography Services']),
+                'meta_desc'  => json_encode(['en' => 'Terms & Conditions – Photography Services', 'ar' => 'Terms & Conditions – Photography Services']),
                 'viewable'   => 1,
                 'editable'   => 1,
                 'deletable'  => 0,
@@ -76,8 +76,36 @@ class PageSeeder extends Seeder
                 'created_at' => Carbon::parse('2025-04-18 21:20:12'),
                 'updated_at' => Carbon::parse('2025-04-18 21:21:05'),
            ],
+
            [
                 'id'         => 6,
+                'title'      => 'Terms & Conditions – Bindery Services',
+                'meta_title' => json_encode(['en' => 'Terms & Conditions – Bindery Services', 'ar' => 'Terms & Conditions – Bindery Services']),
+                'meta_desc'  => json_encode(['en' => 'Terms & Conditions – Bindery Services', 'ar' => 'Terms & Conditions – Bindery Services']),
+                'viewable'   => 1,
+                'editable'   => 1,
+                'deletable'  => 0,
+                'status'     => 'active',
+                'created_at' => Carbon::parse('2025-04-18 21:20:12'),
+                'updated_at' => Carbon::parse('2025-04-18 21:21:05'),
+           ],
+
+
+           [
+                'id'         => 7,
+                'title'      => 'Terms & Conditions – Lab Services',
+                'meta_title' => json_encode(['en' => 'Terms & Conditions – Lab Services', 'ar' => 'Terms & Conditions – Lab Services']),
+                'meta_desc'  => json_encode(['en' => 'Terms & Conditions – Lab Services', 'ar' => 'Terms & Conditions – Lab Services']),
+                'viewable'   => 1,
+                'editable'   => 1,
+                'deletable'  => 0,
+                'status'     => 'active',
+                'created_at' => Carbon::parse('2025-04-18 21:20:12'),
+                'updated_at' => Carbon::parse('2025-04-18 21:21:05'),
+           ],
+
+           [
+                'id'         => 8,
                 'title'      => 'Confirm Meeting',
                 'meta_title' => json_encode(['en' => 'Confirm Meeting', 'ar' => 'Confirm Meeting']),
                 'meta_desc'  => json_encode(['en' => 'Confirm Meeting', 'ar' => 'Confirm Meeting']),
