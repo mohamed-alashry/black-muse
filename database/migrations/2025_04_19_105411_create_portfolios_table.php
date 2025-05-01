@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('portfolios', function (Blueprint $table) {
             $table->id();
             $table->json('title');
+            $table->enum('category', ["photography", "bindery"])->default('photography');
             $table->string('photo');
             $table->json('meta_title')->nullable();
             $table->json('meta_desc')->nullable();

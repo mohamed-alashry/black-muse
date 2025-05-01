@@ -46,7 +46,7 @@ class ItemsRelationManager extends RelationManager
                 Forms\Components\FileUpload::make('photos')
                     ->multiple()
                     ->image()
-                    ->maxSize(1024) // Size in KB (1MB in this case)
+                    ->maxSize(4000) // Size in KB (1MB in this case)
                     ->reorderable()
                     ->maxParallelUploads(1),
             ]);
