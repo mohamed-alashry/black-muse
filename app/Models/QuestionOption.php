@@ -5,17 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Spatie\Translatable\HasTranslations;
 
 class QuestionOption extends Model
 {
-    use HasTranslations;
-
-    public array $translatable = ['label'];
-
     protected $casts = [
         'id'          => 'integer',
         'question_id' => 'integer',
+        'label'       => 'string',
+        'value'       => 'string',
     ];
 
     public function question(): BelongsTo

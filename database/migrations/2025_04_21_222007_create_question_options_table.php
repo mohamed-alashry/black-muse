@@ -15,7 +15,7 @@ return new class extends Migration
 
         Schema::create('question_options', function (Blueprint $table) {
             $table->id();
-            $table->json('label');
+            $table->string('label');
             $table->foreignId('question_id')->constrained()->onDelete('cascade');
             $table->string('value');
             $table->unsignedTinyInteger('sort')->default(1);

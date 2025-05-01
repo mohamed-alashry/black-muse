@@ -44,24 +44,41 @@ class QuestionResource extends Resource
                         'image-select' => 'Image Select',
                     ])
                     ->default('text')
+                    ->live()
                     ->required(),
                 Repeater::make('options')
-                    ->relationship()
+                    ->relationship('options')
                     ->schema([
                         Forms\Components\TextInput::make('value')
                             ->required(),
 
                         Forms\Components\TextInput::make('label')
-                            ->required()
+                            ->dehydrated()
+                            ->hidden(),
+
+                        Forms\Components\TextInput::make('label_text')
+                            ->label('Label')
+                            ->afterStateHydrated(function ($component, $record) {
+                                $component->state($record?->label);
+                            })
                             ->visible(fn($get) => !in_array($get('../../type'), ['color-select', 'image-select'])),
 
-                        Forms\Components\ColorPicker::make('label')
-                            ->required()
+                        Forms\Components\ColorPicker::make('label_color')
+                            ->label('Label')
+                            ->afterStateHydrated(function ($component, $record) {
+                                $component->state($record?->label);
+                            })
                             ->visible(fn($get) => $get('../../type') === 'color-select'),
 
-                        Forms\Components\FileUpload::make('label')
-                            ->required()
+                        Forms\Components\FileUpload::make('label_file')
+                            ->label('Label')
+                            ->image()
+                            ->afterStateHydrated(function ($component, $record) {
+                                if ($record)
+                                $component->state([$record?->label]);
+                            })
                             ->visible(fn($get) => $get('../../type') === 'image-select'),
+
 
                         Forms\Components\Select::make('child_question_ids')
                             ->label('Show Question When Selected')
@@ -69,6 +86,16 @@ class QuestionResource extends Resource
                             ->relationship('childQuestions', 'text')
                             ->helperText('Which questions appear if this option is chosen?'),
                     ])
+                    ->mutateRelationshipDataBeforeCreateUsing(function (array $data, callable $get) {
+                        $data['label'] = self::extractFinalLabel($data, $get('type'));
+                        unset($data['label_text'], $data['label_color'], $data['label_file']);
+                        return $data;
+                    })
+                    ->mutateRelationshipDataBeforeSaveUsing(function (array $data, callable $get) {
+                        $data['label'] = self::extractFinalLabel($data, $get('type'));
+                        unset($data['label_text'], $data['label_color'], $data['label_file']);
+                        return $data;
+                    })
                     ->visible(fn($get) => in_array($get('type'), ['select', 'radio', 'checkbox', 'color-select', 'image-select']))
                     ->orderColumn(),
             ]);
@@ -94,8 +121,8 @@ class QuestionResource extends Resource
                 //
             ])
             ->actions([
-//                Tables\Actions\ViewAction::make(),
-Tables\Actions\EditAction::make(),
+                // Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -119,5 +146,16 @@ Tables\Actions\EditAction::make(),
             //            'view'   => Pages\ViewQuestion::route('/{record}'),
             'edit'   => Pages\EditQuestion::route('/{record}/edit'),
         ];
+    }
+
+    private static function extractFinalLabel(array $data, string $type): ?string
+    {
+        return match ($type) {
+            'color-select' => $data['label_color'] ?? null,
+            'image-select' => is_array($data['label_file'] ?? null)
+                ? $data['label_file'][0] ?? null
+                : $data['label_file'] ?? null,
+            default => $data['label_text'] ?? null,
+        };
     }
 }

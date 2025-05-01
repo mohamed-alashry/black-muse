@@ -366,7 +366,7 @@ class ServiceController extends Controller
         session()->flash('success', 'Payment completed and booking confirmed.');
         return redirect()->back();
     }
-    
+
     public function viewOrder($id)
     {
         $order = Order::with('package.features')->findOrFail($id);

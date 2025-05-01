@@ -24,7 +24,7 @@ class MeetingRelationManager extends RelationManager
                     ])
                     ->columnSpanFull(),
                 Forms\Components\Select::make('status')
-                ->options(['pending' => 'pending', 'done' => 'done', 'cancelled' => 'cancelled']),
+                    ->options(['pending' => 'pending', 'done' => 'done', 'cancelled' => 'cancelled']),
             ]);
     }
 
@@ -42,7 +42,8 @@ class MeetingRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('duration')
                     ->suffix(' min'),
                 Tables\Columns\TextColumn::make('type'),
-                Tables\Columns\TextColumn::make('link'),
+                Tables\Columns\TextColumn::make('link')
+                    ->openUrlInNewTab(),
                 Tables\Columns\TextColumn::make('notes')
                     ->limit(100)
                     ->html(),
@@ -56,7 +57,7 @@ class MeetingRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-//                Tables\Actions\DeleteAction::make(),
+                //                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
 //                Tables\Actions\BulkActionGroup::make([
