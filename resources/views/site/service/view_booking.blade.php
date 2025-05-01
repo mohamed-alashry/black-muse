@@ -1,8 +1,8 @@
 @extends('layouts.site')
 
-@section('title', "Confirm Booking")
-@section('meta_title', "Confirm Booking")
-@section('meta_description', "Confirm Booking")
+@section('title', "Booking Details")
+@section('meta_title', "Booking Details")
+@section('meta_description', "Booking Details")
 
 
 @section('content')
@@ -117,35 +117,11 @@
                 <div class="row d-flex p-4">
                   <!-- Left Column -->
                   <div class="col-md-7">
-                    <div class="fw-lighter d-flex flex-column gap-4">
-                      <h5 class="fw-light">You need to Pay <span class="text-gold">{{$booking->paid_amount}}<span
-                            class="fs-6 fw-lighter">SAR</span></span> to be able to confirm your service</h5>
-                      <p>
-                        Text to explain why user should pay this downpayment Text to explain why user should pay this
-                        downpayment Text to explain why user should pay this downpayment Text to explain why user should
-                        pay this downpayment.
-                      </p>
-                      <p>
-                        User should pay this why user should pay this downpayment Text to explain why user should pay
-                        this
-                        downpayment Text to explain why user should pay this downpayment Text to explain why user should
-                        pay this.
-                      </p>
-                      <h5 class="fw-bold">List of terms:</h5>
-                      <ul class="ms-4">
-                        <li>Text to explain why user should pay</li>
-                        <li>This downpayment Text to explain why user</li>
-                        <li>Should pay this downpayment</li>
-                        <li>Text to explain why user should pay</li>
-                        <li>This downpayment Text to explain why user</li>
-                        <li>Should pay this downpayment</li>
-                        <li>Text to explain why user should pay</li>
-                        <li>This downpayment Text to explain why user</li>
-                        <li>Should pay this downpayment</li>
-                        <li>Text to explain why user should pay</li>
-                      </ul>
-                    </div>
-
+                     @foreach($photographyTermsPage->sections as $key => $section)
+                            <div class="fw-lighter d-flex flex-column gap-4">
+                              {!! $section->content !!}
+                            </div>
+                      @endforeach 
                   </div>
                   <!-- Right Column -->
                   <div class="col-md-5">
@@ -188,17 +164,11 @@
                 </div>
                 <div class="row d-flex align-items-center p-4">
                     <div class="col-md-6">
-                        <div class="d-flex flex-column gap-2">
-                            <h5>Why we need this meeting:</h5>
-                            <span class="py-2 fw-lighter">
-                        Text to explain why user should pay this downpayment Text to explain why user should pay this
-                        downpayment and so on.
-                      </span>
-                            <!--  <button class="btn bg-white mb-4 fw-bold text-black rounded-3">
-                               <i class="far fa-calendar-plus"></i>
-                               Add to your Calendar
-                             </button> -->
-                        </div>
+                           @foreach($MeetingTermsPage->sections as $key => $section)
+                            <div class="d-flex flex-column gap-2">
+                              {!! $section->content !!}
+                            </div>
+                           @endforeach 
                     </div>
                     <div class="col-md-6">
                         <div class="rounded-5" style="border: 1px solid rgba(255, 255, 255, 0.1);">
