@@ -30,62 +30,64 @@
                 </a> -->
             </div>
 
-         <div class="services-carousel owl-carousel">
-             <!-- Services slider -->
-            @foreach($services->where('category', 'photography') as $service)
+            <div class="services-carousel owl-carousel">
+                <!-- Services slider -->
+                @foreach($services->where('category', 'photography') as $service)
                     <div class="service-card">
                         <img src="{{ asset('storage/'.$service->photo) }}" alt="imagecard">
                         <div class="info-service px-1 py-3">
                             <h5>{{$service->name}}</h5>
                             <button
-                              type="button"
-                              class="btn btn-service"
-                              @if(auth('client')->check())
-                                data-bs-toggle="modal"
+                                type="button"
+                                class="btn btn-service"
+                                @if(auth('client')->check())
+                                    data-bs-toggle="modal"
                                 data-bs-target="#calendarModalToggle"
                                 data-service-id="{{ $service->id }}"
-                              @else
-                                data-bs-toggle="modal"
+                                @else
+                                    data-bs-toggle="modal"
                                 data-bs-target="#loginModal"
-                              @endif
+                                @endif
                             >
-                              Choose a Package Now
+                                Choose a Package Now
                             </button>
                         </div>
                     </div>
-            @endforeach
-         </div>
+                @endforeach
+            </div>
         </div>
-      </section>
+    </section>
 
     <!-- Portfolio section -->
-      <section class="bg-main py-3 porto-section" id="protofolios" style="background-image: url({{asset('images/portohero.png')}});">
-          <div class="row h-100">
+    <section class="bg-main py-3 porto-section" id="protofolios"
+             style="background-image: url({{asset('images/portohero.png')}});">
+        <div class="row h-100">
             <div class="col-md-4 my-auto">
-              <div class="porto-summry text-white d-flex flex-column gap-2 z-3 mb-2 mx-md-5 mx-2">
-                <p class="fw-lighter">protofolio Category</p>
-                <h1 class="text-gold lh-1">Black Muse</h1>
-                <h1 class="fw-bolder lh-1">Portfolio classic</h1>
-                <p class="fw-lighter">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-              </div>
+                <div class="porto-summry text-white d-flex flex-column gap-2 z-3 mb-2 mx-md-5 mx-2">
+                    <p class="fw-lighter">protofolio Category</p>
+                    <h1 class="text-gold lh-1">Black Muse</h1>
+                    <h1 class="fw-bolder lh-1">Portfolio classic</h1>
+                    <p class="fw-lighter">It is a long established fact that a reader will be distracted by the readable
+                        content of a page when looking at its layout.</p>
+                </div>
             </div>
             <div class="col-md-8 mt-auto ps-md-5">
-              <div class="portfolio-carousel owl-carousel z-3">
+                <div class="portfolio-carousel owl-carousel z-3">
 
-                <!-- Portfolios slider-->
-                @foreach($portfolios as $portfolio)
-                   <div class="porto-card ">
-                    <a href="{{ route('site.portfolio.show', $portfolio->id) }}">
-                       <img class="porto-img" src="{{ asset('storage/'.$portfolio->photo) }}" alt="imagecard">
-                       <p class="porto-title w-75 text-wrap">{{$portfolio->title}}</p>
-                    </a>
-                  </div>
-                @endforeach
+                    <!-- Portfolios slider-->
+                    @foreach($portfolios as $portfolio)
+                        <div class="porto-card ">
+                            <a href="{{ route('site.portfolio.show', $portfolio->id) }}">
+                                <img class="porto-img" src="{{ asset('storage/'.$portfolio->photo) }}" alt="imagecard">
+                                <p class="porto-title w-75 text-wrap">{{$portfolio->title}}</p>
+                            </a>
+                        </div>
+                    @endforeach
 
-              </div>
+                </div>
             </div>
-          </div>
-     </section>
+        </div>
+    </section>
 
 
     <!-- Bindery & Lab section -->
@@ -105,8 +107,16 @@
                     <div class="service-card">
                         <img src="{{ asset('storage/'.$service->photo) }}" alt="imagecard">
                         <div class="info-service px-1 py-3">
-                                <h5>{{ $service->name  }}</h5>
-                            <a href="{{ route('site.service.packages', $service->id) }}" class="btn btn-service" type="button">Choose a Package Now</a>
+                            <h5>{{ $service->name  }}</h5>
+                            @if(auth('client')->check())
+                                <a href="{{ route('site.service.packages', $service->id) }}" class="btn btn-service"
+                                   type="button">Choose a Package Now</a>
+                            @else
+                                <button type="button" class="btn btn-service" data-bs-toggle="modal"
+                                        data-bs-target="#loginModal">
+                                    Choose a Package Now
+                                </button>
+                            @endif
                         </div>
                     </div>
                 @endforeach
@@ -118,18 +128,18 @@
     @foreach($homePage->sections as $key => $section)
         @if($key % 2 == 0)
             <section class="about-section py-5 bg-main">
-        @else
-            <section class="about-section py-5"
-                     style="background-image: url({{asset('images/about-bg.png')}});">
-                @endif
-                <div class="container d-flex flex-column gap-3 text-white">
-                    {!! $section->content !!}
-                </div>
-            </section>
-    @endforeach
+                @else
+                    <section class="about-section py-5"
+                             style="background-image: url({{asset('images/about-bg.png')}});">
+                        @endif
+                        <div class="container d-flex flex-column gap-3 text-white">
+                            {!! $section->content !!}
+                        </div>
+                    </section>
+            @endforeach
 
 
-    @include('partials.site.modals.booking_date')
+            @include('partials.site.modals.booking_date')
 
 
-@endsection
+            @endsection
