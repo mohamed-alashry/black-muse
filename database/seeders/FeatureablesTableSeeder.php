@@ -25,9 +25,9 @@ class FeatureablesTableSeeder extends Seeder
                 'feature_id' => 6,
                 'featureable_type' => 'App\\Models\\Package',
                 'featureable_id' => 1,
-                'is_default' => 0,
+                'is_default' => 1,
                 'created_at' => '2025-04-28 11:24:08',
-                'updated_at' => '2025-04-28 11:24:08',
+                'updated_at' => '2025-05-01 20:24:29',
             ),
             1 => 
             array (
@@ -45,9 +45,9 @@ class FeatureablesTableSeeder extends Seeder
                 'feature_id' => 8,
                 'featureable_type' => 'App\\Models\\Package',
                 'featureable_id' => 1,
-                'is_default' => 0,
+                'is_default' => 1,
                 'created_at' => '2025-04-28 11:25:29',
-                'updated_at' => '2025-04-28 11:25:29',
+                'updated_at' => '2025-05-01 20:24:39',
             ),
             3 => 
             array (
@@ -65,9 +65,9 @@ class FeatureablesTableSeeder extends Seeder
                 'feature_id' => 10,
                 'featureable_type' => 'App\\Models\\Package',
                 'featureable_id' => 1,
-                'is_default' => 0,
+                'is_default' => 1,
                 'created_at' => '2025-04-28 11:26:35',
-                'updated_at' => '2025-04-28 11:26:35',
+                'updated_at' => '2025-05-01 20:24:43',
             ),
             5 => 
             array (
@@ -85,9 +85,9 @@ class FeatureablesTableSeeder extends Seeder
                 'feature_id' => 12,
                 'featureable_type' => 'App\\Models\\Package',
                 'featureable_id' => 2,
-                'is_default' => 0,
+                'is_default' => 1,
                 'created_at' => '2025-04-28 11:28:19',
-                'updated_at' => '2025-04-28 11:28:19',
+                'updated_at' => '2025-05-01 20:25:02',
             ),
             7 => 
             array (

@@ -229,6 +229,16 @@ class QuestionablesTableSeeder extends Seeder
                 'created_at' => '2025-04-28 11:20:12',
                 'updated_at' => '2025-04-28 11:20:12',
             ),
+            21 => 
+            array (
+                'id' => 22,
+                'question_id' => 14,
+                'questionable_type' => 'App\\Models\\Service',
+                'questionable_id' => 1,
+                'is_required' => 1,
+                'created_at' => '2025-05-01 20:23:41',
+                'updated_at' => '2025-05-01 20:24:05',
+            ),
         ));
         
         
