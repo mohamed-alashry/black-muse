@@ -13,6 +13,7 @@ use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class OrderResource extends Resource
 {
@@ -26,19 +27,19 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('client_id')
-                    ->relationship('client', 'name')
-                    ->required(),
-                Forms\Components\Select::make('service_id')
-                    ->relationship('service', 'name')
-                    ->required(),
-                Forms\Components\Select::make('package_id')
-                    ->relationship('package', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('total_price')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\Textarea::make('notes')
+               // Forms\Components\Select::make('client_id')
+               //     ->relationship('client', 'name')
+               //     ->required(),
+               // Forms\Components\Select::make('service_id')
+               //     ->relationship('service', 'name')
+               //     ->required(),
+               // Forms\Components\Select::make('package_id')
+               //     ->relationship('package', 'name')
+               //     ->required(),
+               // Forms\Components\TextInput::make('total_price')
+               //     ->required()
+               //     ->numeric(),
+                Forms\Components\MarkdownEditor::make('notes')
                     ->columnSpanFull(),
                 Forms\Components\Select::make('status')
                     ->options(['pending' => 'pending', 'in-progress' => 'in-progress', 'complete' => 'complete', 'cancelled' => 'cancelled'])
@@ -123,5 +124,15 @@ class OrderResource extends Resource
             'view' => Pages\ViewOrder::route('/{record}'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return false;
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return false;
     }
 }

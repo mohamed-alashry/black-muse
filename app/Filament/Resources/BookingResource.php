@@ -27,32 +27,32 @@ class BookingResource extends Resource
     {
         return $form
             ->schema([
-//                Forms\Components\Select::make('client_id')
-//                    ->relationship('client', 'name')
-//                    ->required(),
-//                Forms\Components\Select::make('service_id')
-//                    ->relationship('service', 'name')
-//                    ->required(),
-//                Forms\Components\Select::make('package_id')
-//                    ->relationship('package', 'name')
-//                    ->required(),
-//                Forms\Components\DatePicker::make('event_date')
-//                    ->required(),
-//                Forms\Components\TextInput::make('paid_amount')
-//                    ->required()
-//                    ->numeric(),
-//                Forms\Components\TextInput::make('remaining_amount')
-//                    ->required()
-//                    ->numeric(),
-//                Forms\Components\TextInput::make('total_price')
-//                    ->required()
-//                    ->numeric(),
-//                Forms\Components\MarkdownEditor::make('notes')
-//                    ->columnSpanFull(),
-//                Forms\Components\Select::make('payment_status')
-//                    ->options(['down_payment' => 'down_payment', 'full_payment' => 'full_payment'])
-//                    ->default('down_payment')
-//                    ->required(),
+               // Forms\Components\Select::make('client_id')
+               //     ->relationship('client', 'name')
+               //     ->required(),
+               // Forms\Components\Select::make('service_id')
+               //     ->relationship('service', 'name')
+               //     ->required(),
+               // Forms\Components\Select::make('package_id')
+               //     ->relationship('package', 'name')
+               //     ->required(),
+               // Forms\Components\DatePicker::make('event_date')
+               //     ->required(),
+               // Forms\Components\TextInput::make('paid_amount')
+               //     ->required()
+               //     ->numeric(),
+               // Forms\Components\TextInput::make('remaining_amount')
+               //     ->required()
+               //     ->numeric(),
+               // Forms\Components\TextInput::make('total_price')
+               //     ->required()
+               //     ->numeric(),
+               // Forms\Components\Select::make('payment_status')
+               //     ->options(['down_payment' => 'down_payment', 'full_payment' => 'full_payment'])
+               //     ->default('down_payment')
+               //     ->required(),
+                Forms\Components\MarkdownEditor::make('notes')
+                    ->columnSpanFull(),
                 Forms\Components\Select::make('booking_status')
                     ->options(['new' => 'new', 'confirmed' => 'confirmed', 'completed' => 'completed', 'cancelled' => 'cancelled'])
                     ->default('new')
@@ -143,16 +143,6 @@ class BookingResource extends Resource
         ];
     }
 
-    public static function canDelete(Model $record): bool
-    {
-        return false;
-    }
-
-    public static function canDeleteAny(): bool
-    {
-        return false;
-    }
-
     public static function getPages(): array
     {
         return [
@@ -161,5 +151,15 @@ class BookingResource extends Resource
             'view'   => Pages\ViewBooking::route('/{record}'),
             'edit'   => Pages\EditBooking::route('/{record}/edit'),
         ];
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return false;
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return false;
     }
 }
