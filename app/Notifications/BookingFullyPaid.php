@@ -3,13 +3,13 @@
 namespace App\Notifications;
 
 use Filament\Notifications\Actions\Action;
+use Filament\Notifications\Notification as FilamentNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Filament\Notifications\Notification as FilamentNotification;
 
-class BookingCreated extends Notification implements ShouldQueue
+class BookingFullyPaid extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -37,8 +37,8 @@ class BookingCreated extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('New Booking Created')
-            ->markdown('mail.booking.created', ['booking' => $this->booking]);
+            ->subject('Booking Fully Paid')
+            ->markdown('mail.booking.fully_paid', ['booking' => $this->booking]);
     }
 
     /**
@@ -56,10 +56,10 @@ class BookingCreated extends Notification implements ShouldQueue
         $booking = $this->booking->load('client');
 
         return FilamentNotification::make()
-            ->title('New Booking')
+            ->title('Booking Fully Paid')
             ->icon('heroicon-o-calendar-days')
             ->color('primary')
-            ->body("Client {$booking->client->name} has made a new photography booking (#{$booking->reference_number}).")
+            ->body("Client {$booking->client->name} has paid the full amount for booking (#{$booking->reference_number})")
             ->actions([
                 Action::make('view')
                     ->button()

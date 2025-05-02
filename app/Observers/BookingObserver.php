@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Booking;
 use App\Models\User;
 use App\Notifications\BookingCreated;
+use App\Notifications\BookingFullyPaid;
 use App\Notifications\BookingReceived;
 use App\Notifications\BookingStatusChanged;
 use Illuminate\Contracts\Events\ShouldHandleEventsAfterCommit;
@@ -30,8 +31,14 @@ class BookingObserver implements ShouldHandleEventsAfterCommit
      */
     public function updated(Booking $booking): void
     {
+        $admin = User::find(1);
+
         if ($booking->isDirty('booking_status')) {
             $booking->client->notify(new BookingStatusChanged($booking));
+        }
+
+        if ($booking->isDirty('payment_status') && $booking->payment_status === 'full_payment') {
+            $admin->notify(new BookingFullyPaid($booking));
         }
     }
 
