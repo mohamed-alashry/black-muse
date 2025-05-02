@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PortfolioResource\Pages;
 use App\Filament\Resources\PortfolioResource\RelationManagers;
-use App\Filament\Resources\PortfolioResource\RelationManagers\ItemsRelationManager;
 use App\Models\Portfolio;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -12,8 +11,6 @@ use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PortfolioResource extends Resource
 {
@@ -32,6 +29,10 @@ class PortfolioResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('category')
+                    ->options(['photography' => 'photography', 'bindery' => 'bindery'])
+                    ->default('photography')
+                    ->required(),
                 Forms\Components\FileUpload::make('photo')
                     ->required()
                     ->maxSize(1024) // Size in KB (1MB in this case)
@@ -56,6 +57,8 @@ class PortfolioResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('category')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('photo'),
 //                Tables\Columns\IconColumn::make('viewable')
@@ -91,7 +94,7 @@ class PortfolioResource extends Resource
     public static function getRelations(): array
     {
         return [
-            ItemsRelationManager::class
+            RelationManagers\ItemsRelationManager::class
         ];
     }
 
