@@ -74,7 +74,7 @@
                             <p class="fw-lighter">Sample of Needed form you can change the inputs as you can</p>
                         </div>
 
-                        <div class="form-packages-section bg-main rounded-4 p-md-4 p-2">
+                        <div class="form-packages-section d-grid gap-4" style="grid-template-columns: repeat(1, 1fr);padding: 30px;">
                             @foreach ($questions as $question)
                                 @include('partials.site.question-field', ['question' => $question])
                             @endforeach
@@ -127,6 +127,7 @@
 
 
     @push('scripts')
+        <script src="{{ asset('js/pages/questions.js') }}"></script>
         <script src="{{ asset('js/pages/packages.js') }}"></script>
         <script>
             var packagesData = @json($packages);

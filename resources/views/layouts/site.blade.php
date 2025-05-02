@@ -15,6 +15,7 @@
     <title>@yield('title', 'Black Muse')</title>
 </head>
 <body>
+<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 
 @include('partials.site.header')
 @include('partials.site.navbar')
@@ -29,7 +30,7 @@
 
 @include('partials.site.footer')
 
-<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+
 <script src="{{ asset('js/bootstrap.bundle.js') }}"></script>
 <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>

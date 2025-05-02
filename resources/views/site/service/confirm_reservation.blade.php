@@ -27,11 +27,13 @@
                     </div>
                     <div class="row d-flex px-2 py-4">
                         <div class="col-md-8">
-                           @foreach($termsPageID->sections as $key => $section)
+                         @if(isset($termsPage))
+                           @foreach($termsPage->sections as $key => $section)
                             <div class="fw-lighter d-flex flex-column gap-4">
                               {!! $section->content !!}
                             </div>
                            @endforeach
+                         @endif
                         </div>
                         <div class="col-md-4">
                             <div class="down-package-card bg-main">
