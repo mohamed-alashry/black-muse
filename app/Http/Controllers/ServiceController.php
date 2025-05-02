@@ -16,6 +16,8 @@ use App\Models\Feature;
 use App\Models\Booking;
 use App\Models\BlockedDate;
 use App\Models\ReservedFeatures;
+use App\Models\Question;
+use App\Models\QuestionDependency;
 use App\Models\Answer;
 use App\Models\Meeting;
 use Carbon\Carbon;
@@ -72,6 +74,7 @@ class ServiceController extends Controller
         if (!Cache::has($cacheKey)) {
             return redirect()->route('site.home')->with('error', 'No reservation data found.');
         }
+        $reservationData = Cache::get($cacheKey);
 
         //start fetch terms page according category
         $PageIDs = ["photography"=>5,"bindery"=>6,"lab"=>7];
@@ -409,9 +412,17 @@ class ServiceController extends Controller
             ]);
         }
 
+        $optionTypes = ['select', 'radio', 'checkbox', 'color-select', 'image-select'];
+
         foreach ($reservationData['answers'] as $questionId => $answerValue) {
             if (is_null($answerValue)) {
                 continue;
+            }
+
+            $question = Question::find($questionId);
+            if (in_array($question->type, $optionTypes)) {
+             $depndency_rel = QuestionDependency::where('child_question_id',$questionId)->first();
+             $question_option_id = $depndency_rel['question_option_id']??null;
             }
 
             $answers = is_array($answerValue) ? $answerValue : [$answerValue];
@@ -419,10 +430,11 @@ class ServiceController extends Controller
             foreach ($answers as $answer) {
                 $answer = $this->moveAnswerToStorage($answer);
                 Answer::create([
-                    'question_id'     => $questionId,
-                    'value'           => $answer,
-                    'answerable_type' => get_class($reservation),
-                    'answerable_id'   => $reservation->id,
+                    'question_id'        => $questionId,
+                    'value'              => $answer,
+                    'answerable_type'    => get_class($reservation),
+                    'answerable_id'      => $reservation->id,
+                    'question_option_id' => $question_option_id??null,
                 ]);
             }
         }
