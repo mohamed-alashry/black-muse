@@ -27,7 +27,7 @@
                     </div>
                     <div class="row d-flex px-2 py-4">
                         <div class="col-md-8">
-                           @foreach($termsPageID->sections as $key => $section)
+                           @foreach($termsPage->sections as $key => $section)
                             <div class="fw-lighter d-flex flex-column gap-4">
                               {!! $section->content !!}
                             </div>
