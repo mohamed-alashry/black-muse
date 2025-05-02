@@ -34,12 +34,12 @@ class AnswersRelationManager extends RelationManager
                 ->label('Type'),
                 Tables\Columns\TextColumn::make('value')
                     ->formatStateUsing(function ($state, $record) {
-                        if ($record->question->type === 'color') {
+                        if ($record->question->type === 'color-select') {
                             // Return a color circle
                             return '<div style="width: 24px; height: 24px; background-color: ' . $state . '; border-radius: 50%; border: 1px solid #ccc;"></div>';
                         }
 
-                        if ($record->question->type === 'file') {
+                        if ($record->question->type === 'file-upload') {
                             // If it's an image
                             if (Str::endsWith($state, ['.jpg', '.jpeg', '.png', '.gif'])) {
                                 return '<img src="' . asset($state) . '" alt="Uploaded Image" class="w-16 h-16 object-cover rounded-md">';

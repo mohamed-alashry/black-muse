@@ -18,6 +18,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="table-profile col-md-12">
+                    @if($reservationData['service_category'] == 'photography')
                     <div class="table-header">
                         <h4 class="">You need to pay a down payment</h4>
                         <h3 class="text-gold">
@@ -25,6 +26,15 @@
                             <span class="fs-6 fw-lighter">SAR</span>
                         </h3>
                     </div>
+                    @else
+                        <div class="table-header">
+                            <h4 class="">You need to pay</h4>
+                            <h3 class="text-gold">
+                                {{ number_format($reservationData['total_price'], 0) }}
+                                <span class="fs-6 fw-lighter">SAR</span>
+                            </h3>
+                        </div>
+                    @endif
                     <div class="row d-flex px-2 py-4">
                         <div class="col-md-8">
                          @if(isset($termsPage))

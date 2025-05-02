@@ -42,7 +42,7 @@ class OrderResource extends Resource
                 Forms\Components\MarkdownEditor::make('notes')
                     ->columnSpanFull(),
                 Forms\Components\Select::make('status')
-                    ->options(['pending' => 'pending', 'in-progress' => 'in-progress', 'complete' => 'complete', 'cancelled' => 'cancelled'])
+                    ->options(['pending' => 'pending', 'in-progress' => 'in-progress', 'completed' => 'completed', 'cancelled' => 'cancelled'])
                     ->default('pending')
                     ->required(),
             ]);

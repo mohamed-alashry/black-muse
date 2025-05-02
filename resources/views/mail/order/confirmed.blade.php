@@ -7,14 +7,14 @@
 <div style="direction: rtl; text-align: right;">
 # شكراً لحجزك!
 
-مرحباً {{ $booking->client->name }},
+مرحباً {{ $order->client->name }},
 
 لقد استلمنا طلب الحجز الخاص بك ونحن متحمسون لخدمتك!
 
 @component('mail::panel')
-    <strong>الخدمة:</strong> {{ $booking->service->name }}<br>
-    <strong>تاريخ الحجز:</strong> {{ $booking->created_at->format('Y/m/d') }}<br>
-    <strong>رقم الحجز:</strong> #{{ $booking->reference_number }}
+    <strong>الخدمة:</strong> {{ $order->service->name }}<br>
+    <strong>تاريخ الحجز:</strong> {{ $order->created_at->format('Y/m/d') }}<br>
+    <strong>رقم الحجز:</strong> #{{ $order->reference_number }}
 @endcomponent
 
 سنتواصل معك قريباً لتأكيد التفاصيل النهائية.
@@ -29,16 +29,16 @@
 فريق عمل {{ config('app.name') }}
 </div>
 @else
-# Thank You for Your Booking!
+# Thank You for Your Order!
 
-Hello {{ $booking->client->name }},
+Hello {{ $order->client->name }},
 
-We have received your booking request and we’re excited to work with you!
+We have received your order request and we’re excited to work with you!
 
 @component('mail::panel')
-    <strong>Service:</strong> {{ $booking->service->name }}<br>
-    <strong>Booking Date:</strong> {{ $booking->created_at->format('F j, Y') }}<br>
-    <strong>Reference Number:</strong> #{{ $booking->reference_number }}
+    <strong>Service:</strong> {{ $order->service->name }}<br>
+    <strong>Order Date:</strong> {{ $order->created_at->format('F j, Y') }}<br>
+    <strong>Reference Number:</strong> #{{ $order->reference_number }}
 @endcomponent
 
 We will contact you shortly to confirm and finalize the details.

@@ -26,7 +26,7 @@
         {{ __('Your booking status has been updated.') }}
 @endswitch
 
-@component('mail::button', ['url' => url('/bookings/' . $booking->id)])
+@component('mail::button', ['url' => url('/service/booking/' . $booking->id)])
     {{ __('View Booking') }}
 @endcomponent
 

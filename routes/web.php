@@ -35,17 +35,19 @@ Route::middleware(['auth:client'])->group(function () {
     //service reservation
     Route::post('service/reservation/cache', [ServiceController::class, 'cacheReservation'])->name('service.reservation.cache');
     Route::get('service/reservation/confirm', [ServiceController::class, 'confirmReservation'])->name('service.reservation.confirm');
+
     Route::post('service/booking/store', [ServiceController::class, 'storeBooking'])->name('service.booking.store');
     Route::get('service/booking/{id}', [ServiceController::class, 'viewBooking'])->name('service.booking.show');
+    Route::put('/booking/complete/{id}', [ServiceController::class, 'completeBooking'])->name('booking.complete');
+
     Route::post('service/order/store', [ServiceController::class, 'storeOrder'])->name('service.order.store');
     Route::get('service/order/{id}', [ServiceController::class, 'viewOrder'])->name('service.order.show');
-    Route::put('/booking/complete/{id}', [ServiceController::class, 'completeBooking'])->name('booking.complete');
-    
+
     //meeting
     Route::get('booking/meeting/confirm/{id}', [ServiceController::class, 'confirmMeeting'])->name('booking.meeting.confirm');
     Route::post('booking/meeting/available-times', [ServiceController::class, 'availableTimes']);
     Route::post('/booking/meeting/save', [ServiceController::class, 'save']);
-    
+
 
 
 });

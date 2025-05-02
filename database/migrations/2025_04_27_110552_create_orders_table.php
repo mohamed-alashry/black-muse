@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->foreignId('package_id')->constrained()->cascadeOnDelete();
             $table->decimal('total_price');
             $table->text('notes')->nullable();
-            $table->enum('status', ["pending", "in-progress", "complete", "cancelled"])->default('pending');
+            $table->enum('status', ["pending", "in-progress", "completed", "cancelled"])->default('pending');
             $table->timestamps();
         });
 

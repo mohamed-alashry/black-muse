@@ -76,14 +76,11 @@ class ServiceController extends Controller
         }
         $reservationData = Cache::get($cacheKey);
 
-        //start fetch terms page according category
-        $PageIDs = ["photography"=>5,"bindery"=>6,"lab"=>7];
-        $reservationData = Cache::get($cacheKey);
-        $termsPageID     = $PageIDs[$reservationData['service_category']];
+        $pageIDs         = ["photography" => 5, "bindery" => 6, "lab" => 7];
+        $termsPageID     = $pageIDs[$reservationData['service_category']];
         $termsPage       = Page::where('id', $termsPageID)->withActiveSections()->firstOrFail();
-        //end fetch terms page according category
 
-        return view('site.service.confirm_reservation', compact('reservationData','termsPage'));
+        return view('site.service.confirm_reservation', compact('reservationData', 'termsPage'));
     }
 
     private function validateReservation(Request $request)
@@ -288,7 +285,7 @@ class ServiceController extends Controller
         $confirmMeetingPage = Page::where('id', 8)->withActiveSections()->firstOrFail();
 
         if (!$meeting) {
-         return view('site.service.confirm_meeting', compact('booking', 'meeting','confirmMeetingPage'));
+            return view('site.service.confirm_meeting', compact('booking', 'meeting', 'confirmMeetingPage'));
         }
         return redirect()->route('site.home');
     }
@@ -359,10 +356,10 @@ class ServiceController extends Controller
 
     public function viewBooking($id)
     {
-        $booking  = Booking::with('package.features')->findOrFail($id);
+        $booking              = Booking::with('package.features')->findOrFail($id);
         $photographyTermsPage = Page::where('id', 5)->withActiveSections()->firstOrFail();
-        $MeetingTermsPage = Page::where('id', 8)->withActiveSections()->firstOrFail();
-        return view('site.service.view_booking', compact("booking","photographyTermsPage","MeetingTermsPage"));
+        $MeetingTermsPage     = Page::where('id', 8)->withActiveSections()->firstOrFail();
+        return view('site.service.view_booking', compact("booking", "photographyTermsPage", "MeetingTermsPage"));
     }
 
     public function completeBooking($id)
@@ -421,8 +418,8 @@ class ServiceController extends Controller
 
             $question = Question::find($questionId);
             if (in_array($question->type, $optionTypes)) {
-             $depndency_rel = QuestionDependency::where('child_question_id',$questionId)->first();
-             $question_option_id = $depndency_rel['question_option_id']??null;
+                $depndency_rel      = QuestionDependency::where('child_question_id', $questionId)->first();
+                $question_option_id = $depndency_rel['question_option_id'] ?? null;
             }
 
             $answers = is_array($answerValue) ? $answerValue : [$answerValue];
@@ -434,7 +431,7 @@ class ServiceController extends Controller
                     'value'              => $answer,
                     'answerable_type'    => get_class($reservation),
                     'answerable_id'      => $reservation->id,
-                    'question_option_id' => $question_option_id??null,
+                    'question_option_id' => $question_option_id ?? null,
                 ]);
             }
         }
