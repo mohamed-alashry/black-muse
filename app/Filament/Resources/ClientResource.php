@@ -7,6 +7,9 @@ use App\Filament\Resources\ClientResource\RelationManagers;
 use App\Models\Client;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,8 +20,8 @@ class ClientResource extends Resource
     protected static ?string $model = Client::class;
 
     protected static ?string $navigationGroup = 'Bookings';
-    protected static ?int $navigationSort = 3;
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?int    $navigationSort  = 3;
+    protected static ?string $navigationIcon  = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
     {
@@ -39,9 +42,9 @@ class ClientResource extends Resource
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->confirmed()
-                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                    ->dehydrated(fn ($state) => filled($state))
-                    ->required(fn (string $context): bool => $context === 'create'),
+                    ->dehydrateStateUsing(fn($state) => Hash::make($state))
+                    ->dehydrated(fn($state) => filled($state))
+                    ->required(fn(string $context): bool => $context === 'create'),
                 Forms\Components\TextInput::make('password_confirmation')
                     ->password()
                     ->dehydrated(false),
@@ -78,7 +81,7 @@ class ClientResource extends Resource
                 //
             ])
             ->actions([
-//                Tables\Actions\ViewAction::make(),
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -86,6 +89,21 @@ class ClientResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist->schema([
+            Section::make()->schema([
+                TextEntry::make('name'),
+                TextEntry::make('email'),
+                TextEntry::make('phone_number'),
+                TextEntry::make('address'),
+                TextEntry::make('status'),
+                TextEntry::make('created_at'),
+                TextEntry::make('updated_at'),
+            ])->columns(),
+        ]);
     }
 
     public static function getRelations(): array
@@ -98,10 +116,10 @@ class ClientResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListClients::route('/'),
+            'index'  => Pages\ListClients::route('/'),
             'create' => Pages\CreateClient::route('/create'),
-//            'view' => Pages\ViewClient::route('/{record}'),
-            'edit' => Pages\EditClient::route('/{record}/edit'),
+            'view'   => Pages\ViewClient::route('/{record}'),
+            'edit'   => Pages\EditClient::route('/{record}/edit'),
         ];
     }
 }

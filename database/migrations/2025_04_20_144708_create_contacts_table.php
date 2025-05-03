@@ -20,8 +20,10 @@ return new class extends Migration {
             $table->text('message')->nullable();
             $table->text('message')->nullable();
             $table->text('notes')->nullable();
-            $table->text('reply')->nullable();
             $table->enum('status', ["new", "in-progress", "closed"])->default('new');
+            $table->text('reply_message')->nullable();
+            $table->dateTime('replied_at')->nullable();
+            $table->foreignId('replied_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }
