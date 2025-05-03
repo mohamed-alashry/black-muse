@@ -21,6 +21,8 @@
                 <form id="contactForm" class="col-md-5 col-12 gap-3 gap-md-0 row contact-us-form">
                     @csrf
 
+                    <input type="hidden" name="client_id" value="{{ auth('client')->id() }}">
+
                     <div id="formMsg" class="text-white mt-3"></div>
 
                     <div class="col-12 col-md-6">

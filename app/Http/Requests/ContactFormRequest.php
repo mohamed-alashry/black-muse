@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ContactFormRequest extends FormRequest
 {
-     public function authorize()
+    public function authorize()
     {
         return true;
     }
@@ -14,10 +14,11 @@ class ContactFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'   => 'required|email',
-            'name'    => 'required|string|max:255',
-            'subject' => 'required|string|max:255',
-            'message' => 'nullable|string',
+            'email'     => 'required|email',
+            'name'      => 'required|string|max:255',
+            'subject'   => 'required|string|max:255',
+            'message'   => 'nullable|string',
+            'client_id' => 'nullable|integer'
         ];
     }
 

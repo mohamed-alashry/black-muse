@@ -13,37 +13,38 @@ use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
 
 class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
 
     protected static ?string $navigationGroup = 'Website Content';
-    protected static ?int $navigationSort = 3;
-    protected static ?string $navigationIcon = 'heroicon-o-envelope';
+    protected static ?int    $navigationSort  = 3;
+    protected static ?string $navigationIcon  = 'heroicon-o-envelope';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('client_id')
-                    ->relationship(name: 'client', titleAttribute: 'name')
-                    ->searchable()
-                    ->preload()
-                    ->required(),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('subject')
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('message')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('status')
+                // Forms\Components\Select::make('client_id')
+                //     ->relationship(name: 'client', titleAttribute: 'name')
+                //     ->searchable()
+                //     ->preload()
+                //     ->required(),
+                // Forms\Components\TextInput::make('email')
+                //     ->email()
+                //     ->required()
+                //     ->maxLength(255),
+                // Forms\Components\TextInput::make('name')
+                //     ->required()
+                //     ->maxLength(255),
+                // Forms\Components\TextInput::make('subject')
+                //     ->maxLength(255),
+                // Forms\Components\Textarea::make('message')
+                //     ->columnSpanFull(),
+                Forms\Components\Select::make('status')
+                    ->options(['new' => 'new', 'in-progress' => 'in-progress', 'closed' => 'closed'])
+                    ->default('new')
                     ->required(),
             ]);
     }
@@ -76,7 +77,7 @@ class ContactResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-//                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -113,7 +114,7 @@ class ContactResource extends Resource
         return [
             'index'  => Pages\ListContacts::route('/'),
             'create' => Pages\CreateContact::route('/create'),
-//            'view'   => Pages\ViewContact::route('/{record}'),
+            'view'   => Pages\ViewContact::route('/{record}'),
             'edit'   => Pages\EditContact::route('/{record}/edit'),
         ];
     }
@@ -122,10 +123,5 @@ class ContactResource extends Resource
     {
         return false;
 
-    }
-
-    public static function canEdit(Model $record): bool
-    {
-        return false;
     }
 }
