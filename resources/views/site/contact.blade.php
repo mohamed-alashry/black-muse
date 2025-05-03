@@ -16,8 +16,8 @@
     <!-- About Section -->
     <section class="bg-main py-5">
         <div class="container">
-            <div class=" row col-gap-md-4 gap-4">
-
+            <div class=" row row-cols-1 row-cols-md-2 align-items-center">
+            <div class="col" >
                 <form id="contactForm" class="col-md-5 col-12 gap-3 gap-md-0 row contact-us-form">
                     @csrf
 
@@ -48,13 +48,14 @@
                     </button>
 
                 </form>
-
-                <div class="col-12 col-md-7" style="color: #fff">
-                    <!-- sections -->
+            </div>
+    <div class="col" >
+    <div class="d-flex flex-column gap-3 text-white ">                    <!-- sections -->
                     @foreach($contactPage->sections as $section)
                         {!! $section->content !!}
                     @endforeach
                 </div>
+              </div>
             </div>
         </div>
     </section>

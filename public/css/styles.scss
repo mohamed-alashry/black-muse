@@ -35,18 +35,41 @@ p {
   color: #c8b87e;
   font-weight: 700;
 }
+#backToTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #333;
+  color: #c8b87e;
+  cursor: pointer;
+  padding: 12px 16px;
+  border-radius: 50%;
+  transition: opacity 0.3s ease;
+}
 
+#backToTopBtn:hover {
+  background-color: #555;
+}
 .hero {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding-block: 2rem;
-  z-index: 10;
-  background-image: url(../images/blurhero.png);
-  background-repeat: no-repeat;
-  background-size: contain;
+  height: 85dvh;
+  width: 100%;
+  overflow: hidden;
+
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
 }
 
 .hero-inner {
@@ -77,11 +100,13 @@ p {
   position: relative;
   overflow: hidden;
   border-radius: 30px;
+  width: 100%;
+  height: 433px;
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
 
   .info-service {
@@ -162,8 +187,8 @@ p {
     position: relative;
     overflow: hidden;
     border-radius: 30px;
-    height: 100%;
-    width: 100;
+    height: 334px;
+    width: 100%;
 
     .porto-img {
       width: 100%;
@@ -186,12 +211,12 @@ p {
   overflow: hidden;
   border-radius: 30px;
   height: 307px;
-  width: 90%;
+  width: 100%;
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
 
   .info-bindery {
@@ -463,8 +488,8 @@ p {
 .packages-section {
   display: grid;
   grid-template-columns: auto auto auto;
-  align-items: center;
   gap: 20px;
+  height: 70vh;
 
   .package-card {
     background: #000;
@@ -474,6 +499,7 @@ p {
     display: flex;
     flex-direction: column;
     padding: 0px;
+    height: 100%;
 
     .header-card {
       padding: 20px;
@@ -497,6 +523,8 @@ p {
       margin: 20px;
       margin-bottom: 25px;
       color: #fff;
+      margin-top: auto;
+
     }
   }
 }
@@ -587,6 +615,8 @@ p {
   display: flex;
   flex-direction: column;
   padding: 0px;
+  height: 100%;
+   
 
   .header-card {
     padding: 20px;

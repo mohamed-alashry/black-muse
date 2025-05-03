@@ -5,16 +5,18 @@
 @section('meta_description', $homePage->meta_desc)
 
 @section('content')
-    <!-- hero section -->
-    <section class="hero bg-main">
-        <div class="text-hero">
-            <h1 class=" mb-1 fs-1 fw-lighter">Explore <strong class="text-gold"> Black Muse</strong></h1>
-            <h2 class="fs-1 fw-lighter">Photography Studio </h2>
-        </div>
-        <div class="w-100 overflow-hidden">
-            <img src="{{ asset('images/heroImg.png') }}" class="w-100" alt="">
-        </div>
-    </section>
+<button id="backToTopBtn" title="Go to top">↑</button>
+
+  <!-- hero section -->
+  <section class="hero bg-main">
+    <div class="text-hero">
+      <h1 class=" mb-1 fs-1 fw-lighter">Explore <strong class="text-gold"> Black Muse</strong></h1>
+      <h2 class="fs-1 fw-lighter">Photography Studio </h2>
+    </div>
+    <div class="w-100 overflow-hidden">
+      <img src="./images/heroImg.png" class="w-100" alt="">
+    </div>
+  </section>
 
     <!-- Services section -->
     <section class="bg-main py-5" id="services">
