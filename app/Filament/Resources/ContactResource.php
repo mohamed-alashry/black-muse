@@ -42,6 +42,8 @@ class ContactResource extends Resource
                 //     ->maxLength(255),
                 // Forms\Components\Textarea::make('message')
                 //     ->columnSpanFull(),
+                Forms\Components\MarkdownEditor::make('notes')
+                    ->columnSpanFull(),
                 Forms\Components\Select::make('status')
                     ->options(['new' => 'new', 'in-progress' => 'in-progress', 'closed' => 'closed'])
                     ->default('new')
@@ -98,7 +100,8 @@ class ContactResource extends Resource
                 TextEntry::make('status'),
                 TextEntry::make('created_at'),
                 TextEntry::make('updated_at'),
-            ])->columns(2)
+                TextEntry::make('notes')->columnSpanFull(),
+            ])->columns(),
         ]);
     }
 

@@ -26,7 +26,7 @@
         {{ __('Your order status has been updated.') }}
 @endswitch
 
-@component('mail::button', ['url' => url('/service/order/' . $order->id)])
+@component('mail::button', ['url' => route('service.order.show', $order->id)])
     {{ __('View Order') }}
 @endcomponent
 
