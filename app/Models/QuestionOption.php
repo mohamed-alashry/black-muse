@@ -6,6 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @property int $id
+ * @property int $question_id
+ * @property string $label
+ * @property string $value
+ * @property int|null $sort
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
+ * @property-read \App\Models\Question $question
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Answer[] $answers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Question[] $childQuestions
+ */
 class QuestionOption extends Model
 {
     protected $casts = [

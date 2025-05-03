@@ -7,6 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * @property int $id
+ * @property int $portfolio_id
+ * @property string $title
+ * @property string|null $description
+ * @property string|null $subtitle
+ * @property string|null $content
+ * @property array|null $photos
+ * @property int $sort
+ * @property string $status
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
+ * @property-read \App\Models\Portfolio $portfolio
+ */
 class Item extends Model
 {
     use HasFactory, HasTranslations;

@@ -9,6 +9,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
+/**
+ * @property int $id
+ * @property string $reference_number
+ * @property int $client_id
+ * @property int $service_id
+ * @property int $package_id
+ * @property float $total_price
+ * @property string|null $notes
+ * @property string $status
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
+ * @property-read \App\Models\Client $client
+ * @property-read \App\Models\Service $service
+ * @property-read \App\Models\Package $package
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Feature[] $features
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Answer[] $answers
+ */
 #[ObservedBy([OrderObserver::class])]
 class Order extends Model
 {
