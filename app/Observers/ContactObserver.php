@@ -17,10 +17,8 @@ class ContactObserver implements ShouldHandleEventsAfterCommit
      */
     public function created(Contact $contact): void
     {
-        $admin = User::find(1);
-
         # Send Notification to Admin
-        $admin->notify(new ContactCreated($contact));
+        User::permission('update_contact')->get()->each(fn($admin) => $admin->notify(new ContactCreated($contact)));
 
         # Send Notification to Client
         Notification::route('mail', $contact->email)->notify(new ContactReceived($contact));

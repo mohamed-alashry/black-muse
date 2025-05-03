@@ -16,10 +16,8 @@ class OrderObserver implements ShouldHandleEventsAfterCommit
      */
     public function created(Order $order): void
     {
-        $admin = User::find(1);
-
         # Send Notification to Admin
-        $admin->notify(new OrderCreated($order));
+        User::permission('update_order')->get()->each(fn($admin) => $admin->notify(new OrderCreated($order)));
 
         # Send Notification to Client
         $order->client->notify(new OrderConfirmed($order));
