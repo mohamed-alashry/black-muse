@@ -26,23 +26,7 @@ class ContactResource extends Resource
     {
         return $form
             ->schema([
-                // Forms\Components\Select::make('client_id')
-                //     ->relationship(name: 'client', titleAttribute: 'name')
-                //     ->searchable()
-                //     ->preload()
-                //     ->required(),
-                // Forms\Components\TextInput::make('email')
-                //     ->email()
-                //     ->required()
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('name')
-                //     ->required()
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('subject')
-                //     ->maxLength(255),
-                // Forms\Components\Textarea::make('message')
-                //     ->columnSpanFull(),
-                Forms\Components\MarkdownEditor::make('notes')
+                Forms\Components\RichEditor::make('notes')
                     ->columnSpanFull(),
                 Forms\Components\Select::make('status')
                     ->options(['new' => 'new', 'in-progress' => 'in-progress', 'closed' => 'closed'])
@@ -65,6 +49,13 @@ class ContactResource extends Resource
                 Tables\Columns\TextColumn::make('subject')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('replied_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('repliedBy.name')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -92,7 +83,9 @@ class ContactResource extends Resource
     {
         return $infolist->schema([
             Section::make()->schema([
-                TextEntry::make('client.name'),
+                TextEntry::make('client.name')
+                    ->url($infolist->record->client_id ? route('filament.admin.resources.clients.view', $infolist->record->client_id) : null)
+                    ->openUrlInNewTab(),
                 TextEntry::make('name'),
                 TextEntry::make('email'),
                 TextEntry::make('subject'),
@@ -100,7 +93,12 @@ class ContactResource extends Resource
                 TextEntry::make('status'),
                 TextEntry::make('created_at'),
                 TextEntry::make('updated_at'),
-                TextEntry::make('notes')->columnSpanFull(),
+                TextEntry::make('notes')->markdown()->columnSpanFull(),
+            ])->columns(),
+            Section::make('Reply')->schema([
+                TextEntry::make('repliedBy.name'),
+                TextEntry::make('replied_at'),
+                TextEntry::make('reply_message')->markdown()->columnSpanFull(),
             ])->columns(),
         ]);
     }

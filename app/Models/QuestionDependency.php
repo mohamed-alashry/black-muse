@@ -3,7 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $question_option_id
+ * @property int $child_question_id
+ * @property int $sort
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
+ * @property-read \App\Models\QuestionOption|null $option
+ */
 class QuestionDependency extends Model
 {
     protected $table = 'question_dependencies';
@@ -15,12 +26,12 @@ class QuestionDependency extends Model
         'sort',
     ];
 
-    public function option()
+    public function option(): BelongsTo
     {
         return $this->belongsTo(QuestionOption::class, 'question_option_id');
     }
 
-    public function childQuestion()
+    public function childQuestion(): BelongsTo
     {
         return $this->belongsTo(Question::class, 'child_question_id');
     }

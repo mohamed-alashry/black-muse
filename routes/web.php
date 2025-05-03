@@ -54,10 +54,9 @@ Route::middleware(['auth:client'])->group(function () {
 
 Route::get('/notification', function () {
     $booking = \App\Models\Booking::find(22);
+    $contact = \App\Models\Contact::find(6);
     $user = \App\Models\User::find(1);
 
-//    return (new \App\Notifications\BookingCreated($booking))
-//    return (new \App\Notifications\BookingReceived($booking))
-    return (new \App\Notifications\BookingStatusChanged($booking))
-        ->toMail($booking->client);
+    return (new \App\Notifications\ContactReplied($contact))
+        ->toMail($user);
 });

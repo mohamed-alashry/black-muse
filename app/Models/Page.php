@@ -9,6 +9,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * @property int $id
+ * @property string $title
+ * @property string|null $meta_title
+ * @property string|null $meta_description
+ * @property string $status
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Section[] $sections
+ */
 class Page extends Model
 {
     use HasFactory, HasTranslations;

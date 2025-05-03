@@ -43,6 +43,7 @@ class UserResource extends Resource
                     ->dehydrated(false),
                 Forms\Components\Select::make('status')
                     ->options(['active' => 'active', 'inactive' => 'inactive'])
+                    ->default('active')
                     ->required(),
                 Forms\Components\Select::make('roles')
                     ->relationship('roles', 'name')

@@ -10,6 +10,29 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
+/**
+ * @property int $id
+ * @property string $reference_number
+ * @property int $client_id
+ * @property int $service_id
+ * @property int $package_id
+ * @property \Carbon\Carbon $event_date
+ * @property float $paid_amount
+ * @property float $remaining_amount
+ * @property float $total_price
+ * @property string|null $notes
+ * @property string $payment_status
+ * @property string $booking_status
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * 
+ * @property-read \App\Models\Client $client
+ * @property-read \App\Models\Service $service
+ * @property-read \App\Models\Package $package
+ * @property-read \App\Models\Meeting|null $meeting
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Feature[] $features
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Answer[] $answers
+ */
 #[ObservedBy([BookingObserver::class])]
 class Booking extends Model
 {
