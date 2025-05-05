@@ -9,7 +9,7 @@
     <!-- hero section -->
     @include('partials.site.hero-section', [
         'highlight' => $portfolio->title,
-        'breadcrumb' => $portfolio->title
+        'breadcrumb' => 'Our Portfolio / '.ucfirst($portfolio->category)." / ".$portfolio->title
     ])
 
     <!-- sections -->

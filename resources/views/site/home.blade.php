@@ -34,40 +34,37 @@
                     <h2 class="fw-lighter">Our <strong class="text-gold">Black Muse</strong> Services</h2>
                     <p class="fs-4">What we offer</p>
                 </div>
-                <!-- <a class="d-flex align-items-center text-secondary gap-1 btn">
-                    <p>View All</p>
-                    <i class="fa-solid fa-chevron-right"></i>
-                </a> -->
             </div>
 
             <div class="services-carousel owl-carousel">
                 <!-- Services slider -->
-                @foreach($services->where('category', 'photography') as $service)
+                 @foreach($services->where('category', 'photography') as $service)
                     <div class="service-card">
-                     <a
-                      type="button"
-                      class="btn btn-service"
-                      @if(auth('client')->check())
-                                    data-bs-toggle="modal"
-                      data-bs-target="#calendarModalToggle"
-                      data-service-id="{{ $service->id }}"
-                      @else
-                          data-bs-toggle="modal"
-                      data-bs-target="#loginModal"
-                      @endif
-                    >
                         <img src="{{ asset('storage/'.$service->photo) }}" alt="imagecard">
                         <div class="info-service px-1 py-3">
-                            <h5>{{$service->name}}</h5>                            
+                            <h5>{{$service->name}}</h5>
+                            <button
+                              type="button"
+                              class="btn btn-service"
+                              @if(auth('client')->check())
+                                data-bs-toggle="modal"
+                                data-bs-target="#calendarModalToggle"
+                                data-service-id="{{ $service->id }}"
+                              @else
+                                data-bs-toggle="modal"
+                                data-bs-target="#loginModal"
+                              @endif
+                            >
+                              Choose a Package Now
+                            </button>
                         </div>
-                     </a>
-                   </div>
-                @endforeach
+                    </div>
+                  @endforeach
             </div>
         </div>
     </section>
 
-    <!-- Portfolio section -->
+    <!-- Portfolio photography section -->
     <section class="bg-main py-3 porto-section" id="protofolios"
              style="background-image: url({{asset('images/portohero.png')}});">
         <div class="row h-100">
@@ -75,7 +72,7 @@
                 <div class="porto-summry text-white d-flex flex-column gap-2 z-3 mb-2 mx-md-5 mx-2">
                     <p class="fw-lighter">protofolio Category</p>
                     <h1 class="text-gold lh-1">Black Muse</h1>
-                    <h1 class="fw-bolder lh-1">Portfolio classic</h1>
+                    <h1 class="fw-bolder lh-1">Portfolio Photography</h1>
                     <p class="fw-lighter">It is a long established fact that a reader will be distracted by the readable
                         content of a page when looking at its layout.</p>
                 </div>
@@ -84,7 +81,7 @@
                 <div class="portfolio-carousel owl-carousel z-3">
 
                     <!-- Portfolios slider-->
-                    @foreach($portfolios as $portfolio)
+                    @foreach($portfolios->where('category', 'photography') as $portfolio)
                         <div class="porto-card ">
                             <a href="{{ route('site.portfolio.show', $portfolio->id) }}">
                                 <img class="porto-img" src="{{ asset('storage/'.$portfolio->photo) }}" alt="imagecard">
@@ -99,8 +96,34 @@
     </section>
 
 
+    <!-- Portfolio bindery section -->
+    <section class="bg-main py-5" id="" >
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="text-white fw-lighter">
+                    <h2 class="fw-lighter">Our <strong class="text-gold">Black Muse</strong> Portfolio Bindery</h2>
+                    <!-- <p class="fs-4">What we offer</p> -->
+                </div>
+            </div>
+
+            <div class="portfolio-carousel owl-carousel">
+                <!-- Services slider -->
+                 @foreach($portfolios->where('category', 'bindery') as $portfolio)
+                    <div class="service-card">
+                     <a href="{{ route('site.portfolio.show', $portfolio->id) }}">
+                        <img src="{{ asset('storage/'.$portfolio->photo) }}" alt="imagecard">
+                        <div class="info-service px-1 py-3">
+                            <h5>{{$portfolio->title}}</h5>
+                        </div>
+                      </a>
+                    </div>
+                  @endforeach
+            </div>
+        </div><br>
+    </section>
+
     <!-- Bindery & Lab section -->
-    <section class="bg-main py-5" id="binderies">
+    <section class="bg-main py-5" id="binderies"><br>
         <div class="container">
             <div class="respnsive-section">
                 <div class="fw-lighter">
