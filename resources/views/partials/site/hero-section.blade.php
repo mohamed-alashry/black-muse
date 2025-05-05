@@ -1,3 +1,4 @@
+@include('partials.site.navbar')
 <section class="hero-inner bg-main">
   <div class="text-hero">
     <h1 class="mb-1 fs-1 fw-lighter">{{ $title ?? '' }} <strong class="text-gold">{{ $highlight ?? '' }}</strong></h1>

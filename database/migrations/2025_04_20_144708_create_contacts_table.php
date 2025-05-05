@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->string('name');
             $table->string('subject')->nullable();
             $table->text('message')->nullable();
-            $table->text('message')->nullable();
             $table->text('notes')->nullable();
             $table->enum('status', ["new", "in-progress", "closed"])->default('new');
             $table->text('reply_message')->nullable();

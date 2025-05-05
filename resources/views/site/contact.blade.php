@@ -18,27 +18,27 @@
         <div class="container">
             <div class=" row row-cols-1 row-cols-md-2 align-items-center">
             <div class="col" >
-                <form id="contactForm" class="col-md-5 col-12 gap-3 gap-md-0 row contact-us-form">
+                <form id="contactForm" class="row gap-3 contact-us-form" >
                     @csrf
 
                     <input type="hidden" name="client_id" value="{{ auth('client')->id() }}">
 
                     <div id="formMsg" class="text-white mt-3"></div>
-
-                    <div class="col-12 col-md-6">
+ 
+                   <div class="col">               
                         <input type="email" name="email" class="form-control bg-main rounded-4"
                                placeholder="Email address">
                     </div>
 
-                    <div class="col-12 col-md-6">
+                   <div class="col"> 
                         <input type="text" name="name" class="form-control bg-main rounded-4" placeholder="Full Name">
-                    </div>
+                   </div>
 
-                    <div class="">
+                    <div class="col-12">
                         <input type="text" name="subject" class="form-control bg-main rounded-4" placeholder="Subject">
                     </div>
 
-                    <div class="">
+                    <div class="col-12">
                         <textarea name="message" class="form-control bg-main rounded-4"
                                   placeholder="Your message here..." rows="3"></textarea>
                     </div>

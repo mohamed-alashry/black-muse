@@ -8,7 +8,7 @@
 <button id="backToTopBtn" title="Go to top">↑</button>
 
   <!-- hero section -->
-  <section class="hero bg-main">
+ <!--  <section class="hero bg-main">
     <div class="text-hero">
       <h1 class=" mb-1 fs-1 fw-lighter">Explore <strong class="text-gold"> Black Muse</strong></h1>
       <h2 class="fs-1 fw-lighter">Photography Studio </h2>
@@ -16,8 +16,16 @@
     <div class="w-100 overflow-hidden">
       <img src="./images/heroImg.png" class="w-100" alt="">
     </div>
-  </section>
-
+  </section> -->
+  <div class="position-relative">
+    @include('partials.site.navbar')
+    <section class="hero">
+       <video autoplay muted loop preload="auto" playsinline >
+         <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+       </video>
+         
+     </section>
+  </div>
     <!-- Services section -->
     <section class="bg-main py-5" id="services">
         <div class="container">
@@ -36,25 +44,24 @@
                 <!-- Services slider -->
                 @foreach($services->where('category', 'photography') as $service)
                     <div class="service-card">
+                     <a
+                      type="button"
+                      class="btn btn-service"
+                      @if(auth('client')->check())
+                                    data-bs-toggle="modal"
+                      data-bs-target="#calendarModalToggle"
+                      data-service-id="{{ $service->id }}"
+                      @else
+                          data-bs-toggle="modal"
+                      data-bs-target="#loginModal"
+                      @endif
+                    >
                         <img src="{{ asset('storage/'.$service->photo) }}" alt="imagecard">
                         <div class="info-service px-1 py-3">
-                            <h5>{{$service->name}}</h5>
-                            <button
-                                type="button"
-                                class="btn btn-service"
-                                @if(auth('client')->check())
-                                    data-bs-toggle="modal"
-                                data-bs-target="#calendarModalToggle"
-                                data-service-id="{{ $service->id }}"
-                                @else
-                                    data-bs-toggle="modal"
-                                data-bs-target="#loginModal"
-                                @endif
-                            >
-                                Choose a Package Now
-                            </button>
+                            <h5>{{$service->name}}</h5>                            
                         </div>
-                    </div>
+                     </a>
+                   </div>
                 @endforeach
             </div>
         </div>
@@ -73,7 +80,7 @@
                         content of a page when looking at its layout.</p>
                 </div>
             </div>
-            <div class="col-md-8 mt-auto ps-md-5">
+            <div class="col-md-8 mt-auto ps-md-5 mb-4">
                 <div class="portfolio-carousel owl-carousel z-3">
 
                     <!-- Portfolios slider-->
@@ -99,10 +106,10 @@
                 <div class="fw-lighter">
                     <h2 class="fw-lighter text-white"><strong class="text-gold">Bindery & Lab</strong> Services</h2>
                     <p class="fs-4 text-white">Explore More!</p>
-                    <a class="d-flex align-items-center text-secondary gap-1 btn">
+                   <!--  <a class="d-flex align-items-center text-secondary gap-1 btn">
                         <p>View All</p>
                         <i class="fa-solid fa-chevron-right"></i>
-                    </a>
+                    </a> -->
                 </div>
                 <!-- Two example cards -->
                 @foreach($services->where('category', '!=', 'photography') as $service)
