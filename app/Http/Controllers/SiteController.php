@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\Portfolio;
+use App\Models\Gallery;
 
 class SiteController extends Controller
 {
@@ -36,6 +37,12 @@ class SiteController extends Controller
         $contactPage = Page::where('id', 4)->withActiveSections()->firstOrFail();
 
         return view('site.contact', compact('contactPage'));
+    }
+
+    public function gallery()
+    {
+        $media = Gallery::orderBy('sort')->get();
+        return view('site.gallery', compact('media'));
     }
 
 

@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="{{ asset('css/site.css') }}">
     <title>@yield('title', 'Black Muse')</title>
+    @stack('styles')
+
 </head>
 <body>
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>

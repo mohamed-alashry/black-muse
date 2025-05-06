@@ -22,6 +22,9 @@ Route::get('/our-portfolio/{id}', [PortfolioController::class, 'show'])->name('s
 Route::get('/contact-us', [SiteController::class, 'contact'])->name('site.contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+////gallery page ////
+Route::get('/gallery', [SiteController::class, 'gallery'])->name('site.gallery');
+
 
 Route::middleware(['auth:client'])->group(function () {
     //profile

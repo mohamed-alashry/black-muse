@@ -63,6 +63,9 @@
             <a class="nav-link text-white" href="@if(Route::currentRouteName() !== 'site.home'){{ route('site.home') }}@endif#protofolios">Portfolio</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link text-white" href="{{ route('site.gallery') }}">Gallery</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link text-white" href="{{ route('site.about') }}">About Us</a>
           </li>
           <li class="nav-item">
