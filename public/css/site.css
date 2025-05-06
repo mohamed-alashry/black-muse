@@ -33,4 +33,23 @@
   }
 
 
-  
+  #backToTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #c8b87e ;
+  color:#333;
+  cursor: pointer;
+  padding: 12px 16px;
+  border-radius: 50%;
+  transition: opacity 0.3s ease;
+}
+
+#backToTopBtn:hover {
+  background-color:  #c8b87e ;
+}

@@ -8,7 +8,7 @@
 <button id="backToTopBtn" title="Go to top">↑</button>
 
   <!-- hero section -->
-  <section class="hero bg-main">
+ <!--  <section class="hero bg-main">
     <div class="text-hero">
       <h1 class=" mb-1 fs-1 fw-lighter">Explore <strong class="text-gold"> Black Muse</strong></h1>
       <h2 class="fs-1 fw-lighter">Photography Studio </h2>
@@ -16,8 +16,16 @@
     <div class="w-100 overflow-hidden">
       <img src="./images/heroImg.png" class="w-100" alt="">
     </div>
-  </section>
-
+  </section> -->
+  <div class="position-relative">
+    @include('partials.site.navbar')
+    <section class="hero">
+       <video autoplay muted loop preload="auto" playsinline >
+         <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+       </video>
+         
+     </section>
+  </div>
     <!-- Services section -->
     <section class="bg-main py-5" id="services">
         <div class="container">
@@ -26,41 +34,37 @@
                     <h2 class="fw-lighter">Our <strong class="text-gold">Black Muse</strong> Services</h2>
                     <p class="fs-4">What we offer</p>
                 </div>
-                <!-- <a class="d-flex align-items-center text-secondary gap-1 btn">
-                    <p>View All</p>
-                    <i class="fa-solid fa-chevron-right"></i>
-                </a> -->
             </div>
 
             <div class="services-carousel owl-carousel">
                 <!-- Services slider -->
-                @foreach($services->where('category', 'photography') as $service)
+                 @foreach($services->where('category', 'photography') as $service)
                     <div class="service-card">
                         <img src="{{ asset('storage/'.$service->photo) }}" alt="imagecard">
                         <div class="info-service px-1 py-3">
                             <h5>{{$service->name}}</h5>
                             <button
-                                type="button"
-                                class="btn btn-service"
-                                @if(auth('client')->check())
-                                    data-bs-toggle="modal"
+                              type="button"
+                              class="btn btn-service"
+                              @if(auth('client')->check())
+                                data-bs-toggle="modal"
                                 data-bs-target="#calendarModalToggle"
                                 data-service-id="{{ $service->id }}"
-                                @else
-                                    data-bs-toggle="modal"
+                              @else
+                                data-bs-toggle="modal"
                                 data-bs-target="#loginModal"
-                                @endif
+                              @endif
                             >
-                                Choose a Package Now
+                              Choose a Package Now
                             </button>
                         </div>
                     </div>
-                @endforeach
+                  @endforeach
             </div>
         </div>
     </section>
 
-    <!-- Portfolio section -->
+    <!-- Portfolio photography section -->
     <section class="bg-main py-3 porto-section" id="protofolios"
              style="background-image: url({{asset('images/portohero.png')}});">
         <div class="row h-100">
@@ -68,16 +72,16 @@
                 <div class="porto-summry text-white d-flex flex-column gap-2 z-3 mb-2 mx-md-5 mx-2">
                     <p class="fw-lighter">protofolio Category</p>
                     <h1 class="text-gold lh-1">Black Muse</h1>
-                    <h1 class="fw-bolder lh-1">Portfolio classic</h1>
+                    <h1 class="fw-bolder lh-1">Portfolio Photography</h1>
                     <p class="fw-lighter">It is a long established fact that a reader will be distracted by the readable
                         content of a page when looking at its layout.</p>
                 </div>
             </div>
-            <div class="col-md-8 mt-auto ps-md-5">
+            <div class="col-md-8 mt-auto ps-md-5 mb-4">
                 <div class="portfolio-carousel owl-carousel z-3">
 
                     <!-- Portfolios slider-->
-                    @foreach($portfolios as $portfolio)
+                    @foreach($portfolios->where('category', 'photography') as $portfolio)
                         <div class="porto-card ">
                             <a href="{{ route('site.portfolio.show', $portfolio->id) }}">
                                 <img class="porto-img" src="{{ asset('storage/'.$portfolio->photo) }}" alt="imagecard">
@@ -92,17 +96,43 @@
     </section>
 
 
+    <!-- Portfolio bindery section -->
+    <section class="bg-main py-5" id="" >
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="text-white fw-lighter">
+                    <h2 class="fw-lighter">Our <strong class="text-gold">Black Muse</strong> Portfolio Bindery</h2>
+                    <!-- <p class="fs-4">What we offer</p> -->
+                </div>
+            </div>
+
+            <div class="portfolio-carousel owl-carousel">
+                <!-- Services slider -->
+                 @foreach($portfolios->where('category', 'bindery') as $portfolio)
+                    <div class="service-card">
+                     <a href="{{ route('site.portfolio.show', $portfolio->id) }}">
+                        <img src="{{ asset('storage/'.$portfolio->photo) }}" alt="imagecard">
+                        <div class="info-service px-1 py-3">
+                            <h5>{{$portfolio->title}}</h5>
+                        </div>
+                      </a>
+                    </div>
+                  @endforeach
+            </div>
+        </div><br>
+    </section>
+
     <!-- Bindery & Lab section -->
-    <section class="bg-main py-5" id="binderies">
+    <section class="bg-main py-5" id="binderies"><br>
         <div class="container">
             <div class="respnsive-section">
                 <div class="fw-lighter">
                     <h2 class="fw-lighter text-white"><strong class="text-gold">Bindery & Lab</strong> Services</h2>
                     <p class="fs-4 text-white">Explore More!</p>
-                    <a class="d-flex align-items-center text-secondary gap-1 btn">
+                   <!--  <a class="d-flex align-items-center text-secondary gap-1 btn">
                         <p>View All</p>
                         <i class="fa-solid fa-chevron-right"></i>
-                    </a>
+                    </a> -->
                 </div>
                 <!-- Two example cards -->
                 @foreach($services->where('category', '!=', 'photography') as $service)

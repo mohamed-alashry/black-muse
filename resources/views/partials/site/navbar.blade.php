@@ -1,5 +1,5 @@
   <!-- main navbar -->
-  <nav class="navbar navbar-expand-sm bg-main border-body pt-4" data-bs-theme="dark">
+  <nav class="navbar navbar-expand-sm bg-main border-body pt-4 opacity-75 position-absolute w-100 z-3" data-bs-theme="dark">
     <div class="container">
       <a class="navbar-brand" href="{{ route('site.home') }}">
         <img src="{{ asset('images/mainLogo.svg') }}" alt="Bootstrap" width="122" height="86">
