@@ -28,7 +28,9 @@ class ShieldSeeder extends Seeder
         "view_question","view_any_question","create_question","update_question","restore_question","restore_any_question","replicate_question","reorder_question","delete_question","delete_any_question","force_delete_question","force_delete_any_question",
         "view_setting","view_any_setting","create_setting","update_setting","restore_setting","restore_any_setting","replicate_setting","reorder_setting","delete_setting","delete_any_setting","force_delete_setting","force_delete_any_setting",
         "view_booking","view_any_booking","create_booking","update_booking","restore_booking","restore_any_booking","replicate_booking","reorder_booking","delete_booking","delete_any_booking","force_delete_booking","force_delete_any_booking",
-        "view_order","view_any_order","create_order","update_order","restore_order","restore_any_order","replicate_order","reorder_order","delete_order","delete_any_order","force_delete_order","force_delete_any_order"
+        "view_order","view_any_order","create_order","update_order","restore_order","restore_any_order","replicate_order","reorder_order","delete_order","delete_any_order","force_delete_order","force_delete_any_order",
+        "view_gallery","view_any_gallery","create_gallery","update_gallery","restore_gallery","restore_any_gallery","replicate_gallery","regallery_gallery","delete_gallery","delete_any_gallery","force_delete_gallery","force_delete_any_gallery",
+        "widget_StatsOverview","widget_AverageBookingValue","widget_ClientLifetimeValue","widget_InquiryPipeline","widget_MonthlyRevenueTrend","widget_OutstandingBalances","widget_PaymentStatusBreakdown","widget_TopSellingPackages"
         ]}]';
         $directPermissions    = '';
 
