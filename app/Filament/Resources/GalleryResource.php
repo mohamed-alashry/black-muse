@@ -3,16 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\GalleryResource\Pages;
-use App\Filament\Resources\GalleryResource\RelationManagers;
 use App\Models\Gallery;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Hugomyb\FilamentMediaAction\Tables\Actions\MediaAction;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GalleryResource extends Resource
 {
@@ -27,7 +23,7 @@ class GalleryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\FileUpload::make('media')
-                    // ->image()
+                    ->acceptedFileTypes(['image/*', 'video/*'])
                     ->maxSize(4000)
                     ->reorderable(),
             ]);
@@ -56,9 +52,7 @@ class GalleryResource extends Resource
                         }
 
                         return $state;
-                    })->action(
-                        MediaAction::make()
-                            ->media(fn($record) => asset($record->media))),
+                    }),
                 Tables\Columns\TextColumn::make('sort'),
             ])
             ->reorderable('sort')
