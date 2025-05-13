@@ -47,18 +47,18 @@
                 @switch($item->type)
                     @case('image')
                         <!-- Image 1 -->
-                        <a href="{{ asset($item->media) }}" data-lg-size="1200-800">
-                            <img src="{{ asset($item->media) }}" alt="Image 1"/>
+                        <a href="{{ asset($item->getFirstMediaUrl()) }}" data-lg-size="1200-800">
+                            <img src="{{ asset($item->getFirstMediaUrl(conversionName:'thumb')) }}" alt="Image 1"/>
                         </a>
                         @break
                     @case('video')
                         <a
                             data-lg-size="1280-720"
-                            data-poster="https://storage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg"
+                            data-poster="{{ asset($item->getFirstMediaUrl(conversionName:'thumb')) }}"
                             data-video='{
                                             "source": [
                                               {
-                                                "src": "{{ asset($item->media) }}",
+                                                "src": "{{ asset($item->getFirstMediaUrl()) }}",
                                                 "type": "video/mp4"
                                               }
                                             ],
@@ -70,7 +70,7 @@
                             class="gallery-item"
                         >
                             <img
-                                src="https://storage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg"
+                                src="{{ asset($item->getFirstMediaUrl(conversionName:'thumb')) }}"
                                 alt="MP4 Video"
                             />
                         </a>
@@ -78,12 +78,12 @@
                     @default
                         <a
                             data-lg-size="1280-720"
-                            data-poster="https://img.youtube.com/vi/EIUJfXk3_3w/hqdefault.jpg"
-                            data-src="{{ asset($item->media) }}"
+                            data-poster="{{ getYouTubeThumbnail($item->url) }}"
+                            data-src="{{ asset($item->url) }}"
                             class="gallery-item"
                         >
                             <img
-                                src="https://img.youtube.com/vi/EIUJfXk3_3w/hqdefault.jpg"
+                                src="{{ getYouTubeThumbnail($item->url) }}"
                                 alt="YouTube Video"
                             />
                         </a>

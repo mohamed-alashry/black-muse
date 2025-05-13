@@ -22,10 +22,28 @@ class GalleryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('media')
-                    ->acceptedFileTypes(['image/*', 'video/*'])
-                    ->maxSize(4000)
-                    ->reorderable(),
+                Forms\Components\Select::make('type')
+                    ->options(['image' => 'image', 'video' => 'video', 'link' => 'link'])
+                    ->default('image')
+                    ->required()
+                    ->live(),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('image')
+                    ->required()
+                    ->acceptedFileTypes(['image/*'])
+                    ->maxSize(12000)
+                    ->imageEditor()
+                    ->visible(fn($get): bool => $get('type') === 'image'),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('video')
+                    ->required()
+                    ->acceptedFileTypes(['video/mp4'])
+                    ->maxSize(12000)
+                    ->visible(fn($get): bool => $get('type') === 'video'),
+                Forms\Components\TextInput::make('url')
+                    ->required()
+                    ->url()
+                    ->rule('regex:/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/i')
+                    ->helperText('Only YouTube links are allowed')
+                    ->visible(fn($get): bool => $get('type') === 'link'),
             ]);
     }
 
@@ -33,26 +51,10 @@ class GalleryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('media')
-                    ->html()
-                    ->formatStateUsing(function ($state) {
-                        $media = asset($state);
-                        $ext   = pathinfo($state, PATHINFO_EXTENSION);
-
-                        if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp'])) {
-                            return "<img src='{$media}' width='80'/>";
-                        }
-
-                        if (in_array($ext, ['mp4', 'webm'])) {
-                            return <<<HTML
-                                <video width="120">
-                                    <source src="{$media}" type="video/{$ext}">
-                                </video>
-                            HTML;
-                        }
-
-                        return $state;
-                    }),
+                Tables\Columns\TextColumn::make('type'),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('media')
+                    ->conversion('thumb'),
+                // Tables\Columns\TextColumn::make('url'),
                 Tables\Columns\TextColumn::make('sort'),
             ])
             ->reorderable('sort')
@@ -60,7 +62,14 @@ class GalleryResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->after(function ($record) {
+                        if ($record->type === 'link' && $record->url) {
+
+                            $record->addMediaFromUrl(getYouTubeThumbnail($record->url))
+                                ->toMediaCollection();
+                        }
+                    }),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

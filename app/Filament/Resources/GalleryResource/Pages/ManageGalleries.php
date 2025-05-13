@@ -13,7 +13,14 @@ class ManageGalleries extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->after(function ($record) {
+                    if ($record->type === 'link' && $record->url) {
+
+                        $record->addMediaFromUrl(getYouTubeThumbnail($record->url))
+                            ->toMediaCollection();
+                    }
+                }),
         ];
     }
 }

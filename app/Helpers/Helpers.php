@@ -51,3 +51,39 @@ if (!function_exists('getRandomColors')) {
         return $colors;
     }
 }
+
+if (!function_exists('getYouTubeVideoId')) {
+    function getYouTubeVideoId(string $url): ?string
+    {
+        // Handle standard YouTube URLs
+        $parsedUrl = parse_url($url);
+
+        // If it's a short youtu.be link
+        if (isset($parsedUrl['host']) && str_contains($parsedUrl['host'], 'youtu.be')) {
+            return ltrim($parsedUrl['path'], '/');
+        }
+
+        // If it's a youtube.com URL
+        if (isset($parsedUrl['query'])) {
+            parse_str($parsedUrl['query'], $queryParams);
+            if (isset($queryParams['v'])) {
+                return $queryParams['v'];
+            }
+        }
+
+        // Handle embed URLs like /embed/VIDEO_ID
+        if (isset($parsedUrl['path']) && preg_match('#/embed/([^/?]+)#', $parsedUrl['path'], $matches)) {
+            return $matches[1];
+        }
+
+        return null;
+    }
+}
+
+if (!function_exists('getYouTubeThumbnail')) {
+    function getYouTubeThumbnail(string $url): ?string
+    {
+        $id = getYouTubeVideoId($url);
+        return $id ? "https://img.youtube.com/vi/{$id}/hqdefault.jpg" : null;
+    }
+}

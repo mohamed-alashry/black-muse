@@ -42,6 +42,7 @@ class SiteController extends Controller
     public function gallery()
     {
         $gallery = Gallery::orderBy('sort')->get();
+        // dd($gallery[0]->getFirstMediaUrl());
 
         return view('site.gallery', compact('gallery'));
     }

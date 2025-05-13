@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('galleries', function (Blueprint $table) {
             $table->id();
-            $table->string('media');
             $table->enum('type', ["image","video","link"])->default('image');
+            $table->string('url')->nullable();
             $table->smallInteger('sort')->default(1);
             $table->timestamps();
         });
