@@ -23,7 +23,7 @@
        <video autoplay muted loop preload="auto" playsinline >
          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
        </video>
-         
+
      </section>
   </div>
     <!-- Services section -->
@@ -97,8 +97,8 @@
 
 
     <!-- Portfolio bindery section -->
-    <section class="bg-main py-5" id="" >
-        <div class="container">
+    <section class="bg-main pt-5" >
+        <div class="container" id="binderies">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="text-white fw-lighter">
                     <h2 class="fw-lighter">Our <strong class="text-gold">Black Muse</strong> Portfolio Bindery</h2>
@@ -123,7 +123,7 @@
     </section>
 
     <!-- Bindery & Lab section -->
-    <section class="bg-main py-5" id="binderies"><br>
+    <section class="bg-main pb-5"><br>
         <div class="container">
             <div class="respnsive-section">
                 <div class="fw-lighter">
