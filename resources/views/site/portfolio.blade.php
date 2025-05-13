@@ -22,6 +22,16 @@
                 @endif
                 <div class="container d-flex flex-column gap-3 text-white">
                     {!! $item->content !!}
+
+                    @if($item->photos && count($item->photos))
+                        <div class="row">
+                            @foreach($item->photos as $photo)
+                                <a href="{{ asset($photo) }}" class="m-2" target="_blank" style="max-width: 30%">
+                                    <img src="{{ asset($photo) }}" alt="" class="img-fluid">
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </section>
     @endforeach
