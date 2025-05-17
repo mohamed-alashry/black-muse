@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property string $booking_status
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property-read \App\Models\Client $client
  * @property-read \App\Models\Service $service
  * @property-read \App\Models\Package $package
@@ -92,4 +92,27 @@ class Booking extends Model
     {
         return $this->morphMany(Answer::class, 'answerable');
     }
+
+    public function generateGoogleCalendarLink(): string
+    {
+        // All-day event: start date as YYYYMMDD, end date is next day
+        $startDate = $this->event_date->format('Ymd');
+        $endDate   = $this->event_date->copy()->addDay()->format('Ymd');
+
+        $title       = "Photography Booking — {$this->reference_number}";
+        $description = trim("Service: {$this->service->name}، Package: {$this->package->name}");
+
+        // Base URL (no location parameter)
+        $baseUrl = 'https://www.google.com/calendar/render?action=TEMPLATE';
+
+        // Build the query string
+        $params = [
+            'text'   => $title,
+            'dates'  => "{$startDate}/{$endDate}",
+            'details'=> $description,
+        ];
+
+        return $baseUrl . '&' . http_build_query($params);
+    }
+
 }

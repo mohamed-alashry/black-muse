@@ -14,6 +14,12 @@ class ViewBooking extends ViewRecord
     {
         return [
             Actions\EditAction::make(),
+            Actions\Action::make('Add to Google Calendar')
+                ->icon('heroicon-o-calendar-days')
+                ->url(fn ($record) => $record->generateGoogleCalendarLink())
+                ->openUrlInNewTab()
+                ->color('success')
+
         ];
     }
 }
