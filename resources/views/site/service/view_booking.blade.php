@@ -14,9 +14,8 @@
     ])
 
 
-
     <!-- Section -->
-    <section class="py-5 bg-main">
+    <section class="py-5 bg-main" id="details">
         <div class="container">
 
             <div class="table-profile">
@@ -121,7 +120,7 @@
                             <div class="fw-lighter d-flex flex-column gap-4">
                               {!! $section->content !!}
                             </div>
-                      @endforeach 
+                      @endforeach
                   </div>
                   <!-- Right Column -->
                   <div class="col-md-5">
@@ -168,7 +167,7 @@
                             <div class="d-flex flex-column gap-2">
                               {!! $section->content !!}
                             </div>
-                           @endforeach 
+                           @endforeach
                     </div>
                     <div class="col-md-6">
                         <div class="rounded-5" style="border: 1px solid rgba(255, 255, 255, 0.1);">
