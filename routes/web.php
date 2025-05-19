@@ -8,6 +8,16 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ServiceController;
 
+Route::get('lang/{lang}', function ($lang) {
+    if (in_array($lang, ['en', 'ar'])) {
+        session(['locale' => $lang]);
+        app()->setLocale($lang);
+        session(['dir' => $lang === 'ar' ? 'rtl' : 'ltr']);
+    }
+    return back()->with('success', __('Language changed successfully'));
+})->name('lang.switch');
+
+
 Route::post('/validate-register', [AuthController::class, 'validateRegister'])->name('site.validate-register');
 Route::post('/register', [AuthController::class, 'save_register'])->name('site.save_register');
 Route::post('/login', [AuthController::class, 'save_login'])->name('site.save_login');

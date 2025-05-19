@@ -21,5 +21,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::unguard();
+
+        if (session()->has('locale')) {
+            app()->setLocale(session('locale'));
+        }
+
+        if (session()->has('dir')) {
+            view()->share('dir', session('dir'));
+        }
+        
     }
 }

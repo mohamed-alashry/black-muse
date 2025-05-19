@@ -45,7 +45,13 @@
             Login</button>
           <button class="btn  bg-white text-black rounded-4" data-bs-toggle="modal" data-bs-target="#registerModal"><i class="fa-solid fa-user-plus"></i>
             Register</button>
-          <button class="text-white btn"> <i class="fa-solid fa-globe"></i> عربي</button>
+          
+
+            <a href="{{ route('lang.switch', ['lang' => app()->getLocale() == 'ar' ? 'en' : 'ar']) }}" class="text-white btn">
+                <i class="fa-solid fa-globe"></i>
+                {{ app()->getLocale() == 'ar' ? 'English' : 'عربي' }}
+            </a>
+
         </div>
       @endif
 
