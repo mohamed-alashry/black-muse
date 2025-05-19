@@ -10,3 +10,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('reminders:unpaid-booking')->daily();
+
+Schedule::command('reminders:meetings')->everyMinute();

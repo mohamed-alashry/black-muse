@@ -27,12 +27,13 @@ class Meeting extends Model
 {
 
     protected $casts = [
-        'id' => 'integer',
+        'id'         => 'integer',
         'booking_id' => 'integer',
-        'user_id' => 'integer',
-        'start_at' => 'datetime',
-        'end_at' => 'datetime',
-        'duration' => 'integer',
+        'user_id'    => 'integer',
+        'date'       => 'datetime',
+        'start_at'   => 'datetime',
+        'end_at'     => 'datetime',
+        'duration'   => 'integer',
     ];
 
     public function booking(): BelongsTo
