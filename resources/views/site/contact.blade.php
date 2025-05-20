@@ -8,54 +8,55 @@
 
     <!-- hero section -->
     @include('partials.site.hero-section', [
-         'title' => 'Our',
-         'highlight' => 'Contact Us',
-         'breadcrumb' => 'Contact Us'
+         'title' => "",
+         'highlight' => __('site.contact_us'),
+         'breadcrumb' => __('site.contact_us')
      ])
 
     <!-- About Section -->
     <section class="bg-main py-5">
         <div class="container">
             <div class=" row row-cols-1 row-cols-md-2 align-items-center">
-            <div class="col" >
-                <form id="contactForm" class="row gap-3 contact-us-form" >
-                    @csrf
+                <div class="col" >
+                    <form id="contactForm" class="row gap-3 contact-us-form" >
+                        @csrf
 
-                    <input type="hidden" name="client_id" value="{{ auth('client')->id() }}">
+                        <input type="hidden" name="client_id" value="{{ auth('client')->id() }}">
 
-                    <div id="formMsg" class="text-white mt-3"></div>
- 
-                   <div class="col">               
-                        <input type="email" name="email" class="form-control bg-main rounded-4"
-                               placeholder="Email address">
-                    </div>
+                        <div id="formMsg" class="text-white mt-3"></div>
 
-                   <div class="col"> 
-                        <input type="text" name="name" class="form-control bg-main rounded-4" placeholder="Full Name">
-                   </div>
+                        <div class="col">               
+                            <input type="email" name="email" class="form-control bg-main rounded-4"
+                                   placeholder="{{ __('site.email_address') }}">
+                        </div>
 
-                    <div class="col-12">
-                        <input type="text" name="subject" class="form-control bg-main rounded-4" placeholder="Subject">
-                    </div>
+                        <div class="col"> 
+                            <input type="text" name="name" class="form-control bg-main rounded-4" placeholder="{{ __('site.full_name') }}">
+                        </div>
 
-                    <div class="col-12">
-                        <textarea name="message" class="form-control bg-main rounded-4"
-                                  placeholder="Your message here..." rows="3"></textarea>
-                    </div>
+                        <div class="col-12">
+                            <input type="text" name="subject" class="form-control bg-main rounded-4" placeholder="{{ __('site.subject') }}">
+                        </div>
 
-                    <button type="submit" class="btn bg-white rounded-4 py-1 px-4 w-50 mx-auto" id="submitBtn">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i> Send Now
-                    </button>
+                        <div class="col-12">
+                            <textarea name="message" class="form-control bg-main rounded-4"
+                                      placeholder="{{ __('site.your_message_here') }}" rows="3"></textarea>
+                        </div>
 
-                </form>
-            </div>
-    <div class="col" >
-    <div class="d-flex flex-column gap-3 text-white ">                    <!-- sections -->
-                    @foreach($contactPage->sections as $section)
-                        {!! $section->content !!}
-                    @endforeach
+                        <button type="submit" class="btn bg-white rounded-4 py-1 px-4 w-50 mx-auto" id="submitBtn">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i> {{ __('site.send_now') }}
+                        </button>
+
+                    </form>
                 </div>
-              </div>
+                <div class="col" >
+                    <div class="d-flex flex-column gap-3 text-white ">
+                        <!-- sections -->
+                        @foreach($contactPage->sections as $section)
+                            {!! $section->content !!}
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </section>

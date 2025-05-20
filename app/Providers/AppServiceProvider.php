@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,14 +22,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::unguard();
-
-        if (session()->has('locale')) {
-            app()->setLocale(session('locale'));
-        }
-
-        if (session()->has('dir')) {
-            view()->share('dir', session('dir'));
-        }
-        
+        app()->setLocale(LaravelLocalization::getCurrentLocale());
     }
 }

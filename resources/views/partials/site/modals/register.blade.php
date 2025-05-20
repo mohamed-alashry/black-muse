@@ -1,45 +1,42 @@
-<!--  Register Model -->
+<!-- نموذج تسجيل حساب جديد -->
 <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-4 fw-lighter" id="registerModalLabel">Create Your <strong class="text-gold">
-                        Account
-                    </strong>Now</h1>
-                <p class="fw-lighter">Welcome to Black Muse</p>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-4 fw-lighter" id="registerModalLabel">
+                    {{ __('auth.create_account') }} <strong class="text-gold"></strong> {{ __('auth.now') }}
+                </h1>
+                <p class="fw-lighter">{{ __('auth.welcome') }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
             </div>
             <div class="modal-body">
                 <form id="registerForm" class="contact-us-form row gy-3 bg-main">
                     <div id="registerMsgs" class="text-white mt-3"></div>
                     <div class="col-md-6 col-12">
-                        <input type="email" name="email" class="form-control bg-main rounded-4 col-md-6 "
-                               placeholder="email address">
+                        <input type="email" name="email" class="form-control bg-main rounded-4 col-md-6"
+                               placeholder="{{ __('auth.email_placeholder') }}">
                     </div>
                     <div class="col-md-6 col-12">
-
-                        <input type="text" name="name" class="form-control bg-main rounded-4 col-md-6 "
-                               placeholder="name">
+                        <input type="text" name="name" class="form-control bg-main rounded-4 col-md-6"
+                               placeholder="{{ __('auth.name_placeholder') }}">
                     </div>
                     <div class="col-md-6 col-12">
-                        <input type="password" name="password" class="form-control bg-main rounded-4 col-md-6 "
-                               placeholder="Password">
+                        <input type="password" name="password" class="form-control bg-main rounded-4 col-md-6"
+                               placeholder="{{ __('auth.password_placeholder') }}">
                     </div>
                     <div class="col-md-6 col-12">
-                        <input type="password" name="password_confirmation"
-                               class="form-control bg-main rounded-4 col-md-6 "
-                               placeholder="repeat Password">
+                        <input type="password" name="password_confirmation" class="form-control bg-main rounded-4 col-md-6"
+                               placeholder="{{ __('auth.password_confirmation_placeholder') }}">
                     </div>
                     <div class="col-12">
-                        <input type="text" name="phone_number" class="form-control bg-main rounded-4 col-md-6 "
-                               placeholder="Phone Number">
+                        <input type="text" name="phone_number" class="form-control bg-main rounded-4 col-md-6"
+                               placeholder="{{ __('auth.phone_placeholder') }}">
                     </div>
                     <div class="col-12">
-                        <button type="submit" class="btn bg-white rounded-4 w-100 " id="registerBtn">
-                            Register
+                        <button type="submit" class="btn bg-white rounded-4 w-100" id="registerBtn">
+                            {{ __('auth.register_button') }}
                         </button>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -92,15 +89,15 @@
                 },
                 beforeSend: function () {
                     $('#registerBtn').prop('disabled', true).html(`
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-              Sending...
-            `);
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        {{ __('auth.sending') }}
+                    `);
                     $('#registerMsgs').html("");
                 },
                 complete: function () {
                     $('#registerBtn').prop('disabled', false).html(`
-              <i class="fa-solid fa-arrow-right-to-bracket"></i> Register
-            `);
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i> {{ __('auth.register_button') }}
+                    `);
                 },
                 success: function (response) {
                     if (response.status === 'success') {
@@ -108,7 +105,6 @@
                     } else {
                         $('#registerMsgs').html(`<p style="padding:15px" class="text-danger">` + response.message + `</p>`);
                     }
-
                 },
                 error: function (xhr) {
                     let errors = xhr.responseJSON.errors;
@@ -121,7 +117,6 @@
                 }
             });
         });
-
 
     });
 </script>

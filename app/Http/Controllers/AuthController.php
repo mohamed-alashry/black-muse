@@ -19,7 +19,7 @@ class AuthController extends Controller
 
         if (Auth::guard('client')->attempt($credentials)) {
             $request->session()->regenerate();
-            session()->flash('success', 'Logged in successfully.');
+            session()->flash('success', __('auth.logged_in_success'));
             return response()->json([
                 'status' => 'success',
             ]);
@@ -27,7 +27,7 @@ class AuthController extends Controller
 
         return response()->json([
             'status' => 'error',
-            'errors' => ["email" => 'The login credentials are incorrect.'],
+            'errors' => ["email" => __('auth.login_failed')],
         ], 400);
     }
 
@@ -76,7 +76,7 @@ class AuthController extends Controller
         if ($request->password != $request->password_confirmation) {
             return response()->json([
                 'status' => 'error',
-                'errors' => ['password' => 'The password confirmation field must match password.'],
+                'errors' => ['password' => __('auth.password_confirm_mismatch')],
             ], 400);
         }
 
@@ -91,7 +91,7 @@ class AuthController extends Controller
 
         Auth::guard('client')->login($client);
 
-        session()->flash('success', 'Logged in successfully.');
+        session()->flash('success', __('auth.create_new_account_success'));
         return response()->json([
             'status' => 'success',
         ]);
@@ -102,7 +102,7 @@ class AuthController extends Controller
         Auth::guard('client')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        session()->flash('success', 'Logged out successfully.');
+        session()->flash('success', __('auth.logged_out_success'));
 
         return redirect()->route('site.home');
     }
