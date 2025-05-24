@@ -30,7 +30,7 @@ class ServiceController extends Controller
         $service = Service::with(['questions.options.childQuestions.options'])->findOrFail($id);
 
         if ($service->category === 'photography' && !$request->has('event_date')) {
-            return redirect()->back()->with('error', "Please select a date first.");
+            return redirect()->back()->with('error', __("services.Please select a date first."));
         }
 
         $packages  = $service->packages()
@@ -59,7 +59,7 @@ class ServiceController extends Controller
 
         $this->cacheReservationData($request, $answers, $allFeatures);
 
-        session()->flash('success', 'Reservation has been temporarily saved successfully.');
+        session()->flash('success', __('services.Reservation has been temporarily saved successfully.'));
 
         return response()->json([
             'status'       => 'success',
@@ -72,7 +72,7 @@ class ServiceController extends Controller
         $cacheKey = 'reservation_' . auth()->id();
 
         if (!Cache::has($cacheKey)) {
-            return redirect()->route('site.home')->with('error', 'No reservation data found.');
+            return redirect()->route('site.home')->with('error', __('services.No reservation data found.'));
         }
         $reservationData = Cache::get($cacheKey);
 
@@ -102,7 +102,7 @@ class ServiceController extends Controller
             if ($question->pivot->is_required) {
                 $questionKey              = "answers.{$question->id}";
                 $rules[$questionKey]      = ['required'];
-                $attributes[$questionKey] = "{$question->text} Question";
+                $attributes[$questionKey] = "{$question->text} ".__('services.Question');
             }
         }
 
@@ -214,7 +214,7 @@ class ServiceController extends Controller
         $cacheKey = 'reservation_' . $clientId;
 
         if (!Cache::has($cacheKey)) {
-            return redirect()->route('packages.index')->with('error', 'No reservation data found.');
+            return redirect()->route('packages.index')->with('error', __('services.No reservation data found.'));
         }
 
         $reservationData = Cache::get($cacheKey);
@@ -247,7 +247,7 @@ class ServiceController extends Controller
         $cacheKey = 'reservation_' . $clientId;
 
         if (!Cache::has($cacheKey)) {
-            return redirect()->route('packages.index')->with('error', 'No reservation data found.');
+            return redirect()->route('packages.index')->with('error', __('services.No reservation data found.'));
         }
 
         $reservationData = Cache::get($cacheKey);
@@ -349,7 +349,7 @@ class ServiceController extends Controller
         $meeting->save();
 
         return response()->json([
-            'message'    => 'Meeting saved successfully.',
+            'message'    => __('services.Meeting saved successfully.'),
             'meeting_id' => $meeting->id,
         ]);
     }
@@ -369,7 +369,7 @@ class ServiceController extends Controller
         $booking->remaining_amount = 0;
         $booking->paid_amount      = $booking->total_price;
         $booking->save();
-        session()->flash('success', 'Payment completed and booking confirmed.');
+        session()->flash('success', __('services.Payment completed and booking confirmed.'));
         return redirect()->back();
     }
 
@@ -389,25 +389,19 @@ class ServiceController extends Controller
         return $meetingLink;
     }
 
-    /**
-     * @param mixed $reservationData
-     * @param mixed $reservation
-     * @param string $cacheKey
-     * @return void
-     */
     protected function saveRelatedData(mixed $reservationData, mixed $reservation, string $cacheKey): void
     {
         $features = $reservationData['features'] ?? [];
-        foreach ($features as $feature) {
-            ReservedFeatures::create([
-                'feature_id'      => $feature['id'],
-                'reservable_type' => get_class($reservation),
-                'reservable_id'   => $reservation->id,
-                'name'            => $feature['name'],
-                'price'           => $feature['price'],
-                'is_default'      => $feature['is_default'],
-            ]);
-        }
+        // foreach ($features as $feature) {
+        //     ReservedFeatures::create([
+        //         'feature_id'      => $feature['id'],
+        //         'reservable_type' => get_class($reservation),
+        //         'reservable_id'   => $reservation->id,
+        //         'name'            => $feature['name'],
+        //         'price'           => $feature['price'],
+        //         'is_default'      => $feature['is_default'],
+        //     ]);
+        // }
 
         $optionTypes = ['select', 'radio', 'checkbox', 'color-select', 'image-select'];
 
@@ -437,6 +431,6 @@ class ServiceController extends Controller
         }
 
         Cache::forget($cacheKey);
-        session()->flash('success', 'Booking confirmed successfully.');
+        session()->flash('success', __('services.Booking confirmed successfully.'));
     }
 }

@@ -40,6 +40,15 @@
             </li>
           </ul>
         </div>
+
+        <div class="d-flex gap-2">
+          <form method="get" action="{{ LaravelLocalization::getLocalizedURL(app()->getLocale() == 'ar' ? 'en' : 'ar') }}">
+            <button type="submit" class="text-white btn">
+              <i class="fa-solid fa-globe"></i> {{ __('site.language') }}
+            </button>
+          </form>
+        </div>
+        
       @else
         <div class="d-flex gap-2">
           <button class="btn btn-outline-light rounded-4" data-bs-toggle="modal" data-bs-target="#loginModal">

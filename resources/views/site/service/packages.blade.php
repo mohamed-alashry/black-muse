@@ -1,27 +1,25 @@
 @extends('layouts.site')
 
-@section('title', "Services")
-@section('meta_title', "Services")
-@section('meta_description', "Services")
-
+@section('title', __('services.services_title'))
+@section('meta_title', __('services.services_title'))
+@section('meta_description', __('services.services_title'))
 
 @section('content')
     <!-- hero section -->
     @include('partials.site.hero-section', [
-        'title' => 'Our  ',
-        'highlight' => 'Services',
-        'breadcrumb' => 'Services'
+        'title' => " ",
+        'highlight' => __('services.service_title', ['service' => $service->name]),
+        'breadcrumb' => __('services.services_breadcrumb')
     ])
 
     @if(count($packages)==0)
         <section class="py-5 bg-main">
             <div class="container">
                 <div class="alert alert-info">
-                    <p>No packages available.</p>
+                    <p>{{ __('services.no_packages') }}</p>
                 </div>
             </div>
         </section>
-
     @else
         <section class="py-5 bg-main">
             <div class="container">
@@ -32,10 +30,10 @@
                     <div class="tab">
                         <div class="text-white mb-2 ms-2">
                             <h1 class="fs-4 fw-lighter">
-                                <strong class="text-gold">{{$service->name}}</strong> Service
+                                <strong class="text-gold">{{ $service->name }}</strong>
                             </h1>
                             @if(request('event_date'))
-                                <p class="fw-lighter">Available packages on: {{request('event_date')}} </p>
+                                <p class="fw-lighter">{{ __('services.available_packages', ['date' => request('event_date')]) }}</p>
                             @endif
                         </div>
                         <div class="packages-section">
@@ -59,7 +57,7 @@
 
                                     <button class="btn btn-choose-package" type="button"
                                             data-package-id="{{ $package->id }}">
-                                        Choose a Package Now
+                                        {{ __('services.choose_package') }}
                                     </button>
                                 </div>
                             @endforeach
@@ -69,9 +67,9 @@
                     <div class="tab">
                         <div class="text-white mb-2 ms-2">
                             <h1 class="fs-4 fw-lighter">
-                                <strong class="text-gold">{{$service->name}}</strong> Service
+                                <strong class="text-gold">{{ $service->name }}</strong> 
                             </h1>
-                            <p class="fw-lighter">Sample of Needed form you can change the inputs as you can</p>
+                            <p class="fw-lighter">{{ __('services.form_sample') }}</p>
                         </div>
 
                         <div class="form-packages-section d-grid gap-4" style="grid-template-columns: repeat(1, 1fr);padding: 30px;">
@@ -84,14 +82,12 @@
                     <div class="tab">
                         <div class="text-white mb-2 ms-2">
                             <h1 class="fs-4 fw-lighter">
-                                Customize<strong class="text-gold"> {{$service->name}}</strong> Service
+                                {{ __('services.customize_service', ['service' => $service->name]) }}
                             </h1>
-                            <p class="fw-lighter">Custom It Now</p>
+                            <p class="fw-lighter">{{ __('services.custom_now') }}</p>
                         </div>
                         <div class="custom-packages-section">
                             <div class="package-card features-list">
-
-
                             </div>
                         </div>
                     </div>
@@ -103,12 +99,12 @@
                         <button type="button" id="prevBtn" onclick="nextPrev(-1)"
                                 class="btn bg-transparent rounded-4 text-white border border-white me-2 px-5">
                             <i class="fas fa-arrow-left"></i>
-                            Back
+                            {{ __('services.back') }}
                         </button>
                         <button type="button" id="nextBtn" onclick="nextPrev(1)" style="display: none;"
                                 class="btn bg-white rounded-4 text-black px-5">
                             <i class="fas fa-arrow-right"></i>
-                            Next Step
+                            {{ __('services.next_step') }}
                         </button>
                     </div>
                 </div>
@@ -120,11 +116,9 @@
                     <span class="step"></span>
                 </div>
 
-
             </div>
         </section>
     @endif
-
 
     @push('scripts')
         <script src="{{ asset('js/pages/questions.js') }}"></script>

@@ -1,15 +1,15 @@
 @extends('layouts.site')
 
-@section('title', "Confirm Booking")
-@section('meta_title', "Confirm Booking")
-@section('meta_description', "Confirm Booking")
+@section('title', __("services.Confirm Booking"))
+@section('meta_title', __("services.Confirm Booking"))
+@section('meta_description', __("services.Confirm Booking"))
 
 
 @section('content')
     <!-- hero section -->
     @include('partials.site.hero-section', [
-        'title' => 'Confirm  ',
-        'highlight' => 'Booking',
+        'title' => " ",
+        'highlight' => __("services.Confirm Booking"),
         'breadcrumb' => $reservationData['service_name'] .' / '.$reservationData['package_name']
     ])
 
@@ -20,18 +20,18 @@
                 <div class="table-profile col-md-12">
                     @if($reservationData['service_category'] == 'photography')
                     <div class="table-header">
-                        <h4 class="">You need to pay a down payment</h4>
+                        <h4 class="">{{ __('services.You need to pay a down payment') }}</h4>
                         <h3 class="text-gold">
                             {{ number_format($reservationData['down_payment'], 0) }}
-                            <span class="fs-6 fw-lighter">SAR</span>
+                            <span class="fs-6 fw-lighter">{{ __('services.SAR') }}</span>
                         </h3>
                     </div>
                     @else
                         <div class="table-header">
-                            <h4 class="">You need to pay</h4>
+                            <h4 class="">{{ __('services.You need to pay') }}</h4>
                             <h3 class="text-gold">
                                 {{ number_format($reservationData['total_price'], 0) }}
-                                <span class="fs-6 fw-lighter">SAR</span>
+                                <span class="fs-6 fw-lighter">{{ __('services.SAR') }}</span>
                             </h3>
                         </div>
                     @endif
@@ -51,7 +51,7 @@
                                     <h6>{{$reservationData['package_name']}}</h6>
                                     <h3 class="text-gold">
                                         {{ number_format($reservationData['total_price'], 0) }}
-                                        <span class="fs-6 fw-lighter">SAR</span>
+                                        <span class="fs-6 fw-lighter">{{ __('services.SAR') }}</span>
                                     </h3>
                                 </div>
                                 @if(isset($reservationData['features']) && is_array($reservationData['features']))
@@ -59,7 +59,7 @@
                                         <p>{{ getTranslation($feature['name']) }}</p>
                                     @endforeach
                                 @else
-                                    <p>No features selected.</p>
+                                    <p>{{ __('services.No features selected.') }}</p>
                                 @endif
                             </div>
 
@@ -70,37 +70,14 @@
                                     <div class="p-3 d-flex align-items-center flex-column gap-2">
                                         <button type="submit" class="btn text-black bg-white rounded-4 px-4">
                                             <i class="far fa-credit-card"></i>
-                                            Confirm Booking
+                                            {{ __('services.Confirm Booking') }}
                                         </button>
                                     </div>
                                 </form>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
-
-
-                <!--   <div class="col-md-4">
-          <div class="rounded-5" style="border: 1px solid rgba(255, 255, 255, 0.1)">
-            <div class="table-header">
-              <h6>Choose your Payment Method</h6>
-            </div>
-            <div class="p-3 d-flex align-items-center flex-column gap-2">
-              <button class="btn text-black bg-white rounded-4 px-4">
-                <i class="far fa-credit-card"></i>
-                Pay with Debit/Credit Card
-              </button>
-              <div class="d-flex gap-2">
-                <img src="{{ asset('images/mastercard.svg') }}" alt="item" />
-                <img src="{{ asset('images/visa.svg') }}" alt="item" />
-                <img src="{{ asset('images/ex.svg') }}" alt="item" />
-                <img src="{{ asset('images/cash.svg') }}" alt="item" />
-              </div>
-            </div>
-          </div>
-        </div> -->
             </div>
         </div>
     </section>

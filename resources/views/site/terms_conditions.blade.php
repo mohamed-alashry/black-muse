@@ -8,9 +8,9 @@
 
     <!-- hero section -->
     @include('partials.site.hero-section', [
-         'title' => 'Terms & Conditions – ',
+         'title' => __('site.terms_conditions').' – ',
          'highlight' => ' Black Muse',
-         'breadcrumb' => 'Terms & Conditions'
+         'breadcrumb' => __('site.terms_conditions') 
      ])
 
     <!-- sections -->

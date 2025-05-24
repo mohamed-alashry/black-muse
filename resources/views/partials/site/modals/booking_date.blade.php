@@ -1,19 +1,20 @@
-
-  <!-- Calendar Modal -->
- <form id="bookingDateForm" method="get">
+<!-- Calendar Modal -->
+<form id="bookingDateForm" method="get">
   <div class="modal fade" id="calendarModalToggle" tabindex="-1" aria-labelledby="calendarModalLabelToggle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-md">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="calendarModalLabelToggle">Choose service Date</h5>
+          <h5 class="modal-title" id="calendarModalLabelToggle">
+            {{ __('services.choose_service_date') }}
+          </h5>
         </div>
         <div class="modal-body">
           <div class="p-2 d-flex flex-column gap-2 align-items-center">
-            <input type="date" id="event_date" class="datepicker" name="event_date" required  />
+            <input type="date" id="event_date" class="datepicker" name="event_date" required />
             <button type="submit" class="btn bg-white mb-1 fw-bold text-black rounded-3" id="available_packages_btn" disabled>
               <i class="far fa-calendar-plus"></i>
-              Confirm This Date Now
+              {{ __('services.confirm_this_date') }}
             </button>
           </div>
         </div>
@@ -21,6 +22,7 @@
     </div>
   </div>
 </form>
+
 
 
   <script>
