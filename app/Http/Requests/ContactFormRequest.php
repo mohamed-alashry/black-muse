@@ -25,20 +25,20 @@ class ContactFormRequest extends FormRequest
     public function attributes()
     {
         return [
-            'email'   => __('Email'),
-            'name'    => __('Name'),
-            'subject' => __('Subject'),
-            'message' => __('Message'),
+            'email'   => __('site.email'),
+            'name'    => __('site.name'),
+            'subject' => __('site.subject'),
+            'message' => __('site.message'),
         ];
     }
 
     public function messages()
     {
         return [
-            'email.required'   => __('Email is required.'),
-            'email.email'      => __('Please enter a valid email.'),
-            'name.required'    => __('Name is required.'),
-            'subject.required' => __('Subject is required.'),
+            'email.required'   => __('site.Email is required.'),
+            'email.email'      => __('site.Please enter a valid email.'),
+            'name.required'    => __('site.Name is required.'),
+            'subject.required' => __('site.Subject is required.'),
         ];
     }
 }

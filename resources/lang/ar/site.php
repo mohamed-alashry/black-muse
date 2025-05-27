@@ -49,7 +49,8 @@ return [
     'address' => 'العنوان:',
     'phone_numbers' => 'أرقام الهاتف:',
     'email' => 'البريد الإلكتروني:',
-
+    'Message sent successfully!'=>'تم إرسال الرسالة بنجاح!',
+    
     //contact page
     'contact_us' => 'اتصل بنا',
     'email_address' => 'البريد الإلكتروني',
@@ -57,7 +58,10 @@ return [
     'subject' => 'الموضوع',
     'your_message_here' => 'رسالتك هنا...',
     'send_now' => 'أرسل الآن',
-
+    'Email is required.'       => 'البريد الإلكتروني مطلوب.',
+    'Please enter a valid email.' => 'يرجى إدخال بريد إلكتروني صالح.',
+    'Name is required.'        => 'الاسم مطلوب.',
+    'Subject is required.'     => 'الموضوع مطلوب.',
 
     //about page
     'know_more' => 'تعرف أكثر',

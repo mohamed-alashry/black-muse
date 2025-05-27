@@ -30,5 +30,9 @@ return [
         'register_button' => 'Register',
         'create_new_account_success' => 'Your account has been created successfully',
 
-
+          //profile update
+        'Info updated successfully' => 'Info updated successfully',
+        'The Old password is incorrect.' => 'The Old password is incorrect.',
+        'The password confirmation field must match password.' => 'The password confirmation field must match password.',
+        'Password updated successfully.' => 'Password updated successfully.',
 ];

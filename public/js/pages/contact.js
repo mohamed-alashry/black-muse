@@ -9,7 +9,8 @@ $(document).ready(function () {
             type: "POST",
             data: formData,
             headers: {
-                'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                'X-localization': $('html').attr('lang') || 'en'
             },
             beforeSend: function () {
                 $('#submitBtn').prop('disabled', true).html(`
@@ -24,7 +25,8 @@ $(document).ready(function () {
           `);
             },
             success: function (response) {
-                $('#formMsg').html(`<span class="text-success">Message sent successfully!</span>`);
+                toastr.success(response.message);
+                $('#formMsg').html(``);
                 $('#contactForm')[0].reset(); // clear the form
             },
             error: function (xhr) {

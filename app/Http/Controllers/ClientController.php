@@ -21,7 +21,10 @@ class ClientController extends Controller
         $client = auth('client')->user();
         $client->update($request->validated());
 
-        return response()->json(['status' => 'success', 'message' => 'Info updated successfully']);
+        return response()->json([
+            'status' => 'success', 
+            'message' => __('auth.Info updated successfully')
+        ]);
     }
 
     public function updatePassword(UpdateClientPasswordRequest $request)
@@ -31,13 +34,13 @@ class ClientController extends Controller
         if (!Hash::check($request->old_password, $client->password)) {
             return response()->json([
                 'status' => 'error',
-                'errors' => ['password' => 'The Old password is incorrect.'],
+                'errors' => ['password' => __('auth.The Old password is incorrect.')],
             ], 400);
         }
        elseif ($request->new_password != $request->repeat_password) {
             return response()->json([
                 'status' => 'error',
-                'errors' => ['password' => 'The password confirmation field must match password.'],
+                'errors' => ['password' => __('auth.The password confirmation field must match password.')],
             ], 400);
         }
 
@@ -47,9 +50,8 @@ class ClientController extends Controller
          // Logout the user
         auth('client')->logout();
 
-        session()->flash('success', 'Password updated successfully.');
+        session()->flash('success', __('auth.Password updated successfully.'));
 
         return response()->json(['status' => 'success']);
     }
-
 }

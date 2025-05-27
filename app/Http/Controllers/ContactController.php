@@ -21,6 +21,6 @@ class ContactController extends Controller
             'message'   => $data['message'] ?? null,
         ]);
 
-        return response()->json(['message' => 'success']);
+        return response()->json(['message' => __('site.Message sent successfully!')]);
     }
 }

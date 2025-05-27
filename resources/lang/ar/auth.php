@@ -30,4 +30,11 @@ return [
         'create_new_account_success' => 'تم إنشاء حسابك بنجاح',
 
 
+
+        //profile update
+        'Info updated successfully' => 'تم تحديث المعلومات بنجاح',
+        'The Old password is incorrect.' => 'كلمة المرور القديمة غير صحيحة.',
+        'The password confirmation field must match password.' => 'يجب أن يتطابق حقل تأكيد كلمة المرور مع كلمة المرور.',
+        'Password updated successfully.' => 'تم تحديث كلمة المرور بنجاح.',
+
 ];

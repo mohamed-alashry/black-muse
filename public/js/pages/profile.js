@@ -9,7 +9,8 @@ $(document).ready(function () {
       method: 'POST',
       data: form.serialize(),
       headers: {
-                'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                'X-localization': $('html').attr('lang') || 'en'
       },
       beforeSend: function () {
             $('#infoSubmit').prop('disabled', true).html(`
@@ -53,7 +54,8 @@ $(document).ready(function () {
       method: 'POST',
       data: form.serialize(),
       headers: {
-                'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                'X-localization': $('html').attr('lang') || 'en'
       },
       beforeSend: function () {
             $('#changePasswordSubmit').prop('disabled', true).html(`

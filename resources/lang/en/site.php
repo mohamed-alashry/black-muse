@@ -39,7 +39,8 @@ return [
     'address' => 'Address:',
     'phone_numbers' => 'Phone Numbers:',
     'email' => 'Email:',
-
+    'Message sent successfully!'=>'Message sent successfully!',
+    
     //contact page
     'contact_us' => 'Contact Us',
     'email_address' => 'Email address',
@@ -47,6 +48,10 @@ return [
     'subject' => 'Subject',
     'your_message_here' => 'Your message here...',
     'send_now' => 'Send Now',
+    'Email is required.'         => 'Email is required.',
+    'Please enter a valid email.' => 'Please enter a valid email.',
+    'Name is required.'          => 'Name is required.',
+    'Subject is required.'       => 'Subject is required.',
 
     //about page
     'know_more' => 'Know More',

@@ -27,7 +27,8 @@ $(document).ready(function () {
                 date: date,
             },
             headers: {
-                'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                'X-localization': $('html').attr('lang') || 'en'
             },
             success: function (response) {
                 renderTimeSlots(response.times);
@@ -83,7 +84,8 @@ $(document).ready(function () {
             to: toTime
         },
         headers: {
-            'X-CSRF-TOKEN': $('input[name="_token"]').val()
+            'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            'X-localization': $('html').attr('lang') || 'en'
         },
         beforeSend: function () {
             $('#confirm_time_meeting').html('<i class="fas fa-spinner fa-spin"></i> Saving...').prop('disabled', true);

@@ -14,6 +14,7 @@ Route::group([
     'middleware' => [
         \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
         \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+        \App\Http\Middleware\SetLocaleFromHeader::class
     ]
 ], function () {
        
