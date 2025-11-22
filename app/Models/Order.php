@@ -77,4 +77,9 @@ class Order extends Model
     {
         return $this->morphMany(Answer::class, 'answerable');
     }
+
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'payable');
+    }
 }

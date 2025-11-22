@@ -56,11 +56,11 @@ class BookingStatusChanged extends Notification implements ShouldQueue
 
     protected function generateSubject()
     {
-        switch ($this->booking->booking_status) {
+        switch ($this->booking->status) {
             case 'confirmed':
                 return __('Booking Confirmed');
-            case 'cancelled':
-                return __('Booking Cancelled');
+            case 'canceled':
+                return __('Booking Canceled');
             case 'completed':
                 return __('Booking Completed');
             default:

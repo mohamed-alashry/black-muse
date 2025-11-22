@@ -30,7 +30,7 @@ class SendUnpaidBookingReminders extends Command
         $targetDate = now()->addDays(2)->startOfDay();
 
         $bookings = Booking::whereDate('event_date', $targetDate)
-            ->where('payment_status', 'down_payment')
+            ->where('payment_stage', 'down_payment')
             ->with('client')
             ->get();
 

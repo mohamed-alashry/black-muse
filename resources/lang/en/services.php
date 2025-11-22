@@ -36,6 +36,7 @@ return [
     'Paid Amount' => 'Paid Amount',
     'Booking Status' => 'Booking Status',
     'Payment Status' => 'Payment Status',
+    'Payment Stage' => 'Payment Stage',
     'Features' => 'Features',
     'Pay the Rest of amount' => 'Pay the Rest of amount',
     'Choose your Payment Method' => 'Choose your Payment Method',
@@ -64,5 +65,5 @@ return [
     'View Order' => 'View Order',
     'Order Status' => 'Order Status',
     'Re-order Again' => 'Re-order Again',
-    
+
 ];

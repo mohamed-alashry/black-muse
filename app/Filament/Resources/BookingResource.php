@@ -27,35 +27,35 @@ class BookingResource extends Resource
     {
         return $form
             ->schema([
-               // Forms\Components\Select::make('client_id')
-               //     ->relationship('client', 'name')
-               //     ->required(),
-               // Forms\Components\Select::make('service_id')
-               //     ->relationship('service', 'name')
-               //     ->required(),
-               // Forms\Components\Select::make('package_id')
-               //     ->relationship('package', 'name')
-               //     ->required(),
-               // Forms\Components\DatePicker::make('event_date')
-               //     ->required(),
-               // Forms\Components\TextInput::make('paid_amount')
-               //     ->required()
-               //     ->numeric(),
-               // Forms\Components\TextInput::make('remaining_amount')
-               //     ->required()
-               //     ->numeric(),
-               // Forms\Components\TextInput::make('total_price')
-               //     ->required()
-               //     ->numeric(),
-               // Forms\Components\Select::make('payment_status')
-               //     ->options(['down_payment' => 'down_payment', 'full_payment' => 'full_payment'])
-               //     ->default('down_payment')
-               //     ->required(),
+                // Forms\Components\Select::make('client_id')
+                //     ->relationship('client', 'name')
+                //     ->required(),
+                // Forms\Components\Select::make('service_id')
+                //     ->relationship('service', 'name')
+                //     ->required(),
+                // Forms\Components\Select::make('package_id')
+                //     ->relationship('package', 'name')
+                //     ->required(),
+                // Forms\Components\DatePicker::make('event_date')
+                //     ->required(),
+                // Forms\Components\TextInput::make('paid_amount')
+                //     ->required()
+                //     ->numeric(),
+                // Forms\Components\TextInput::make('remaining_amount')
+                //     ->required()
+                //     ->numeric(),
+                // Forms\Components\TextInput::make('total_price')
+                //     ->required()
+                //     ->numeric(),
+                // Forms\Components\Select::make('payment_stage')
+                //     ->options(['down_payment' => 'down_payment', 'full_payment' => 'full_payment'])
+                //     ->default('down_payment')
+                //     ->required(),
                 Forms\Components\MarkdownEditor::make('notes')
                     ->columnSpanFull(),
-                Forms\Components\Select::make('booking_status')
-                    ->options(['new' => 'new', 'confirmed' => 'confirmed', 'completed' => 'completed', 'cancelled' => 'cancelled'])
-                    ->default('new')
+                Forms\Components\Select::make('status')
+                    ->options(['pending' => 'pending', 'new' => 'new', 'confirmed' => 'confirmed', 'completed' => 'completed', 'canceled' => 'canceled'])
+                    ->default('pending')
                     ->required(),
             ]);
     }
@@ -87,8 +87,8 @@ class BookingResource extends Resource
                 Tables\Columns\TextColumn::make('total_price')
                     ->money()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('payment_status'),
-                Tables\Columns\TextColumn::make('booking_status'),
+                Tables\Columns\TextColumn::make('payment_stage'),
+                Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -124,8 +124,8 @@ class BookingResource extends Resource
                 TextEntry::make('paid_amount')->money(),
                 TextEntry::make('remaining_amount')->money(),
                 TextEntry::make('total_price')->money(),
-                TextEntry::make('payment_status'),
-                TextEntry::make('booking_status'),
+                TextEntry::make('payment_stage'),
+                TextEntry::make('status'),
                 TextEntry::make('created_at'),
                 TextEntry::make('updated_at'),
                 TextEntry::make('notes')

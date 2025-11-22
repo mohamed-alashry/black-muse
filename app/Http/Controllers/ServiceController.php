@@ -102,7 +102,7 @@ class ServiceController extends Controller
             if ($question->pivot->is_required) {
                 $questionKey              = "answers.{$question->id}";
                 $rules[$questionKey]      = ['required'];
-                $attributes[$questionKey] = "{$question->text} ".__('services.Question');
+                $attributes[$questionKey] = "{$question->text} " . __('services.Question');
             }
         }
 
@@ -210,6 +210,7 @@ class ServiceController extends Controller
 
     public function storeBooking()
     {
+        dd('here');
         $clientId = auth()->id();
         $cacheKey = 'reservation_' . $clientId;
 
@@ -365,7 +366,7 @@ class ServiceController extends Controller
     public function completeBooking($id)
     {
         $booking                   = Booking::findOrFail($id);
-        $booking->payment_status   = 'full_payment';
+        $booking->payment_stage   = 'full_payment';
         $booking->remaining_amount = 0;
         $booking->paid_amount      = $booking->total_price;
         $booking->save();

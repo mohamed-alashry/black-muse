@@ -14,8 +14,8 @@ class OutstandingBalances extends BaseWidget
         return $table
             ->query(
                 Booking::query()
-                ->where('payment_status', 'down_payment')
-                ->orderBy('event_date')
+                    ->where('payment_stage', 'down_payment')
+                    ->orderBy('event_date')
             )
             ->columns([
                 TextColumn::make('client.name')

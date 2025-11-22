@@ -24,7 +24,7 @@ class MeetingRelationManager extends RelationManager
                     ])
                     ->columnSpanFull(),
                 Forms\Components\Select::make('status')
-                    ->options(['pending' => 'pending', 'done' => 'done', 'cancelled' => 'cancelled']),
+                    ->options(['pending' => 'pending', 'done' => 'done', 'canceled' => 'canceled']),
             ]);
     }
 
@@ -53,16 +53,16 @@ class MeetingRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-//                Tables\Actions\CreateAction::make(),
+                //                Tables\Actions\CreateAction::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 //                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-//                Tables\Actions\BulkActionGroup::make([
-//                    Tables\Actions\DeleteBulkAction::make(),
-//                ]),
+                //                Tables\Actions\BulkActionGroup::make([
+                //                    Tables\Actions\DeleteBulkAction::make(),
+                //                ]),
             ]);
     }
 }

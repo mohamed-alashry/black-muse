@@ -59,8 +59,8 @@ class OrderStatusChanged extends Notification implements ShouldQueue
         switch ($this->order->status) {
             case 'in-progress':
                 return __('Order In-progress');
-            case 'cancelled':
-                return __('Order Cancelled');
+            case 'canceled':
+                return __('Order Canceled');
             case 'completed':
                 return __('Order Completed');
             default:

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->enum('type', ["online", "offline"])->default('online');
             $table->string('link')->nullable();
             $table->text('notes')->nullable();
-            $table->enum('status', ["pending", "done", "cancelled"])->default('pending');
+            $table->enum('status', ["pending", "done", "canceled"])->default('pending');
             $table->timestamps();
         });
 

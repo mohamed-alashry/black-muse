@@ -27,22 +27,22 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-               // Forms\Components\Select::make('client_id')
-               //     ->relationship('client', 'name')
-               //     ->required(),
-               // Forms\Components\Select::make('service_id')
-               //     ->relationship('service', 'name')
-               //     ->required(),
-               // Forms\Components\Select::make('package_id')
-               //     ->relationship('package', 'name')
-               //     ->required(),
-               // Forms\Components\TextInput::make('total_price')
-               //     ->required()
-               //     ->numeric(),
+                // Forms\Components\Select::make('client_id')
+                //     ->relationship('client', 'name')
+                //     ->required(),
+                // Forms\Components\Select::make('service_id')
+                //     ->relationship('service', 'name')
+                //     ->required(),
+                // Forms\Components\Select::make('package_id')
+                //     ->relationship('package', 'name')
+                //     ->required(),
+                // Forms\Components\TextInput::make('total_price')
+                //     ->required()
+                //     ->numeric(),
                 Forms\Components\MarkdownEditor::make('notes')
                     ->columnSpanFull(),
                 Forms\Components\Select::make('status')
-                    ->options(['pending' => 'pending', 'in-progress' => 'in-progress', 'completed' => 'completed', 'cancelled' => 'cancelled'])
+                    ->options(['pending' => 'pending', 'new' => 'new', 'in-progress' => 'in-progress', 'completed' => 'completed', 'canceled' => 'canceled'])
                     ->default('pending')
                     ->required(),
             ]);

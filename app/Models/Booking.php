@@ -21,8 +21,8 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property float $remaining_amount
  * @property float $total_price
  * @property string|null $notes
- * @property string $payment_status
- * @property string $booking_status
+ * @property string $payment_stage
+ * @property string $status
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -93,6 +93,11 @@ class Booking extends Model
         return $this->morphMany(Answer::class, 'answerable');
     }
 
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'payable');
+    }
+
     public function generateGoogleCalendarLink(): string
     {
         // All-day event: start date as YYYYMMDD, end date is next day
@@ -109,10 +114,9 @@ class Booking extends Model
         $params = [
             'text'   => $title,
             'dates'  => "{$startDate}/{$endDate}",
-            'details'=> $description,
+            'details' => $description,
         ];
 
         return $baseUrl . '&' . http_build_query($params);
     }
-
 }

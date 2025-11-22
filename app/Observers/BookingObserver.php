@@ -29,11 +29,11 @@ class BookingObserver implements ShouldHandleEventsAfterCommit
      */
     public function updated(Booking $booking): void
     {
-        if ($booking->isDirty('booking_status')) {
+        if ($booking->isDirty('status')) {
             $booking->client->notify(new BookingStatusChanged($booking));
         }
 
-        if ($booking->isDirty('payment_status') && $booking->payment_status === 'full_payment') {
+        if ($booking->isDirty('payment_stage') && $booking->payment_stage === 'full_payment') {
             User::permission('update_booking')->get()->each(fn($admin) => $admin->notify(new BookingFullyPaid($booking)));
         }
     }
