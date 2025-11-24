@@ -52,11 +52,12 @@ Route::group(
             Route::post('service/reservation/cache', [ServiceController::class, 'cacheReservation'])->name('service.reservation.cache');
             Route::get('service/reservation/confirm', [ServiceController::class, 'confirmReservation'])->name('service.reservation.confirm');
 
-            Route::post('/hyperpay/checkout', [PaymentController::class, 'createCheckout'])->name('payment.checkout');
-
             Route::post('service/booking/store', [ServiceController::class, 'storeBooking'])->name('service.booking.store');
             Route::get('service/booking/{id}', [ServiceController::class, 'viewBooking'])->name('service.booking.show');
             Route::put('/booking/complete/{id}', [ServiceController::class, 'completeBooking'])->name('booking.complete');
+
+            Route::get('payment/booking/checkout', [PaymentController::class, 'checkoutBooking'])->name('payment.booking.checkout');
+            Route::get('payment/order/checkout', [PaymentController::class, 'checkoutOrder'])->name('payment.order.checkout');
 
             Route::post('service/order/store', [ServiceController::class, 'storeOrder'])->name('service.order.store');
             Route::get('service/order/{id}', [ServiceController::class, 'viewOrder'])->name('service.order.show');
@@ -69,7 +70,7 @@ Route::group(
     }
 );
 
-Route::get('/hyperpay/callback', [PaymentController::class, 'callback']);
+Route::get('/payment/confirm', [PaymentController::class, 'confirm'])->name('payments.confirm');
 
 Route::get('/notification', function () {
     $booking = \App\Models\Booking::find(22);

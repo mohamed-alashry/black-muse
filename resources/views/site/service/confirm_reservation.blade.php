@@ -64,7 +64,8 @@
                             </div>
 
                             <div class="rounded-5" style="border: 1px solid rgba(255, 255, 255, 0.1)">
-                                <form method="POST" action="{{ route('payment.checkout') }}">
+                                <form method="POST"
+                                    action="{{ $reservationData['service_category'] == 'photography' ? route('payment.booking.checkout') : route('payment.order.checkout') }}">
                                     @csrf
 
                                     <div class="p-3 d-flex align-items-center flex-column gap-2">

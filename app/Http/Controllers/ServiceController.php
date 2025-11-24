@@ -210,7 +210,6 @@ class ServiceController extends Controller
 
     public function storeBooking()
     {
-        dd('here');
         $clientId = auth()->id();
         $cacheKey = 'reservation_' . $clientId;
 
@@ -360,6 +359,7 @@ class ServiceController extends Controller
         $booking              = Booking::with('package.features')->findOrFail($id);
         $photographyTermsPage = Page::where('id', 5)->withActiveSections()->firstOrFail();
         $MeetingTermsPage     = Page::where('id', 8)->withActiveSections()->firstOrFail();
+
         return view('site.service.view_booking', compact("booking", "photographyTermsPage", "MeetingTermsPage"));
     }
 
@@ -371,6 +371,7 @@ class ServiceController extends Controller
         $booking->paid_amount      = $booking->total_price;
         $booking->save();
         session()->flash('success', __('services.Payment completed and booking confirmed.'));
+
         return redirect()->back();
     }
 

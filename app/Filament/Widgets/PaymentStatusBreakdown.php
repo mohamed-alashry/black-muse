@@ -11,10 +11,10 @@ class PaymentStatusBreakdown extends ChartWidget
 
     protected function getData(): array
     {
-        $data = Booking::selectRaw("CONCAT(payment_stage, ' - ', status) as status, COUNT(*) as count")
-            ->groupBy('status')
+        $data = Booking::selectRaw("CONCAT(payment_stage, ' - ', status) as booking_status, COUNT(*) as count")
+            ->groupBy('booking_status')
             ->orderBy('count', 'desc')
-            ->pluck('count', 'status')
+            ->pluck('count', 'booking_status')
             ->toArray();
 
         return [

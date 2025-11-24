@@ -62,14 +62,17 @@ class ServiceResource extends Resource
                 //
             ])
             ->actions([
-//                Tables\Actions\ViewAction::make(),
+                //                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->checkIfRecordIsSelectableUsing(function (Model $record): bool {
+                return static::canDelete($record);
+            });
     }
 
     public static function getRelations(): array
@@ -84,8 +87,13 @@ class ServiceResource extends Resource
         return [
             'index' => Pages\ListServices::route('/'),
             'create' => Pages\CreateService::route('/create'),
-//            'view' => Pages\ViewService::route('/{record}'),
+            //            'view' => Pages\ViewService::route('/{record}'),
             'edit' => Pages\EditService::route('/{record}/edit'),
         ];
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return !in_array($record->id, [1, 2]);
     }
 }
