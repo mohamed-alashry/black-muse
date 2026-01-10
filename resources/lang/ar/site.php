@@ -21,7 +21,7 @@ return [
     'my_profile' => 'حسابي',
     'logout' => 'تسجيل الخروج',
     'welcome' => 'مرحباً',
-    'language' => 'English', 
+    'language' => 'English',
 
     //footer
     'follow_us' => 'تابعنا الآن',
@@ -29,7 +29,7 @@ return [
     'rights_reserved' => 'جميع الحقوق محفوظة © 2024',
     'developed_by' => 'تم التطوير بواسطة',
 
-     //home 
+    //home
     'go_to_top' => 'اذهب للأعلى',
     'our' => 'خدمات',
     'our_services' => '',
@@ -44,13 +44,13 @@ return [
     'choose_service_date' => 'اختر تاريخ الخدمة',
     'confirm_this_date' => 'تأكيد هذا التاريخ الآن',
 
-    
+
     // contact section
     'address' => 'العنوان:',
     'phone_numbers' => 'أرقام الهاتف:',
     'email' => 'البريد الإلكتروني:',
-    'Message sent successfully!'=>'تم إرسال الرسالة بنجاح!',
-    
+    'Message sent successfully!' => 'تم إرسال الرسالة بنجاح!',
+
     //contact page
     'contact_us' => 'اتصل بنا',
     'email_address' => 'البريد الإلكتروني',
@@ -98,7 +98,7 @@ return [
     'profile_table_order_name' => 'اسم الطلب',
     'profile_table_order_date' => 'تاريخ الطلب',
 
-
+    'checkout' => 'الدفع',
 
 
 ];

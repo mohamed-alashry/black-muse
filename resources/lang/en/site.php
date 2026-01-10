@@ -22,7 +22,7 @@ return [
     'rights_reserved' => 'All Rights Reserved © 2024',
     'developed_by' => 'Developed By',
 
-     //home 
+    //home
     'go_to_top' => 'Go to top',
     'our' => 'Our',
     'our_services' => 'Services',
@@ -35,12 +35,12 @@ return [
     'bindery_lab' => 'Bindery & Lab Services',
     'explore_more' => 'Explore More!',
 
-     // contact section
+    // contact section
     'address' => 'Address:',
     'phone_numbers' => 'Phone Numbers:',
     'email' => 'Email:',
-    'Message sent successfully!'=>'Message sent successfully!',
-    
+    'Message sent successfully!' => 'Message sent successfully!',
+
     //contact page
     'contact_us' => 'Contact Us',
     'email_address' => 'Email address',
@@ -88,5 +88,6 @@ return [
     'profile_table_order_name' => 'Order Name',
     'profile_table_order_date' => 'Order Date',
 
+    'checkout' => 'Checkout',
 
 ];

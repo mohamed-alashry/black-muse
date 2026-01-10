@@ -1,15 +1,15 @@
 @extends('layouts.site')
 
-@section('title', __('services.Checkout'))
-@section('meta_title', __('services.Checkout'))
-@section('meta_description', __('services.Checkout'))
+@section('title', __('site.checkout'))
+@section('meta_title', __('site.checkout'))
+@section('meta_description', __('site.checkout'))
 
 
 @section('content')
     <!-- hero section -->
     @include('partials.site.hero-section', [
         'title' => ' ',
-        'highlight' => __('services.Checkout'),
+        'highlight' => __('site.checkout'),
         // 'breadcrumb' => $reservationData['service_name'] . ' / ' . $reservationData['package_name'],
     ])
 
