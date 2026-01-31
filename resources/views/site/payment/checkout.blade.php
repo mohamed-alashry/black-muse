@@ -22,6 +22,6 @@
         </div>
     </section>
 
-    <script src="https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId={{ $checkoutId }}" integrity="{true}"
+    <script src="https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId={{ $checkoutId }}" integrity="true"
         crossorigin="anonymous"></script>
 @endsection
