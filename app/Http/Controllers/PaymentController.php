@@ -57,7 +57,7 @@ class PaymentController extends Controller
 
         // Step 2: Create Payment record
         $payment = $payable->payments()->create([
-            'amount' => $payable->total_amount,
+            'amount' => $payable->total_price,
             'currency' => 'SAR',
             'status' => 'pending',
         ]);
