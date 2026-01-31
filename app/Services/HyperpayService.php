@@ -30,30 +30,54 @@ class HyperpayService
      */
     public function createCheckout(Payment $payment, ?string $redirectUrl = null)
     {
-        $checkoutParams = [
-            'entityId' => $this->entityId,
-            'amount' => $payment->amount,
-            'currency' => $payment->currency,
-            'paymentType' => 'DB',
-            'integrity' => 'true',
-        ];
+        // $checkoutParams = [
+        //     'entityId' => $this->entityId,
+        //     'amount' => $payment->amount,
+        //     'currency' => $payment->currency,
+        //     'paymentType' => 'DB',
+        //     'integrity' => 'true',
+        // ];
 
-        if ($redirectUrl) {
-            $checkoutParams['shopperResultUrl'] = $redirectUrl;
+        // if ($redirectUrl) {
+        //     $checkoutParams['shopperResultUrl'] = $redirectUrl;
+        // }
+
+        // $response = Http::asForm()->withHeaders([
+        //     'Authorization' => 'Bearer ' . $this->accessToken
+        // ])->post($this->baseUrl . '/checkouts', $checkoutParams);
+
+        // if (! $response->successful()) {
+        //     $payment->raw_response = ['error' => 'checkout_request_failed', 'status' => $response->status(), 'body' => $response->body()];
+        //     $payment->save();
+
+        //     return [];
+        // }
+
+        // $data = $response->json();
+
+
+        $url = $this->baseUrl . '/checkouts';
+        $data = "entityId=" . $this->entityId .
+            "&amount=" . $payment->amount .
+            "&currency=" . $payment->currency .
+            "&paymentType=DB" .
+            "&integrity=true";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization:Bearer ' . $this->accessToken
+        ));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // this should be set to true in production
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $responseData = curl_exec($ch);
+        if (curl_errno($ch)) {
+            return curl_error($ch);
         }
-
-        $response = Http::asForm()->withHeaders([
-            'Authorization' => 'Bearer ' . $this->accessToken
-        ])->post($this->baseUrl . '/checkouts', $checkoutParams);
-
-        if (! $response->successful()) {
-            $payment->raw_response = ['error' => 'checkout_request_failed', 'status' => $response->status(), 'body' => $response->body()];
-            $payment->save();
-
-            return [];
-        }
-
-        $data = $response->json();
+        curl_close($ch);
+        $data = json_decode($responseData, true);
 
         $payment->payment_reference = $data['id'] ?? null;
         $payment->raw_response = $data;
