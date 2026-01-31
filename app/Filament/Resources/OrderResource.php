@@ -2,18 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\OrderResource\Pages;
-use App\Filament\Resources\OrderResource\RelationManagers;
-use App\Models\Order;
 use Filament\Forms;
+use Filament\Tables;
+use App\Models\Order;
 use Filament\Forms\Form;
-use Filament\Infolists\Components\Section;
-use Filament\Infolists\Components\TextEntry;
+use Filament\Tables\Table;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
+use App\Filament\Exports\OrderExporter;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use App\Filament\Resources\OrderResource\Pages;
+use App\Filament\Resources\OrderResource\RelationManagers;
 
 class OrderResource extends Resource
 {
@@ -79,6 +80,10 @@ class OrderResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\ExportAction::make()
+                    ->exporter(OrderExporter::class),
+            ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
@@ -86,6 +91,8 @@ class OrderResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ExportBulkAction::make()
+                        ->exporter(OrderExporter::class),
                 ]),
             ]);
     }

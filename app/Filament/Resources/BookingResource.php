@@ -2,18 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BookingResource\Pages;
-use App\Filament\Resources\BookingResource\RelationManagers;
-use App\Models\Booking;
 use Filament\Forms;
+use Filament\Tables;
+use App\Models\Booking;
 use Filament\Forms\Form;
-use Filament\Infolists\Components\Section;
-use Filament\Infolists\Components\TextEntry;
+use Filament\Tables\Table;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use App\Filament\Exports\BookingExporter;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use App\Filament\Resources\BookingResource\Pages;
+use App\Filament\Resources\BookingResource\RelationManagers;
 
 class BookingResource extends Resource
 {
@@ -101,6 +102,10 @@ class BookingResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\ExportAction::make()
+                    ->exporter(BookingExporter::class),
+            ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
@@ -108,6 +113,8 @@ class BookingResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ExportBulkAction::make()
+                        ->exporter(BookingExporter::class),
                 ]),
             ]);
     }

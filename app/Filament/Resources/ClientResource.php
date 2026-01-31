@@ -2,18 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ClientResource\Pages;
-use App\Filament\Resources\ClientResource\RelationManagers;
-use App\Models\Client;
 use Filament\Forms;
+use Filament\Tables;
+use App\Models\Client;
 use Filament\Forms\Form;
-use Filament\Infolists\Components\Section;
-use Filament\Infolists\Components\TextEntry;
+use Filament\Tables\Table;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
 use Illuminate\Support\Facades\Hash;
+use App\Filament\Exports\ClientExporter;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use App\Filament\Resources\ClientResource\Pages;
+use App\Filament\Resources\ClientResource\RelationManagers;
 
 class ClientResource extends Resource
 {
@@ -80,6 +81,10 @@ class ClientResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\ExportAction::make()
+                    ->exporter(ClientExporter::class),
+            ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
@@ -87,6 +92,8 @@ class ClientResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ExportBulkAction::make()
+                        ->exporter(ClientExporter::class),
                 ]),
             ]);
     }
