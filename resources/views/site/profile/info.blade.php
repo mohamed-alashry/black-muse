@@ -151,7 +151,7 @@
                                         <tbody>
                                             @foreach ($client->bookings as $b => $booking)
                                                 <tr>
-                                                    <td>#{{ $b + 1 }}</td>
+                                                    <td>#{{ $booking->id }}</td>
                                                     <td><small>{{ $booking->reference_number }}</small></td>
                                                     <td>{{ $booking->service->name }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($booking->event_date)->format('d-m-Y') }}
@@ -198,7 +198,7 @@
                                         <tbody>
                                             @foreach ($client->orders as $o => $order)
                                                 <tr>
-                                                    <td>#{{ $o + 1 }}</td>
+                                                    <td>#{{ $order->id }}</td>
                                                     <td><small>{{ $order->reference_number }}</small></td>
                                                     <td>{{ $order->service->name }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d-m-Y') }}

@@ -70,10 +70,6 @@ class PaymentController extends Controller
     public function confirm(Request $request)
     {
         Log::info('Payment confirmation request', $request->all());
-        // $request->validate([
-        //     'id' => 'required|string',
-        //     'checkoutId' => 'required|string',
-        // ]);
 
         $payment = Payment::where('payment_reference', $request->id)->first();
 
@@ -105,7 +101,7 @@ class PaymentController extends Controller
         if ($payment->status === 'paid') {
             return redirect()->route('site.profile', ['tab' => 'bookings'])->with('success', 'Payment successful and booking created.');
         } else {
-            return redirect()->route('site.home')->with('error', 'Payment failed. Please try again.');
+            return redirect()->route('site.profile', ['tab' => 'bookings'])->with('error', 'Payment failed. Please try again.');
         }
     }
 }
