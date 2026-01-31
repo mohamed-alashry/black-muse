@@ -74,7 +74,7 @@ class PaymentController extends Controller
     {
         Log::info('Payment confirmation request', $request->all());
         $request->validate([
-            'id' => 'required|integer',
+            'id' => 'required|string',
             'checkoutId' => 'required|string',
         ]);
 
