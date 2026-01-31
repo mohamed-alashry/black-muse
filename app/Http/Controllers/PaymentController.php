@@ -70,12 +70,16 @@ class PaymentController extends Controller
     public function confirm(Request $request)
     {
         Log::info('Payment confirmation request', $request->all());
-        $request->validate([
-            'id' => 'required|string',
-            'checkoutId' => 'required|string',
-        ]);
+        // $request->validate([
+        //     'id' => 'required|string',
+        //     'checkoutId' => 'required|string',
+        // ]);
 
-        $payment = Payment::findOrFail($request->id);
+        $payment = Payment::where('payment_reference', $request->checkoutId)->first();
+
+        if (!$payment) {
+            return back()->with('error', 'Payment not found');
+        }
 
         // Step 1: Verify payment
         $result = $this->hyperpay->verifyPayment($request->checkoutId);
