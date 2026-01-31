@@ -31,12 +31,12 @@
                                 type="button" role="tab" aria-controls="password-tab-pane">
                                 <i class="fa-regular fa-pen-to-square"></i> @lang('site.profile_change_password')
                             </li>
-                            <li class="p-md-3 {{ request('tab') == 'bookings' ? 'active' : '' }}" id="booked-tab"
+                            <li class="p-md-3 {{ request('tab') == 'booking' ? 'active' : '' }}" id="booked-tab"
                                 data-bs-toggle="tab" data-bs-target="#booked-tab-pane" type="button" role="tab"
                                 aria-controls="booked-tab-pane">
                                 <i class="fa-regular fa-file-lines"></i> @lang('site.profile_booked_services')
                             </li>
-                            <li class="p-md-3 d-flex align-items-center mb-md-5 {{ request('tab') == 'orders' ? 'active' : '' }}"
+                            <li class="p-md-3 d-flex align-items-center mb-md-5 {{ request('tab') == 'order' ? 'active' : '' }}"
                                 id="order-tab" data-bs-toggle="tab" data-bs-target="#order-tab-pane" type="button"
                                 role="tab" aria-controls="order-tab-pane">
                                 <i class="fas fa-history"></i> @lang('site.profile_order_history')
@@ -127,7 +127,7 @@
                         </form>
 
                         <!-- Booked Services Tab -->
-                        <div class="tab-pane fade {{ request('tab') == 'bookings' ? 'show active' : '' }}"
+                        <div class="tab-pane fade {{ request('tab') == 'booking' ? 'show active' : '' }}"
                             id="booked-tab-pane" role="tabpanel" aria-labelledby="booked-tab">
                             <div class="table-profile">
                                 <div class="table-header">
@@ -175,7 +175,7 @@
                         </div>
 
                         <!-- Order History Tab -->
-                        <div class="tab-pane fade {{ request('tab') == 'orders' ? 'show active' : '' }}"
+                        <div class="tab-pane fade {{ request('tab') == 'order' ? 'show active' : '' }}"
                             id="order-tab-pane" role="tabpanel" aria-labelledby="order-tab">
                             <div class="table-profile">
                                 <div class="table-header">

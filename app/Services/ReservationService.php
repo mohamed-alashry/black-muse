@@ -129,4 +129,20 @@ class ReservationService
 
         return $answer;
     }
+
+    public function finalizeBookingAfterPayment($booking, $action)
+    {
+        if ($action === 'booking_down_payment') {
+            $booking->payment_status = 'paid';
+            $booking->status         = 'new';
+        } elseif ($action === 'booking_remaining_payment') {
+            $booking->payment_status = 'paid';
+            $booking->status         = 'completed';
+            $booking->payment_stage   = 'full_payment';
+            $booking->remaining_amount = 0;
+            $booking->paid_amount      = $booking->total_price;
+        }
+
+        $booking->save();
+    }
 }

@@ -12,6 +12,7 @@ class Payment extends Model
         'payment_reference',
         'transaction_id',
         'brand',
+        'action',
         'status',
         'amount',
         'currency',

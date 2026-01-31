@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('payment_reference')->nullable();
             $table->string('transaction_id')->nullable();
             $table->string('brand')->nullable(); // VISA, MADA, MasterCard etc.
+            $table->string('action')->nullable();
 
             $table->enum('status', [
                 'pending',

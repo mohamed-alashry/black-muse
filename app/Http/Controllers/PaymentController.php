@@ -31,6 +31,7 @@ class PaymentController extends Controller
             'amount' => $payable->paid_amount,
             'currency' => 'SAR',
             'status' => 'pending',
+            'action' => 'booking_down_payment',
         ]);
 
         // Step 3: Create HyperPay checkout
@@ -60,6 +61,7 @@ class PaymentController extends Controller
             'amount' => $payable->total_price,
             'currency' => 'SAR',
             'status' => 'pending',
+            'action' => 'order_full_payment',
         ]);
 
         // Step 3: Create HyperPay checkout
@@ -95,25 +97,59 @@ class PaymentController extends Controller
         // Step 2: Update payment status
         $payment = $this->hyperpay->updatePaymentStatus($payment, $result);
 
-        $payable = $payment->payable instanceof Booking ? 'bookings' : 'orders';
+        $payable = $payment->payable;
+        $payableType = strtolower(class_basename(get_class($payable))); // 'booking' or 'order'
 
         // Step 3: Update order/booking status
         if ($payment->status === 'paid') {
-            $payment->payable
-                ->update([
+            if ($payableType === 'booking') {
+                $this->reservationService->finalizeBookingAfterPayment($payable, $payment->action);
+            } else {
+                $payable->update([
                     'payment_status' => 'paid',
                     'status' => 'new'
                 ]);
+            }
 
-            return redirect()->route('site.profile', ['tab' => $payable])->with('success', 'Payment successful.');
+            return redirect()->route('site.profile', ['tab' => $payableType])->with('success', 'Payment successful.');
         } else {
-            $payment->payable
-                ->update([
-                    'payment_status' => 'failed',
-                    'status' => 'canceled'
-                ]);
+            $payable->update([
+                'payment_status' => 'failed',
+                'status' => 'canceled'
+            ]);
 
-            return redirect()->route('site.profile', ['tab' => $payable])->with('error', 'Payment failed. Please try again.');
+            return redirect()->route('site.profile', ['tab' => $payableType])->with('error', 'Payment failed. Please try again.');
         }
+    }
+
+    public function completeBooking($id)
+    {
+        // Step 1: Retrieve Booking
+        $booking = Booking::findOrFail($id);
+
+        if ($booking->payment_stage !== 'down_payment') {
+            return back()->with('error', 'Booking is not eligible for completion.');
+        }
+
+        // Step 2: Create Payment record
+        $payment = $booking->payments()->create([
+            'amount' => $booking->remaining_amount,
+            'currency' => 'SAR',
+            'status' => 'pending',
+            'action' => 'booking_remaining_payment',
+        ]);
+
+        // Step 3: Create HyperPay checkout
+        $response = $this->hyperpay->createCheckout($payment);
+
+        if (!isset($response['id'])) {
+            return back()->with('error', 'Failed to initialize payment');
+        }
+
+        return view('site.payment.checkout', [
+            'checkoutId' => $response['id'],
+            'paymentId' => $payment->id,
+            'redirectUrl' => route('payments.confirm'),
+        ]);
     }
 }

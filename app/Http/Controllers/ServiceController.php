@@ -363,18 +363,6 @@ class ServiceController extends Controller
         return view('site.service.view_booking', compact("booking", "photographyTermsPage", "MeetingTermsPage"));
     }
 
-    public function completeBooking($id)
-    {
-        $booking                   = Booking::findOrFail($id);
-        $booking->payment_stage   = 'full_payment';
-        $booking->remaining_amount = 0;
-        $booking->paid_amount      = $booking->total_price;
-        $booking->save();
-        session()->flash('success', __('services.Payment completed and booking confirmed.'));
-
-        return redirect()->back();
-    }
-
     public function viewOrder($id)
     {
         $order = Order::with('package.features')->findOrFail($id);
