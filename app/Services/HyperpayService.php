@@ -31,32 +31,6 @@ class HyperpayService
      */
     public function createCheckout(Payment $payment)
     {
-        // $checkoutParams = [
-        //     'entityId' => $this->entityId,
-        //     'amount' => $payment->amount,
-        //     'currency' => $payment->currency,
-        //     'paymentType' => 'DB',
-        //     'integrity' => 'true',
-        // ];
-
-        // if ($redirectUrl) {
-        //     $checkoutParams['shopperResultUrl'] = $redirectUrl;
-        // }
-
-        // $response = Http::asForm()->withHeaders([
-        //     'Authorization' => 'Bearer ' . $this->accessToken
-        // ])->post($this->baseUrl . '/checkouts', $checkoutParams);
-
-        // if (! $response->successful()) {
-        //     $payment->raw_response = ['error' => 'checkout_request_failed', 'status' => $response->status(), 'body' => $response->body()];
-        //     $payment->save();
-
-        //     return [];
-        // }
-
-        // $data = $response->json();
-
-
         $url = $this->baseUrl . '/checkouts';
         $data = "entityId=" . $this->entityId .
             "&amount=" . $payment->amount .

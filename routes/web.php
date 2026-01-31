@@ -67,6 +67,7 @@ Route::group(
             Route::post('booking/meeting/available-times', [ServiceController::class, 'availableTimes']);
             Route::post('/booking/meeting/save', [ServiceController::class, 'save']);
         });
+
         Route::get('/payment/confirm', [PaymentController::class, 'confirm'])->name('payments.confirm');
     }
 );
