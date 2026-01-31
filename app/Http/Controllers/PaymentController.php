@@ -39,7 +39,7 @@ class PaymentController extends Controller
         // ]) . '?checkoutId=';
 
         // Step 4: Create HyperPay checkout
-        $response = $this->hyperpay->createCheckout($payment, $redirectUrl);
+        $response = $this->hyperpay->createCheckout($payment);
 
         if (!isset($response['id'])) {
             return back()->with('error', 'Failed to initialize payment');

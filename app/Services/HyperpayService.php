@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use App\Models\Payment;
+use Illuminate\Support\Facades\Log;
 
 class HyperpayService
 {
@@ -28,7 +29,7 @@ class HyperpayService
     /**
      * Generate Checkout ID for payment widget
      */
-    public function createCheckout(Payment $payment, ?string $redirectUrl = null)
+    public function createCheckout(Payment $payment)
     {
         // $checkoutParams = [
         //     'entityId' => $this->entityId,
@@ -62,6 +63,8 @@ class HyperpayService
             "&currency=" . $payment->currency .
             "&paymentType=DB" .
             "&integrity=true";
+
+        Log::info('Creating HyperPay checkout', ['url' => $url, 'data' => $data]);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
