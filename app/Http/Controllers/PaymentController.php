@@ -8,6 +8,7 @@ use App\Models\Booking;
 use App\Models\Payment;
 use App\Services\HyperpayService;
 use App\Services\ReservationService;
+use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
@@ -33,9 +34,9 @@ class PaymentController extends Controller
         ]);
 
         // Step 3: Build redirect URL for HyperPay
-        $redirectUrl = route('payments.confirm', [
-            'id' => $payment->id,
-        ]) . '?checkoutId=';
+        // $redirectUrl = route('payments.confirm', [
+        //     'id' => $payment->id,
+        // ]) . '?checkoutId=';
 
         // Step 4: Create HyperPay checkout
         $response = $this->hyperpay->createCheckout($payment, $redirectUrl);
@@ -43,6 +44,18 @@ class PaymentController extends Controller
         if (!isset($response['id'])) {
             return back()->with('error', 'Failed to initialize payment');
         }
+
+        Log::info(
+            'Checkout created',
+            [
+                'payment_id' => $payment->id,
+                'checkout_id' => $response['id'],
+                'redirectUrl' => route('payments.confirm', [
+                    'id' => $payment->id,
+                    'checkoutId' => $response['id']
+                ])
+            ]
+        );
 
         return view('site.payment.checkout', [
             'checkoutId' => $response['id'],
@@ -59,6 +72,7 @@ class PaymentController extends Controller
      */
     public function confirm(Request $request)
     {
+        Log::info('Payment confirmation request', $request->all());
         $request->validate([
             'id' => 'required|integer',
             'checkoutId' => 'required|string',
