@@ -31,7 +31,7 @@ return new class extends Migration {
                 'canceled',
                 'expired',
             ])->default('pending');
-            $table->enum('status', ["pending", "new", "confirmed", "completed", "canceled"])->default('new');
+            $table->enum('status', ["pending", "new", "confirmed", "completed", "canceled"])->default('pending');
             $table->timestamps();
         });
 

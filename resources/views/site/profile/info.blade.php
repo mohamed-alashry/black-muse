@@ -23,21 +23,22 @@
                             <li class="p-md-3 fs-5 text-white">
                                 <i class="fas fa-th-large"></i> @lang('site.profile_menu')
                             </li>
-                            <li class="p-md-3 active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info-tab-pane"
-                                type="button" role="tab" aria-controls="info-tab-pane">
+                            <li class="p-md-3 {{ !request('tab') ? 'active' : '' }}" id="info-tab" data-bs-toggle="tab"
+                                data-bs-target="#info-tab-pane" type="button" role="tab" aria-controls="info-tab-pane">
                                 <i class="fas fa-user"></i> @lang('site.profile_account_info')
                             </li>
                             <li class="p-md-3" id="password-tab" data-bs-toggle="tab" data-bs-target="#password-tab-pane"
                                 type="button" role="tab" aria-controls="password-tab-pane">
                                 <i class="fa-regular fa-pen-to-square"></i> @lang('site.profile_change_password')
                             </li>
-                            <li class="p-md-3" id="booked-tab" data-bs-toggle="tab" data-bs-target="#booked-tab-pane"
-                                type="button" role="tab" aria-controls="booked-tab-pane">
+                            <li class="p-md-3 {{ request('tab') == 'bookings' ? 'active' : '' }}" id="booked-tab"
+                                data-bs-toggle="tab" data-bs-target="#booked-tab-pane" type="button" role="tab"
+                                aria-controls="booked-tab-pane">
                                 <i class="fa-regular fa-file-lines"></i> @lang('site.profile_booked_services')
                             </li>
-                            <li class="p-md-3 d-flex align-items-center mb-md-5" id="order-tab" data-bs-toggle="tab"
-                                data-bs-target="#order-tab-pane" type="button" role="tab"
-                                aria-controls="order-tab-pane">
+                            <li class="p-md-3 d-flex align-items-center mb-md-5 {{ request('tab') == 'orders' ? 'active' : '' }}"
+                                id="order-tab" data-bs-toggle="tab" data-bs-target="#order-tab-pane" type="button"
+                                role="tab" aria-controls="order-tab-pane">
                                 <i class="fas fa-history"></i> @lang('site.profile_order_history')
                             </li>
                         </ul>
@@ -49,8 +50,8 @@
                     <div class="tab-content pe-0 ps-md-2" id="myTabContent">
 
                         <!-- Info Tab -->
-                        <form class="tab-pane fade show active" id="info-tab-pane" role="tabpanel"
-                            aria-labelledby="info-tab">
+                        <form class="tab-pane fade {{ !request('tab') ? 'show active' : '' }}" id="info-tab-pane"
+                            role="tabpanel" aria-labelledby="info-tab">
                             <div class="row">
                                 <div class="col-md-12 text-white mt-3" id="InfoMsgs"></div>
                                 <div class="col-md-6">
@@ -126,7 +127,8 @@
                         </form>
 
                         <!-- Booked Services Tab -->
-                        <div class="tab-pane fade" id="booked-tab-pane" role="tabpanel" aria-labelledby="booked-tab">
+                        <div class="tab-pane fade {{ request('tab') == 'bookings' ? 'show active' : '' }}"
+                            id="booked-tab-pane" role="tabpanel" aria-labelledby="booked-tab">
                             <div class="table-profile">
                                 <div class="table-header">
                                     <h5><i class="fa-regular fa-file-lines"></i> @lang('site.profile_booked_table_title')</h5>
@@ -173,7 +175,8 @@
                         </div>
 
                         <!-- Order History Tab -->
-                        <div class="tab-pane fade" id="order-tab-pane" role="tabpanel" aria-labelledby="order-tab">
+                        <div class="tab-pane fade {{ request('tab') == 'orders' ? 'show active' : '' }}"
+                            id="order-tab-pane" role="tabpanel" aria-labelledby="order-tab">
                             <div class="table-profile">
                                 <div class="table-header">
                                     <h5 class="mb-0"><i class="fa-solid fa-clock-rotate-left"></i> @lang('site.profile_table_order_title')

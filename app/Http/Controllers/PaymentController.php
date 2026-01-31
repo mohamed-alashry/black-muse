@@ -75,14 +75,14 @@ class PaymentController extends Controller
         //     'checkoutId' => 'required|string',
         // ]);
 
-        $payment = Payment::where('payment_reference', $request->checkoutId)->first();
+        $payment = Payment::where('payment_reference', $request->id)->first();
 
         if (!$payment) {
             return back()->with('error', 'Payment not found');
         }
 
         // Step 1: Verify payment
-        $result = $this->hyperpay->verifyPayment($request->checkoutId);
+        $result = $this->hyperpay->verifyPayment($payment->payment_reference);
 
         // Step 2: Update payment status
         $payment = $this->hyperpay->updatePaymentStatus($payment, $result);
@@ -92,12 +92,17 @@ class PaymentController extends Controller
             $payment->payable->update(['status' => 'new']);
         }
 
-        // Step 4: Show frontend page
-        return view(
-            $payment->status === 'paid'
-                ? 'payments.success'
-                : 'payments.failed',
-            compact('payment')
-        );
+        // // Step 4: Show frontend page
+        // return view(
+        //     $payment->status === 'paid'
+        //         ? 'payments.success'
+        //         : 'payments.failed',
+        //     compact('payment')
+        // );
+        if ($payment->status === 'paid') {
+            return redirect()->route('site.profile', ['tab' => 'bookings'])->with('success', 'Payment successful and booking created.');
+        } else {
+            return redirect()->route('site.home')->with('error', 'Payment failed. Please try again.');
+        }
     }
 }
