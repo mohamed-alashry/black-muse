@@ -28,7 +28,7 @@ class OrderObserver implements ShouldHandleEventsAfterCommit
      */
     public function updated(Order $order): void
     {
-        if ($order->isDirty('status')) {
+        if ($order->isDirty('status') && $order->status !== 'new') {
             $order->client->notify(new OrderStatusChanged($order));
         }
     }
