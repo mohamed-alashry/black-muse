@@ -40,12 +40,20 @@ class HyperpayService
             'integrity' => 'true',
         ]);
 
+        if (! $response->successful()) {
+            $payment->raw_response = ['error' => 'checkout_request_failed', 'status' => $response->status(), 'body' => $response->body()];
+            $payment->save();
+
+            return [];
+        }
+
         $data = $response->json();
+
         $payment->payment_reference = $data['id'] ?? null;
         $payment->raw_response = $data;
         $payment->save();
 
-        return $data;
+        return $data ?? [];
     }
 
     /**
@@ -59,7 +67,11 @@ class HyperpayService
             'entityId' => $this->entityId,
         ]);
 
-        return $response->json();
+        if (! $response->successful()) {
+            return ['error' => 'verification_failed', 'status' => $response->status(), 'body' => $response->body()];
+        }
+
+        return $response->json() ?: [];
     }
 
     /**
@@ -70,11 +82,16 @@ class HyperpayService
         $payment->transaction_id = $result['id'] ?? null;
         $payment->brand = $result['paymentBrand'] ?? null;
 
-        if (str_starts_with($result['result']['code'], '000.000')) {
-            $payment->status = 'paid';
-        } else {
-            $payment->status = 'failed';
+        $code = $result['result']['code'] ?? null;
+
+        $isPaid = false;
+        if (! empty($code) && is_string($code)) {
+            if (preg_match('/^(000\.000|000\.100|000\.200)/', $code)) {
+                $isPaid = true;
+            }
         }
+
+        $payment->status = $isPaid ? 'paid' : 'failed';
 
         $payment->raw_response = $result;
         $payment->save();
