@@ -60,10 +60,7 @@ class PaymentController extends Controller
         return view('site.payment.checkout', [
             'checkoutId' => $response['id'],
             'paymentId' => $payment->id,
-            'redirectUrl' => route('payments.confirm', [
-                'id' => $payment->id,
-                'checkoutId' => $response['id']
-            ]),
+            'redirectUrl' => route('payments.confirm'),
         ]);
     }
 
