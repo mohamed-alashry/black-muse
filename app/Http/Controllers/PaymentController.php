@@ -111,12 +111,19 @@ class PaymentController extends Controller
                 ]);
             }
 
-            return redirect()->route('site.profile', ['tab' => $payableType])->with('success', 'Payment successful.');
+            return redirect()->route("service.$payableType.show", $payable->id)->with('success', 'Payment successful.');
         } else {
-            $payable->update([
-                'payment_status' => 'failed',
-                'status' => 'canceled'
-            ]);
+            if ($payableType === 'booking' && $payment->action === 'booking_remaining_payment') {
+                $payable->update([
+                    'payment_status' => 'failed',
+                ]);
+            } else {
+                // For down payment failure, we might want to cancel the booking
+                $payable->update([
+                    'payment_status' => 'failed',
+                    'status' => 'canceled'
+                ]);
+            }
 
             return redirect()->route('site.profile', ['tab' => $payableType])->with('error', 'Payment failed. Please try again.');
         }
