@@ -99,6 +99,8 @@ return [
     'profile_table_order_date' => 'تاريخ الطلب',
 
     'checkout' => 'الدفع',
+    'contract' => 'العقد',
+    'I have read and agree to the contract' => 'لقد قرأت وأوافق على العقد',
 
 
 ];

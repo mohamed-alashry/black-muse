@@ -79,8 +79,9 @@ class ServiceController extends Controller
         $pageIDs         = ["photography" => 5, "bindery" => 6, "lab" => 7];
         $termsPageID     = $pageIDs[$reservationData['service_category']];
         $termsPage       = Page::where('id', $termsPageID)->withActiveSections()->firstOrFail();
+        $action          = $reservationData['service_category'] === 'photography' ? 'booking' : 'order';
 
-        return view('site.service.confirm_reservation', compact('reservationData', 'termsPage'));
+        return view('site.service.confirm_reservation', compact('reservationData', 'termsPage', 'action'));
     }
 
     private function validateReservation(Request $request)

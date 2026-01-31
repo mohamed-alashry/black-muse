@@ -89,5 +89,7 @@ return [
     'profile_table_order_date' => 'Order Date',
 
     'checkout' => 'Checkout',
+    'contract' => 'Contract',
+    'I have read and agree to the contract' => 'I have read and agree to the contract',
 
 ];
