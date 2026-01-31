@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Http\Requests\UpdateClientInfoRequest;
@@ -11,7 +12,15 @@ class ClientController extends Controller
 {
     public function profile()
     {
-        $client = auth('client')->user();
+        $client = Client::with([
+            'bookings' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+            },
+            'orders' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+            },
+        ])
+            ->find(auth('client')->id());
 
         return view('site.profile.info', compact('client'));
     }
@@ -22,7 +31,7 @@ class ClientController extends Controller
         $client->update($request->validated());
 
         return response()->json([
-            'status' => 'success', 
+            'status' => 'success',
             'message' => __('auth.Info updated successfully')
         ]);
     }
@@ -36,8 +45,7 @@ class ClientController extends Controller
                 'status' => 'error',
                 'errors' => ['password' => __('auth.The Old password is incorrect.')],
             ], 400);
-        }
-       elseif ($request->new_password != $request->repeat_password) {
+        } elseif ($request->new_password != $request->repeat_password) {
             return response()->json([
                 'status' => 'error',
                 'errors' => ['password' => __('auth.The password confirmation field must match password.')],
@@ -47,7 +55,7 @@ class ClientController extends Controller
         $client->password = bcrypt($request->new_password);
         $client->save();
 
-         // Logout the user
+        // Logout the user
         auth('client')->logout();
 
         session()->flash('success', __('auth.Password updated successfully.'));
