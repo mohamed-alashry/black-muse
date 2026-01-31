@@ -29,7 +29,7 @@ class BookingObserver implements ShouldHandleEventsAfterCommit
      */
     public function updated(Booking $booking): void
     {
-        if ($booking->isDirty('status')) {
+        if ($booking->isDirty('status') && $booking->status !== 'new') {
             $booking->client->notify(new BookingStatusChanged($booking));
         }
 
