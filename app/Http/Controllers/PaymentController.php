@@ -89,16 +89,19 @@ class PaymentController extends Controller
 
         // Step 3: Update order/booking status
         if ($payment->status === 'paid') {
-            $payment->payable->update(['status' => 'new']);
+            $payment->payable
+                ->update([
+                    'payment_status' => 'paid',
+                    'status' => 'new'
+                ]);
+        } else {
+            $payment->payable
+                ->update([
+                    'payment_status' => 'failed',
+                    'status' => 'canceled'
+                ]);
         }
 
-        // // Step 4: Show frontend page
-        // return view(
-        //     $payment->status === 'paid'
-        //         ? 'payments.success'
-        //         : 'payments.failed',
-        //     compact('payment')
-        // );
         if ($payment->status === 'paid') {
             return redirect()->route('site.profile', ['tab' => 'bookings'])->with('success', 'Payment successful and booking created.');
         } else {
