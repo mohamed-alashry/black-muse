@@ -28,17 +28,23 @@ class HyperpayService
     /**
      * Generate Checkout ID for payment widget
      */
-    public function createCheckout(Payment $payment)
+    public function createCheckout(Payment $payment, ?string $redirectUrl = null)
     {
-        $response = Http::asForm()->withHeaders([
-            'Authorization' => 'Bearer ' . $this->accessToken
-        ])->post($this->baseUrl . '/checkouts', [
+        $checkoutParams = [
             'entityId' => $this->entityId,
             'amount' => $payment->amount,
             'currency' => $payment->currency,
             'paymentType' => 'DB',
             'integrity' => 'true',
-        ]);
+        ];
+
+        if ($redirectUrl) {
+            $checkoutParams['shopperResultUrl'] = $redirectUrl;
+        }
+
+        $response = Http::asForm()->withHeaders([
+            'Authorization' => 'Bearer ' . $this->accessToken
+        ])->post($this->baseUrl . '/checkouts', $checkoutParams);
 
         if (! $response->successful()) {
             $payment->raw_response = ['error' => 'checkout_request_failed', 'status' => $response->status(), 'body' => $response->body()];

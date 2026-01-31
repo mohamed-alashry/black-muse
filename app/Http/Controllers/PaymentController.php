@@ -32,18 +32,17 @@ class PaymentController extends Controller
             'status' => 'pending',
         ]);
 
-        // Step 3: Create HyperPay checkout
-        $response = $this->hyperpay->createCheckout($payment);
+        // Step 3: Build redirect URL for HyperPay
+        $redirectUrl = route('payments.confirm', [
+            'id' => $payment->id,
+        ]) . '?checkoutId=';
+
+        // Step 4: Create HyperPay checkout
+        $response = $this->hyperpay->createCheckout($payment, $redirectUrl);
 
         if (!isset($response['id'])) {
             return back()->with('error', 'Failed to initialize payment');
-            // return response()->json([
-            //     'error' => 'Failed to initialize payment',
-            //     'response' => $response
-            // ], 422);
         }
-
-        // return view('site.payment.checkout');
 
         return view('site.payment.checkout', [
             'checkoutId' => $response['id'],
@@ -53,15 +52,6 @@ class PaymentController extends Controller
                 'checkoutId' => $response['id']
             ]),
         ]);
-
-        // return response()->json([
-        //     'checkoutId' => $response['id'],
-        //     'paymentId' => $payment->id,
-        //     'redirectUrl' => route('payments.confirm', [
-        //         'id' => $payment->id,
-        //         'checkoutId' => $response['id']
-        //     ]),
-        // ]);
     }
 
     /**
