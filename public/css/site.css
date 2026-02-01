@@ -3,8 +3,8 @@
      color: #fff !important;
    }
   .flatpickr-calendar,.flatpickr-months .flatpickr-month {
-    background-color: #000; 
-    color: #fff;           
+    background-color: #000;
+    color: #fff;
     border: 1px solid #444;
   }
 
@@ -52,4 +52,71 @@
 
 #backToTopBtn:hover {
   background-color:  #c8b87e ;
+}
+
+/* LTR */
+html[dir="ltr"] .locale-user-wrap {
+    margin-left: auto;
+}
+
+/* RTL */
+html[dir="rtl"] .locale-user-wrap {
+    margin-right: auto;
+    margin-left: 0 !important;
+}
+
+html[dir="rtl"] .dropdown-menu {
+    right: auto;
+    left: 0;
+}
+
+html[dir="ltr"] .dropdown-menu {
+    left: auto;
+    right: 0;
+}
+
+.navbar .btn {
+    padding: 0.25rem 0.5rem;
+}
+
+.service-card {
+    position: relative;
+    width: 100%;
+    max-width: 520px;        /* adjust if needed */
+    height: 320px;           /* 🔑 fixed card height */
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.service-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       /* 🔑 magic line */
+    display: block;
+}
+
+.info-service {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.45);
+    padding: 18px 26px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    width: max-content;
+    max-width: 90%;
+}
+
+
+.btn-service {
+    width: auto !important;
+    min-width: unset;
+    padding: 10px 28px;
+    border-radius: 999px;
+    white-space: nowrap;
 }

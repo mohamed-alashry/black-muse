@@ -99,15 +99,15 @@ p {
      object-fit: contain;
 }
 .service-card .info-service {
-  position: absolute;
+  /* position: absolute;
   bottom: 0;
-  left: 10%;
+  left: 10%; */
   background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 15px 15px 0 0;
+  /* border-radius: 15px 15px 0 0; */
   color: #fff;
-  text-align: center;
+  /* text-align: center; */
   width: 80%;
-  margin-inline: auto;
+  /* margin-inline: auto; */
 }
 .service-card .info-service .btn-service {
   color: #fff;
@@ -682,3 +682,15 @@ p {
     height: 100vh;
   }
 }/*# sourceMappingURL=styles.css.map */
+
+@media (max-width: 768px) {
+    .service-card {
+        height: 260px;
+    }
+}
+
+@media (max-width: 480px) {
+    .service-card {
+        height: 220px;
+    }
+}
